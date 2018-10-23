@@ -1,32 +1,27 @@
-package ua.edu.ukma.gpd.storage.entity;
+package ua.edu.ukma.gpd.storage.dto;
 
 import javax.validation.constraints.NotBlank;
 
 import ua.edu.ukma.gpd.storage.annotation.Email;
+import ua.edu.ukma.gpd.storage.annotation.PasswordsMatch;
 
-public class User {
-	
-	private Long id;
+@PasswordsMatch
+public class SignupFormDto {
 	
 	@Email
 	private String email;
 	
 	@NotBlank
 	private String password;
+
+	@NotBlank
+	private String passwordRepeat;
 	
 	@NotBlank
 	private String name;
 	
 	@NotBlank
 	private String surname;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getEmail() {
 		return email;
@@ -42,6 +37,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordRepeat() {
+		return passwordRepeat;
+	}
+
+	public void setPasswordRepeat(String passwordRepeat) {
+		this.passwordRepeat = passwordRepeat;
 	}
 
 	public String getName() {
@@ -63,12 +66,12 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=");
-		builder.append(id);
-		builder.append(", email=");
+		builder.append("SignupFormDto [email=");
 		builder.append(email);
 		builder.append(", password=");
 		builder.append(password);
+		builder.append(", passwordRepeat=");
+		builder.append(passwordRepeat);
 		builder.append(", name=");
 		builder.append(name);
 		builder.append(", surname=");
