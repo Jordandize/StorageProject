@@ -9,24 +9,52 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private AuthenticationEntryPoint authEntryPoint;
+	
+	@Autowired
+	private AuthenticationSuccessHandler authSuccessHandler;
+	
+	@Autowired
+	private AuthenticationFailureHandler authFailureHandler;
+	
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    	
+    	auth.inMemoryAuthentication()
+    		.withUser("admin").password(encoder().encode("adminPass")).roles("ADMIN")
+    		.and()
+    		.withUser("user").password(encoder().encode("userPass")).roles("USER)");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
+        http.csrf().disable()
+        	.exceptionHandling()
+        	.authenticationEntryPoint(authEntryPoint)
+        	.and()
+        	.authorizeRequests()
+        	.antMatchers("/api/foos").authenticated()
+        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
+        	.and()
+        	.formLogin()
+        	.successHandler(authSuccessHandler)
+        	.failureHandler(authFailureHandler)
+        	.and()
+        	.logout();
     }
 
     @Bean
-    public PasswordEncoder bcryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder encoder() {
+    	return new BCryptPasswordEncoder();
     }
 
 }
