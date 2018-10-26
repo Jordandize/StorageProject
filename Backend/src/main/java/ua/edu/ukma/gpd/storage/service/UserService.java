@@ -3,19 +3,16 @@ package ua.edu.ukma.gpd.storage.service;
 import java.util.List;
 
 import ua.edu.ukma.gpd.storage.entity.User;
+import ua.edu.ukma.gpd.storage.exception.EmailAlreadyInUseException;
 
 public interface UserService {
 	
-	public List<User> getAll();
+	public Long add(User user) throws EmailAlreadyInUseException, Exception;
 	
-	public User add(User user);
+	public User getById(Long id) throws Exception;
 	
-	public User edit(User user);
-	
-	public User delete(User user);
-	
-	public User getById(Long id);
-	
-	public User getByEmail(String email);
+	public User getByEmail(String email) throws Exception;
+
+	public List<User> getAll() throws Exception;
 	
 }

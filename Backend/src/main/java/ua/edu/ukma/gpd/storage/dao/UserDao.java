@@ -5,21 +5,21 @@ import java.util.List;
 import ua.edu.ukma.gpd.storage.entity.User;
 
 public interface UserDao {
+
+	public Long create(User user);
 	
-	public List<User> findAll();
+	public boolean update(User user);
+	
+	public boolean delete(User user);
 	
 	public User findById(Long id);
 	
 	public User findByEmail(String email);
 	
-	public User add(User user);
+	public List<User> findAll();
 	
-	public User update(User user);
+	public void createUsersTable();
 	
-	public User delete(User user);
-	
-	public boolean createUsersTable();
-	
-	public boolean dropUsersTable();
+	public void dropUsersTable();
 
 }
