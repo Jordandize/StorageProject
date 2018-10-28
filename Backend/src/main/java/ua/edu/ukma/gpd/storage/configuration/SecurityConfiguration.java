@@ -42,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
         	.authorizeRequests()
+        	//test urls
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
         	.and()
