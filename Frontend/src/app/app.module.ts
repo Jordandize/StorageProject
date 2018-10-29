@@ -6,11 +6,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register';
+import { LoginComponent } from './login';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
