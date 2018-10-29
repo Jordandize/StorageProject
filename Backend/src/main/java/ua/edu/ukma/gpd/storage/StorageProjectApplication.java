@@ -30,10 +30,11 @@ public class StorageProjectApplication {
 		dbdrop();
 		userDao.createUsersTable();
 		User user = new User();
-		user.setEmail("maestro777@gmail.com");
-		user.setPassword("nomargarite");
+		user.setEmail("buyMyMerch@gmail.com");
+		user.setPassword("neverloose");
 		user.setName("John");
 		user.setSurname("Cena");
+		user.setPhone("+480996403177");
 		userDao.create(user);
 	}
 	

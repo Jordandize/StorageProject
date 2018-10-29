@@ -19,6 +19,9 @@ public class User {
 	
 	@NotBlank
 	private String surname;
+	
+	@NotBlank
+	private String phone;
 
 	public Long getId() {
 		return id;
@@ -60,6 +63,14 @@ public class User {
 		this.surname = surname;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -73,6 +84,8 @@ public class User {
 		builder.append(name);
 		builder.append(", surname=");
 		builder.append(surname);
+		builder.append(", phone=");
+		builder.append(phone);
 		builder.append("]");
 		return builder.toString();
 	}

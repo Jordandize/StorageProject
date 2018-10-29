@@ -3,12 +3,12 @@ package ua.edu.ukma.gpd.storage.sql;
 public class UserSql {
 	
 	public static final String INSERT = 
-		"INSERT INTO users (email, password, name, surname) "
-		+ "values (?, ?, ?, ?)";
+		"INSERT INTO users (email, password, name, surname, phone) "
+		+ "values (?, ?, ?, ?, ?)";
 	
 	public static final String UPDATE =
 		"UPDATE users"
-		+ "SET email = ?, password = ?, name = ?, surname = ?"
+		+ "SET email = ?, password = ?, name = ?, surname = ?, phone = ?"
 		+ "WHERE id = ?";
 	
 	public static final String DELETE =
@@ -30,6 +30,7 @@ public class UserSql {
 		+ "password VARCHAR(60) NOT NULL,"
 		+ "name VARCHAR(255) NOT NULL,"
 		+ "surname VARCHAR(255) NOT NULL,"
+		+ "phone VARCHAR(15) NOT NULL,"
 		+ "UNIQUE (email),"
 		+ "PRIMARY KEY (id)"
 		+ ")";

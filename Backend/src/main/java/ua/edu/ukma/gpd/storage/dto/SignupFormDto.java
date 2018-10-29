@@ -22,6 +22,9 @@ public class SignupFormDto {
 	
 	@NotBlank
 	private String surname;
+	
+	@NotBlank
+	private String phone;
 
 	public String getEmail() {
 		return email;
@@ -63,6 +66,14 @@ public class SignupFormDto {
 		this.surname = surname;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -76,6 +87,8 @@ public class SignupFormDto {
 		builder.append(name);
 		builder.append(", surname=");
 		builder.append(surname);
+		builder.append(", phone=");
+		builder.append(phone);
 		builder.append("]");
 		return builder.toString();
 	}

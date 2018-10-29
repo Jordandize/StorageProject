@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import ua.edu.ukma.gpd.storage.configuration.auth.RestAuthenticationFilter;
 
 
 @Configuration
@@ -38,19 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
         	.authorizeRequests()
-        	//test urls
         	.antMatchers("/api/foos").authenticated()
-        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
-        	.and()
-        	.formLogin()
-        	.successHandler(authSuccessHandler)
-        	.failureHandler(authFailureHandler)
-        	.and()
-        	.logout();
+        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE");
     }
 
     @Bean
@@ -58,4 +55,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	return new BCryptPasswordEncoder();
     }
 
+    private RestAuthenticationFilter restAuthenticationFilter() throws Exception {
+    	RestAuthenticationFilter filter = new RestAuthenticationFilter();
+    	filter.setAuthenticationManager(authenticationManagerBean());
+    	filter.setAuthenticationSuccessHandler(authSuccessHandler);
+    	filter.setAuthenticationFailureHandler(authFailureHandler);
+    	filter.setUsernameParameter("email");
+    	return filter;
+    }
+    
 }
