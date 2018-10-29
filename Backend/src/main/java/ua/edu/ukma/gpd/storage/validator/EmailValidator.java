@@ -10,15 +10,8 @@ import ua.edu.ukma.gpd.storage.annotation.Email;
 
 public class EmailValidator implements ConstraintValidator<Email, String> {
 	
-	private Pattern pattern;
-	
-	private Matcher matcher;
-	
 	private static final String EMAIL_PATTERN = 
 			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-	@Override
-	public void initialize(final Email constraintAnnotation) { }
 
 	@Override
 	public boolean isValid(final String email, final ConstraintValidatorContext context) {
@@ -26,8 +19,8 @@ public class EmailValidator implements ConstraintValidator<Email, String> {
 	}
 	
 	private boolean validateEmail(final String email) {
-		pattern = Pattern.compile(EMAIL_PATTERN);
-		matcher = pattern.matcher(email);
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
 	}
 

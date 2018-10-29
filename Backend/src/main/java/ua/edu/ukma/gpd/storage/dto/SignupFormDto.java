@@ -1,29 +1,35 @@
 package ua.edu.ukma.gpd.storage.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import ua.edu.ukma.gpd.storage.annotation.Email;
 import ua.edu.ukma.gpd.storage.annotation.PasswordsMatch;
+import ua.edu.ukma.gpd.storage.annotation.UniqueEmail;
 
-@PasswordsMatch
+@PasswordsMatch(message = "Password does not match")
 public class SignupFormDto {
-	
-	@Email
+
+	@Email(message = "Email address is in an invalid format")
+	@UniqueEmail(message = "This email is already registered, try another one")
 	private String email;
 	
-	@NotBlank
+	@Size(min = 6, message = "Too short password: it must be at least 6 characters")
+	@Size(max = 24, message = "Too long password: it must be no more than 24 characters")
 	private String password;
-
-	@NotBlank
+	
 	private String passwordRepeat;
-	
-	@NotBlank
+
+	@NotBlank(message = "Please, enter your first name")
+	@Size(max = 64, message = "Name must be no more than 64 characters long")
 	private String name;
-	
-	@NotBlank
+
+	@NotBlank(message = "Please, enter your last name")
+	@Size(max = 64, message = "Surname must be no more than 64 characters long")
 	private String surname;
 	
-	@NotBlank
+	@NotBlank(message = "Please, enter your phone")
+	@Size(max = 24, message = "Name must be no more than 24 characters long")
 	private String phone;
 
 	public String getEmail() {

@@ -12,15 +12,15 @@ import javax.validation.Payload;
 
 import ua.edu.ukma.gpd.storage.validator.EmailValidator;
 
-@Target    ({ TYPE, FIELD, ANNOTATION_TYPE }) 
-@Retention (RUNTIME)
+@Target({TYPE, FIELD, ANNOTATION_TYPE}) 
+@Retention(RUNTIME)
 @Constraint(validatedBy = EmailValidator.class)
 @Documented
 public @interface Email {
 	
     String message() default "Invalid email";
     
-    Class<?>                []  groups() default { }; 
+    Class<?>[] groups() default { }; 
     
     Class<? extends Payload>[] payload() default { };
     
