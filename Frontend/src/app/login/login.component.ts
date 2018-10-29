@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-import { AlertService, AuthenticationService } from '../_services';
+// import { AlertService, AuthenticationService } from '../_services';
 
 
 @Component({templateUrl: 'login.component.html'})
@@ -19,9 +19,10 @@ export class LoginComponent implements OnInit {
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService) {}
+        private router: Router
+        // private authenticationService: AuthenticationService,
+        // private alertService: AlertService
+        ) {}
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
         });
 
         // reset login status
-        this.authenticationService.logout();
+        // this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -49,13 +50,13 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
 
-        let headers = new Headers({'Content-Type:application/x-www-form-urlencoded'});
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-        let data= {
-            "email":this.f.username.value,
-            "password":this.f.password.value
+        const data = {
+            'email': this.f.username.value,
+            'password': this.f.password.value
         };
-        return this.http.post('http://localhost:8080/login',data,{headers});
+        return this.http.post('http://localhost:8080/login', data, {headers: headers});
 
         // this.http.post('http://localhost:8080/login',this.f.username.value, this.f.password.value);
 

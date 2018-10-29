@@ -41,17 +41,15 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        let head = new Headers({'Content-Type': ' application/x-www-form-urlencoded'});
+        const head = new HttpHeaders({'Content-Type': 'application/json'});
 
-        let user= {
-            "firstName":this.f.firstName.value,
-            "lastName":this.f.lastName.value,
-            "password":this.f.password.value,
-            "email":this.f.email.value,
-            "phone":this.f.phone.value
+        const user = {
+            'name': this.f.firstName.value,
+            'surname': this.f.lastName.value,
+            'password': this.f.password.value,
+            'email': this.f.email.value,
+            'phone': this.f.phone.value
         };
-        return this.http.post('http://localhost:4200/register',user,{head}).pipe(
-    catchError(this.handleError('addUser', user))
-  );;
+        return this.http.post('http://localhost:8080/users', user, {headers: head}).subscribe();
     }
 }
