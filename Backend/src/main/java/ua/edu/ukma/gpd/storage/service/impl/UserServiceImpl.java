@@ -34,16 +34,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getById(Long id) throws Exception {
+	public User getById(Long id) throws EmptyResultDataAccessException, Exception {
 		try {
 			return userDao.findById(id);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
 		} catch (Exception e) {
 			throw new Exception("UserServiceImpl: Get user by id [" + id + "] operation failed", e);
 		}
 	}
 
 	@Override
-	public User getByEmail(String email) throws Exception {
+	public User getByEmail(String email) throws EmptyResultDataAccessException, Exception {
 		try {
 			return userDao.findByEmail(email);
 		} catch (EmptyResultDataAccessException e) {

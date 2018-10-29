@@ -6,10 +6,13 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import ua.edu.ukma.gpd.storage.dao.UserDao;
@@ -25,6 +28,11 @@ public class UserDaoImpl implements UserDao {
 	public UserDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+
+    @Bean
+    public PasswordEncoder encoder() {
+    	return new BCryptPasswordEncoder();
+    }
 	
 	private RowMapper<User> mapper = (rs, i) -> {
 		User user = new User();
@@ -44,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 			PreparedStatement ps = connection.prepareStatement(UserSql.INSERT,
 					new String[] { "id" });
 			ps.setString(1, user.getEmail());
-			ps.setString(2, user.getPassword());
+			ps.setString(2, encoder().encode(user.getPassword()));
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getSurname());
 			ps.setString(5, user.getPhone());

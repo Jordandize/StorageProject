@@ -54,12 +54,7 @@ public class UserController {
 		HttpStatus status;
 		Long id;
 		try {
-			User user = new User();
-			user.setEmail(form.getEmail());
-			user.setPassword(form.getPassword());
-			user.setName(form.getName());
-			user.setSurname(form.getSurname());
-			user.setPhone(form.getPhone());
+			User user = buildUserFromDto(form);
 			id = userService.add(user);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -68,6 +63,16 @@ public class UserController {
 			status = HttpStatus.BAD_REQUEST;
 		}
 		return new ResponseEntity<Long>((long) id, status);
+	}
+	
+	private User buildUserFromDto(SignupFormDto form) {
+		User user = new User();
+		user.setEmail(form.getEmail());
+		user.setPassword(form.getPassword());
+		user.setName(form.getName());
+		user.setSurname(form.getSurname());
+		user.setPhone(form.getPhone());
+		return user;
 	}
 	
 }
