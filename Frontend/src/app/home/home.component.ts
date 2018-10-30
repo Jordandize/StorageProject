@@ -29,26 +29,26 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
-      return this.http.get('http://localhost:8080/users', user, {headers: head}).subscribe(
-        data => {
-          this.currentUser = data;
-        },
-        error => {
-          this.loading = false;
-        }
-      );
+      // return this.http.get('http://localhost:8080/users', user, {headers: head}).subscribe(
+      //   data => {
+      //     this.currentUser = data;
+      //   },
+      //   error => {
+      //     this.loading = false;
+      //   }
+      // );
 
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => { 
-            this.loadAllUsers() 
-        });
-    }
+    // deleteUser(id: number) {
+    //     this.userService.delete(id).pipe(first()).subscribe(() => {
+    //         this.loadAllUsers()
+    //     });
+    // }
 
-    private loadAllUsers() {
-        this.userService.getAll().pipe(first()).subscribe(users => { 
-            this.users = users; 
-        });
-    }
+    // private loadAllUsers() {
+    //     this.userService.getAll().pipe(first()).subscribe(users => {
+    //         this.users = users;
+    //     });
+    // }
 }
