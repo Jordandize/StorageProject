@@ -13,8 +13,8 @@ public class PasswordsMatchValidator implements ConstraintValidator<PasswordsMat
 	
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext context) {   
-        SignupFormDto user = (SignupFormDto) object;
-        return user.getPassword().equals(user.getPasswordRepeat());    
+        SignupFormDto form = (SignupFormDto) object;
+        return form.getPassword().equals(form.getPasswordRepeat());  
     }     
 	
 }

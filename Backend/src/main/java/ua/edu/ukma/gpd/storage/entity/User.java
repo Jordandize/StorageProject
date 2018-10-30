@@ -1,26 +1,17 @@
 package ua.edu.ukma.gpd.storage.entity;
 
-import javax.validation.constraints.NotBlank;
-
-import ua.edu.ukma.gpd.storage.annotation.Email;
-
 public class User {
 	
 	private Long id;
 	
-	@Email
 	private String email;
 	
-	@NotBlank
 	private String password;
 	
-	@NotBlank
 	private String name;
 	
-	@NotBlank
 	private String surname;
 	
-	@NotBlank
 	private String phone;
 
 	public Long getId() {

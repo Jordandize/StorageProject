@@ -26,17 +26,16 @@ public class UserSql {
 	public static final String CREATE_TABLE = 
 		"CREATE TABLE IF NOT EXISTS users ("
 		+ "id BIGSERIAL NOT NULL,"
-		+ "email VARCHAR(255) NOT NULL,"
+		+ "email VARCHAR(255) NOT NULL UNIQUE,"
 		+ "password VARCHAR(60) NOT NULL,"
 		+ "name VARCHAR(255) NOT NULL,"
 		+ "surname VARCHAR(255) NOT NULL,"
 		+ "phone VARCHAR(15) NOT NULL,"
-		+ "UNIQUE (email),"
 		+ "PRIMARY KEY (id)"
 		+ ")";
 	
 	public static final String DROP_TABLE =
-		"DROP TABLE IF EXISTS users CASCADE";
+		"DROP TABLE IF EXISTS users";
 	
 	private UserSql() { }
 
