@@ -1,23 +1,27 @@
 package ua.edu.ukma.gpd.storage.configuration.auth;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import ua.edu.ukma.gpd.storage.entity.Role;
 import ua.edu.ukma.gpd.storage.entity.User;
-
+import ua.edu.ukma.gpd.storage.service.RoleService;
 
 public class UserPrincipal implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	
+	private RoleService roleService;
+	
 	private User user;
 	
-	public UserPrincipal(User user) {
+	public UserPrincipal(User user, RoleService roleService) {
 		this.user = user;
+		this.roleService = roleService;
 	}
 
 	@Override
@@ -32,7 +36,14 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		try {
+			for(Role role: roleService.getRolesForUser(user))
+				authorities.add(new SimpleGrantedAuthority(role.getName()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return authorities;
 	}
 
 	@Override

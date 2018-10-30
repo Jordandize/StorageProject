@@ -7,8 +7,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ua.edu.ukma.gpd.storage.dao.UserDao;
+import ua.edu.ukma.gpd.storage.entity.Role;
 import ua.edu.ukma.gpd.storage.entity.User;
 import ua.edu.ukma.gpd.storage.exception.EmailAlreadyInUseException;
+import ua.edu.ukma.gpd.storage.service.RoleService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @Service
@@ -17,19 +19,25 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private RoleService roleService;
+	
 	@Override
 	public Long add(User user) throws Exception {
 		try {
 			User exists = getByEmail(user.getEmail());
 			if(exists == null) {
-				return userDao.create(user);
+				Long id = userDao.create(user);
+				Role role = roleService.getRoleByName(Role.ROLE_USER);
+				roleService.addRoleToUser(user, role);
+				return id;
 			} else {
 				throw new EmailAlreadyInUseException("User with email [" + user.getEmail() + "] already exists");
 			}
 		} catch(EmailAlreadyInUseException em) {
 			throw em;
 		} catch (Exception e) {
-			throw new Exception("UserServiceImpl: Add user operation failed", e);
+			throw new Exception("UserServiceImpl: Add user [" + user + "] operation failed", e);
 		}
 	}
 

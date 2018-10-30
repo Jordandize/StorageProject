@@ -58,7 +58,8 @@ public class UserDaoImpl implements UserDao {
 			ps.setString(5, user.getPhone());
 			return ps;
 		}, keyHolder);
-		return (Long) keyHolder.getKey();
+		user.setId((Long) keyHolder.getKey());
+		return user.getId();
 	}
 
 	@Override
