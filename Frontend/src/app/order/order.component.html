@@ -1,5 +1,5 @@
 <body ng-app="Commande" ng-controller="commandeController">
-<h1>Товари</h1>
+<h1>Goods for order</h1>
 <div class="content">
   <div class="col-md-12">
     <table class="table table-striped table-hover table-responsive">
@@ -19,17 +19,20 @@
         </th>
         <td>
           <select>
-            <option value="Sony Z2">Sony</option>
-            <option value="Toshiba N1">Toshiba</option>
-            <option value="Acer XPP43">Acer</option>
-            <option value="Asus XPS159">Asus</option>
+            <option value="Sony">Sony Z2</option>
+            <option value="Toshiba">Toshiba N1</option>
+            <option value="Acer">Acer XPP43</option>
+            <option value="Asus">Asus XPS159</option>
           </select>
         </td>
         <td>
           <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
         </td>
         <td>
-          <a href ng:click="SupprimerArticle($index)"><i class="fa fa-times delete"></i></a>
+          <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
+        </td>
+        <td>
+          <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
         </td>
       </tr>
       <tr class="success">
@@ -44,7 +47,7 @@
       </tr>
       </tbody>
     </table>
-    <a href ng:click="AjouterArticle()" class="btn btn-primary">Ajouter un article <i class="fa fa-plus"></i></a>
+    <a href ng:click="AjouterArticle()" class="btn btn-primary">Ok<i class="fa fa-plus"></i></a>
   </div>
 </div>
 </body>

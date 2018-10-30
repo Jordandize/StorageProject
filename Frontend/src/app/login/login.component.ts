@@ -56,20 +56,16 @@ export class LoginComponent implements OnInit {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-        return this.http.post('http://localhost:4200/login', data, {headers: headers});
+        //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
-        // this.http.post('http://localhost:8080/login',this.f.username.value, this.f.password.value);
-
-        // this.authenticationService.login(this.f.username.value, this.f.password.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+      return this.http.post('http://localhost:8080/users', data, {headers: headers}).subscribe(
+        data => {
+          this.router.navigate(['/home']);
+        },
+        error => {
+          this.loading = false;
+        }
+      );
 
 
     }
