@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
+import { OrderComponent } from './order';
 
 const routes: Routes = [
   {
@@ -16,7 +17,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'order',
+    component: OrderComponent
   }
+
 ];
 
 export const routing = RouterModule.forRoot(routes);

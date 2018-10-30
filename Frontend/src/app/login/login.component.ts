@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-        return this.http.post('http://localhost:8080/login', data, {headers: headers});
+        return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
         // this.http.post('http://localhost:8080/login',this.f.username.value, this.f.password.value);
 
