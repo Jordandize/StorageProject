@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(6)]],
+            passwordC: ['', [Validators.required, Validators.minLength(6)]],
             email: ['', Validators.required],
             phone: ['', Validators.required]
 
@@ -47,9 +48,17 @@ export class RegisterComponent implements OnInit {
             'name': this.f.firstName.value,
             'surname': this.f.lastName.value,
             'password': this.f.password.value,
+            'passwordRepeat': this.f.passwordC.value,
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        return this.http.post('http://localhost:8080/users', user, {headers: head}).subscribe();
+        return this.http.post('http://localhost:8080/users', user, {headers: head}).subscribe(
+         data => {
+                    this.router.navigate(['/login']);
+                },
+                error => {
+                    this.loading = false;
+                }
+                );
     }
 }
