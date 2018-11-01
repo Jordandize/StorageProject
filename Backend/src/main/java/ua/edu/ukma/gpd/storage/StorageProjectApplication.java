@@ -35,29 +35,29 @@ public class StorageProjectApplication {
 	@Autowired
 	private UsersRolesDao usersRolesDao;
 	
-	@PostConstruct
-	private void dbinit() {
-		dbdrop();
-		dbcreate();
-		
-		User user = new User();
-		user.setEmail("buyMyMerch@gmail.com");
-		user.setPassword("neverloose");
-		user.setName("John");
-		user.setSurname("Cena");
-		user.setPhone("+480996403177");
-		userDao.create(user);
-		
-		Role role1 = new Role((byte) 1, Role.ROLE_USER);
-		Role role2 = new Role((byte) 2, Role.ROLE_KEEPER);
-		Role role3 = new Role((byte) 3, Role.ROLE_ADMIN);
-		roleDao.create(role1);
-		roleDao.create(role2);
-		roleDao.create(role3);
-		
-		usersRolesDao.create(user, role1);
-		usersRolesDao.create(user, role2);
-	}
+//	@PostConstruct
+//	private void dbinit() {
+//		dbdrop();
+//		dbcreate();
+//
+//		User user = new User();
+//		user.setEmail("buyMyMerch@gmail.com");
+//		user.setPassword("neverloose");
+//		user.setName("John");
+//		user.setSurname("Cena");
+//		user.setPhone("+480996403177");
+//		userDao.create(user);
+//
+//		Role role1 = new Role((byte) 1, Role.ROLE_USER);
+//		Role role2 = new Role((byte) 2, Role.ROLE_KEEPER);
+//		Role role3 = new Role((byte) 3, Role.ROLE_ADMIN);
+//		roleDao.create(role1);
+//		roleDao.create(role2);
+//		roleDao.create(role3);
+//
+//		usersRolesDao.create(user, role1);
+//		usersRolesDao.create(user, role2);
+//	}
 	
 	private void dbcreate() {
 		userDao.createUsersTable();
@@ -65,11 +65,11 @@ public class StorageProjectApplication {
 		usersRolesDao.createUsersRolesTable();
 	}
 	
-	@PreDestroy
-	private void dbdrop() {
-		userDao.dropUsersTable();
-		roleDao.dropRolesTable();
-		usersRolesDao.dropUsersRolesTable();
-	}
+//	@PreDestroy
+//	private void dbdrop() {
+//		userDao.dropUsersTable();
+//		roleDao.dropRolesTable();
+//		usersRolesDao.dropUsersRolesTable();
+//	}
 	
 }
