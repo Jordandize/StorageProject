@@ -8,7 +8,7 @@ import { HomeComponent } from './home';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

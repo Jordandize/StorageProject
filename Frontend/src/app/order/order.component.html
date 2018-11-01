@@ -6,10 +6,9 @@
       <thead>
       <tr>
         <th>Number</th>
-        <th>Name</th>
-        <th>Price€</th>
+        <th>Category</th>
+        <th>Product</th>
         <th>Quantity</th>
-        <th>Sum</th>
       </tr>
       </thead>
       <tbody>
@@ -19,6 +18,14 @@
         </th>
         <td>
           <select>
+            <option value="Phones">Phones</option>
+            <option value="Laptops">Laptops</option>
+            <option value="Printers">Printers</option>
+            <option value="Keyboards">Keyboards</option>
+          </select>
+        </td>
+        <td>
+          <select>
             <option value="Sony">Sony Z2</option>
             <option value="Toshiba">Toshiba N1</option>
             <option value="Acer">Acer XPP43</option>
@@ -26,17 +33,13 @@
           </select>
         </td>
         <td>
-          <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
-        </td>
-        <td>
-          <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
-        </td>
-        <td>
-          <input type="number" ng-model="article.prixUnitaire" class="form-control bfh-number">
+          <input type="number" ng-model="article.price" class="form-control bfh-number">
         </td>
       </tr>
       <tr class="success">
         <th class="success">TOTAL</th>
+<<<<<<< HEAD
+=======
         <td class="success"></td>
         <td class="success"></td>
         <td class="success"></td>
@@ -44,6 +47,7 @@
         <td class="success" ng-style="PrixTotalHT() >= 1000 && {'font-weight': 'bold'}">{{ PrixTotalHT() | number:2 }} €</td>
         <td class="success" ng-style="PrixTotalHT() >= 1000 && {'font-weight': 'bold'}">{{ PrixTotalTTC() | number:2 }} €</td>-->
         <td class="success"></td>
+>>>>>>> 7c3429823a404f1eba82e9b165a09128ae86164e
       </tr>
       </tbody>
     </table>
