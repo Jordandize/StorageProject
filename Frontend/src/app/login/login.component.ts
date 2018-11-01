@@ -56,9 +56,10 @@ export class LoginComponent implements OnInit {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
+        const api = "https://storage-site.herokuapp.com"
         //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
-      return this.http.post('http://localhost:8080/users', data, {headers: headers}).subscribe(
+      return this.http.post(api+'/login', data, {headers: headers}).subscribe(
         data => {
           this.router.navigate(['/home']);
         },
