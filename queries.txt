@@ -1,3 +1,0 @@
-// Roles for particular user
-SELECT X.name FROM (roles INNER JOIN users_roles ON roles.id=users_roles.id_role) X INNER JOIN users ON X.id_user=users.id WHERE users.id = 1
-

@@ -14,7 +14,6 @@ import ua.edu.ukma.gpd.storage.dao.UserDao;
 import ua.edu.ukma.gpd.storage.dao.relation.UsersRolesDao;
 import ua.edu.ukma.gpd.storage.entity.Role;
 import ua.edu.ukma.gpd.storage.entity.User;
-import ua.edu.ukma.gpd.storage.sql.RoleSql;
 import ua.edu.ukma.gpd.storage.sql.relation.UsersRolesSql;
 
 @Repository
