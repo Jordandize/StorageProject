@@ -51,8 +51,7 @@ export class RegisterComponent implements OnInit {
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        const api = "https://storage-site.herokuapp.com"
-        return this.http.post('https://storage-site.herokuapp.com/users', user, {headers: head}).subscribe(
+        return this.http.post('http://localhost:8080/users', user, {headers: head}).subscribe(
          data => {
                     this.router.navigate(['/login']);
                 },
