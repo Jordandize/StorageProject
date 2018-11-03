@@ -13,6 +13,8 @@ public class User {
 	private String surname;
 	
 	private String phone;
+	
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -62,6 +64,14 @@ public class User {
 		this.phone = phone;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -77,6 +87,8 @@ public class User {
 		builder.append(surname);
 		builder.append(", phone=");
 		builder.append(phone);
+		builder.append(", active=");
+		builder.append(active);
 		builder.append("]");
 		return builder.toString();
 	}

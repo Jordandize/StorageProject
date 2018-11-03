@@ -17,9 +17,5 @@ public interface UserDao {
 	public User findByEmail(String email);
 	
 	public List<User> findAll();
-	
-	public void createUsersTable();
-	
-	public void dropUsersTable();
 
 }
