@@ -64,7 +64,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductDao{" +
                 "prodId=" + prodId +
                 ", categoryID=" + categoryID +
                 ", name='" + name + '\'' +
