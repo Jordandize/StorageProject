@@ -3,7 +3,7 @@ package ua.edu.ukma.gpd.storage.sql;
 public class RoleSql {
 	
 	public static final String INSERT =
-			"INSERT INTO roles (id, name) values (?,?)";
+			"INSERT INTO roles (id, name) VALUES (?,?)";
 	
 	public static final String FIND_ALL =
 			"SELECT * FROM roles";

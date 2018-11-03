@@ -4,7 +4,7 @@ public class UserSql {
 	
 	public static final String INSERT = 
 		"INSERT INTO users (email, password, name, surname, phone) "
-		+ "values (?, ?, ?, ?, ?)";
+		+ "VALUES (?, ?, ?, ?, ?)";
 	
 	public static final String UPDATE =
 		"UPDATE users"
