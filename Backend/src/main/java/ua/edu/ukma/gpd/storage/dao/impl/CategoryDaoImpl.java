@@ -36,6 +36,7 @@ public class CategoryDaoImpl implements CategoryDao {
             PreparedStatement ps = connection.prepareStatement(CategorySql.INSERT,
                     new String[] {"id"});
             ps.setString(1, category.getName());
+            return ps;
                 }, keyHolder);
         category.setId((Long) keyHolder.getKey());
         return category.getId();

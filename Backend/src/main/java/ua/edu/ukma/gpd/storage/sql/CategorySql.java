@@ -8,4 +8,6 @@ public class CategorySql {
     public static final String FIND_BY_NAME =
             "SELECT * FROM categories WHERE name = (?)";
 
+
+
 }
