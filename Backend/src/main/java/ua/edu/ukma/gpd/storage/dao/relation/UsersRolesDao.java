@@ -9,12 +9,10 @@ public interface UsersRolesDao {
 	
 	public boolean create(User user, Role role);
 	
+	public boolean delete(User user);
+	
 	public List<Role> findByUser(User user);
 	
 	public List<User> findByRole(Role role);
-
-	public void createUsersRolesTable();
-	
-	public void dropUsersRolesTable();
 	
 }
