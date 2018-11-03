@@ -42,6 +42,7 @@ public class UserDaoImpl implements UserDao {
 		user.setName(rs.getString("name"));
 		user.setSurname(rs.getString("surname"));
 		user.setPhone(rs.getString("phone"));
+		user.setActive(rs.getBoolean("active"));
 		return user;
 	};
 
@@ -56,6 +57,7 @@ public class UserDaoImpl implements UserDao {
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getSurname());
 			ps.setString(5, user.getPhone());
+			ps.setBoolean(6, user.isActive());
 			return ps;
 		}, keyHolder);
 		user.setId((Long) keyHolder.getKey());
@@ -65,7 +67,8 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean update(User user) {
 		return jdbcTemplate.update(UserSql.UPDATE,
-				user.getEmail(), user.getPassword(), user.getName(), user.getSurname(), user.getPhone()) > 0;
+				user.getEmail(), user.getPassword(), user.getName(),
+				user.getSurname(), user.getPhone(), user.isActive()) > 0;
 	}
 
 	@Override
@@ -88,16 +91,6 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> findAll() {
 		return jdbcTemplate.query(UserSql.FIND_ALL, mapper);
-	}
-
-	@Override
-	public void createUsersTable() {
-		jdbcTemplate.execute(UserSql.CREATE_TABLE);
-	}
-
-	@Override
-	public void dropUsersTable() {
-		jdbcTemplate.execute(UserSql.DROP_TABLE);
 	}
 
 }

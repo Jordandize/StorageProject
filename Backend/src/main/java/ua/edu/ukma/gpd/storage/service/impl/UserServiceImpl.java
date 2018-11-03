@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			User exists = getByEmail(user.getEmail());
 			if(exists == null) {
+				user.setActive(true);
 				Long id = userDao.create(user);
 				Role role = roleService.getRoleByName(Role.ROLE_USER);
 				roleService.addRoleToUser(user, role);
