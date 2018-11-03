@@ -4,6 +4,7 @@ import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
+import { CabinetComponent } from './cabinet';
 
 const routes: Routes = [
   {
@@ -26,10 +27,18 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'user',
+    component: CabinetComponent
   }
 
 ];
 
 export const routing = RouterModule.forRoot(routes);
+
+@NgModule({
+  exports: [ RouterModule ]
+})
 
 export class AppRoutingModule { }
