@@ -44,21 +44,21 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public boolean update(Category category) {
-        return false;
+        return jdbcTemplate.update(CategorySql.UPDATE, category.getName()) > 0;
     }
 
     @Override
     public boolean delete(Category category) {
-        return false;
+        return jdbcTemplate.update(CategorySql.DELETE, category.getId()) > 0;
     }
 
     @Override
     public Category findById(Long id) {
-        return null;
+        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_ID, new Object[] { id }, mapper);
     }
 
     @Override
     public List<Category> findAll() {
-        return null;
+        return jdbcTemplate.query(CategorySql.FIND_ALL, mapper);
     }
 }
