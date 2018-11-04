@@ -27,7 +27,7 @@ public class RestUserDetailsService implements UserDetailsService {
 				throw new UsernameNotFoundException("User with email [" + email + "] not founded");	
 			return new UserPrincipal(user, roleService);
 		} catch(Exception e) {
-			throw new UsernameNotFoundException("User with email [" + email + "] not founded");	
+			throw new UsernameNotFoundException("User with email [" + email + "] not founded", e);	
 		}
 	}
 

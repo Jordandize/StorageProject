@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -14,11 +15,15 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import ua.edu.ukma.gpd.storage.configuration.auth.RestAuthenticationFilter;
+import ua.edu.ukma.gpd.storage.configuration.auth.TokenAuthenticationProcessingFilter;
+import ua.edu.ukma.gpd.storage.service.CryptService;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+	public static final String HEADER_SECURITY_TOKEN = "X-Auth-Token";
 
 	@Autowired
 	private AuthenticationEntryPoint authEntryPoint;
@@ -31,6 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private CryptService cryptService;
 	
 	@Autowired
 	public PasswordEncoder encoder;
@@ -53,6 +61,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
+        	.addFilterAfter(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
+        	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        	.and()
         	.authorizeRequests()
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE");
@@ -64,6 +75,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	filter.setAuthenticationSuccessHandler(authSuccessHandler);
     	filter.setAuthenticationFailureHandler(authFailureHandler);
     	filter.setUsernameParameter("email");
+    	return filter;
+    }
+    
+    private TokenAuthenticationProcessingFilter tokenAuthenticationFilter(String defaultFilterProcessesUrl) throws Exception {
+    	TokenAuthenticationProcessingFilter filter =
+    			new TokenAuthenticationProcessingFilter(
+    					defaultFilterProcessesUrl);
+    	filter.setAuthenticationManager(authenticationManagerBean());
+    	filter.setAuthenticationFailureHandler(authFailureHandler);
+    	filter.setCryptService(cryptService);
     	return filter;
     }
     
