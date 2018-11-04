@@ -24,7 +24,7 @@ public class ProductDaoImpl implements ProductDao {
 
     private RowMapper<Product> mapper = (resultSet, i) -> {
         Product product = new Product();
-        product.setCategoryID(resultSet.getLong("categoryId"));
+        product.setCategoryId(resultSet.getLong("categoryId"));
         product.setName(resultSet.getString("name"));
         product.setAmount(resultSet.getInt("amount"));
         product.setDescription(resultSet.getString("description"));
@@ -37,28 +37,28 @@ public class ProductDaoImpl implements ProductDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT, new String[]{"productId"});
-            ps.setString(1, "categoryId");
-            ps.setString(2, "name");
-            ps.setString(3, "amount");
-            ps.setString(4, "description");
-            ps.setString(5, "isActive");
+            ps.setLong(1, product.getCategoryId());
+            ps.setString(2, product.getName());
+            ps.setInt(3, product.getAmount());
+            ps.setString(4, product.getDescription());
+            ps.setBoolean(5, product.getActive());
             return ps;
         }, keyHolder);
         product.setProdId((Long) keyHolder.getKey());
-        return product.getCategoryID();
+        return product.getCategoryId();
     }
 
     @Override
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
-                product.getCategoryID(), product.getName(), product.getAmount(),
+                product.getCategoryId(), product.getName(), product.getAmount(),
                 product.getDescription(), product.getActive()) > 0;
     }
 
     @Override
     public boolean delete(Product product) {
         return jdbcTemplate.update(ProductSql.DELETE,
-                product.getCategoryID(), product.getName(), product.getAmount(),
+                product.getCategoryId(), product.getName(), product.getAmount(),
                 product.getDescription(), product.getActive()) > 0;
     }
 

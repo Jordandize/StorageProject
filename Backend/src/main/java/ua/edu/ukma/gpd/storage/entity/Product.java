@@ -4,7 +4,7 @@ public class Product {
 
     private Long prodId;
 
-    private Long categoryID;
+    private Long categoryId;
 
     private String name;
 
@@ -22,12 +22,12 @@ public class Product {
         this.prodId = prodId;
     }
 
-    public Long getCategoryID() {
-        return categoryID;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryID(Long categoryID) {
-        this.categoryID = categoryID;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -66,7 +66,7 @@ public class Product {
     public String toString() {
         return "ProductDao{" +
                 "prodId=" + prodId +
-                ", categoryID=" + categoryID +
+                ", categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +

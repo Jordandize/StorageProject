@@ -8,7 +8,7 @@ public class Order {
 
     private Integer orderType;
 
-    private Integer status;
+    private Integer orderStatus;
 
     private String creationDateTime;
 
@@ -49,12 +49,12 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getCreationDateTime() {
@@ -111,7 +111,7 @@ public class Order {
                 "orderId=" + orderId +
                 ", parentId=" + parentId +
                 ", orderType=" + orderType +
-                ", status=" + status +
+                ", orderStatus=" + orderStatus +
                 ", creationDateTime='" + creationDateTime + '\'' +
                 ", modifiedDateTime='" + modifiedDateTime + '\'' +
                 ", annotation='" + annotation + '\'' +

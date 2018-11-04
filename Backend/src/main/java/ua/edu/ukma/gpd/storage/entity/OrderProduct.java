@@ -8,7 +8,7 @@ public class OrderProduct {
 
     private Integer amount;
 
-    private Boolean isReturned;
+    private Integer amountReturned;
 
     public Long getOrderId() {
         return orderId;
@@ -34,12 +34,12 @@ public class OrderProduct {
         this.amount = amount;
     }
 
-    public Boolean getReturned() {
-        return isReturned;
+    public Integer getAmountReturned() {
+        return amountReturned;
     }
 
-    public void setReturned(Boolean returned) {
-        isReturned = returned;
+    public void setAmountReturned(Integer amountReturned) {
+        this.amountReturned = amountReturned;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class OrderProduct {
                 "orderId=" + orderId +
                 ", productId=" + productId +
                 ", amount=" + amount +
-                ", isReturned=" + isReturned +
+                ", amountReturned=" + amountReturned +
                 '}';
     }
 }
