@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-     "build": "ng build --prod",
+    "build": "ng build --prod",
     "postbuild": "npm run deploy",
     "predeploy": "rimraf ../Backend/src/main/resources/static && mkdirp ../Backend/src/main/resources/static",
     "deploy": "copyfiles -f dist/** ../Backend/src/main/resources/static",
@@ -25,6 +25,7 @@
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
+    "sweetalert2": "^7.28.11",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

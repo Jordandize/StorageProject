@@ -56,8 +56,10 @@ public class OrderTypeDaoImpl implements OrderTypeDao {
         return null;
     }
 
-    @Override
-    public OrderType findById(OrderType orderType) {
-        return null;
-    }
+   
+	@Override
+	public OrderType findById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
