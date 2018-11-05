@@ -12,8 +12,10 @@ public interface OrderTypeDao {
 
     boolean delete(OrderType orderType);
 
-    List<OrderType> findAll();
-
     OrderType findById(Integer id);
+    
+    OrderType findByName(String name);
+
+    List<OrderType> findAll();
 
 }

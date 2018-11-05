@@ -12,7 +12,9 @@ public interface OrderStatusDao {
 
     boolean delete(OrderStatus orderStatus);
 
-    List<OrderStatus> findAll();
-
     OrderStatus findById(Integer id);
+    
+    OrderStatus findByName(String name);
+
+    List<OrderStatus> findAll();
 }

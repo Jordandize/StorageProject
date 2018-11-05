@@ -46,8 +46,8 @@ public class OrderDaoImpl implements OrderDao {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
             ps.setLong(2, order.getParentId());
-            ps.setInt(3, orderType.getTypeId());
-            ps.setInt(4, orderStatus.getStatusId());
+            ps.setInt(3, orderType.getId());
+            ps.setInt(4, orderStatus.getId());
             ps.setString(5, order.getCreationDateTime());
             ps.setString(6, order.getModifiedDateTime());
             ps.setString(7, order.getAnnotation());
