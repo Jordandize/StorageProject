@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import swal from 'sweetalert2';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -60,6 +61,13 @@ export class LoginComponent implements OnInit {
 
       return this.http.post('http://localhost:8080/login', data, {headers: headers}).subscribe(
         data => {
+            swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'You successfully sign in!',
+                showConfirmButton: false,
+                timer: 1500
+              })
           this.router.navigate(['/home']);
         },
         error => {

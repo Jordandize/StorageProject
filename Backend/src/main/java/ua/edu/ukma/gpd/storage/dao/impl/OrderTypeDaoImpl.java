@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderTypeDao;
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderType;
 import ua.edu.ukma.gpd.storage.sql.OrderTypeSql;
 
@@ -20,12 +21,13 @@ public class OrderTypeDaoImpl implements OrderTypeDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrderTypeDaoImpl(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
+    public OrderTypeDaoImpl(DataSource dataSource) 
+    	{ jdbcTemplate = new JdbcTemplate(dataSource); }
 
-    private RowMapper<OrderType> mapper = (resultSet, i) -> {
+    private RowMapper<OrderType> mapper = (rs, i) -> {
         OrderType orderType = new OrderType();
-        orderType.setTypeId(resultSet.getInt("id"));
-        orderType.setName(resultSet.getString("name"));
+        orderType.setId(rs.getInt("id"));
+        orderType.setName(rs.getString("name"));
         return orderType;
     };
 
@@ -33,33 +35,49 @@ public class OrderTypeDaoImpl implements OrderTypeDao {
     public Integer create(OrderType orderType) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(OrderTypeSql.INSERT, new String[] {"id"} );
+            PreparedStatement ps = connection.prepareStatement(OrderTypeSql.INSERT, 
+            		new String[] { "id" } );
             ps.setString(1, orderType.getName());
             return ps;
         }, keyHolder);
-        orderType.setTypeId((Integer) keyHolder.getKey());
-        return orderType.getTypeId();
+        orderType.setId((Integer) keyHolder.getKey());
+        return orderType.getId();
     }
 
     @Override
     public boolean update(OrderType orderType) {
-        return false;
+        return jdbcTemplate.update(OrderTypeSql.UPDATE, 
+        		mapper, orderType.getName(), orderType.getId()) > 0;
     }
+
+	@Override
+	public boolean updateOrderType(Order order, OrderType orderType) {
+		return jdbcTemplate.update(OrderTypeSql.UPDATE_ORDER_TYPE,
+				mapper, orderType.getId(), order.getId()) > 0;
+	}
 
     @Override
     public boolean delete(OrderType orderType) {
-        return false;
+        return jdbcTemplate.update(OrderTypeSql.DELETE, orderType.getId()) > 0;
     }
+
+	@Override
+	public OrderType findById(Integer id) {
+		return jdbcTemplate.queryForObject(OrderTypeSql.FIND_BY_ID, 
+				new Object[] { id }, mapper);
+	}
+
+	@Override
+	public OrderType findByName(String name) {
+		return jdbcTemplate.queryForObject(OrderTypeSql.FIND_BY_NAME, 
+				new Object[] { name }, mapper);
+	}
+
 
     @Override
     public List<OrderType> findAll() {
-        return null;
+        return jdbcTemplate.query(OrderTypeSql.FIND_ALL, mapper);
     }
+    
 
-   
-	@Override
-	public OrderType findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

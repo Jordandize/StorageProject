@@ -7,7 +7,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderStatusDao;
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderStatus;
+import ua.edu.ukma.gpd.storage.sql.OrderStatusSql;
 import ua.edu.ukma.gpd.storage.sql.OrderTypeSql;
 
 import javax.sql.DataSource;
@@ -20,14 +22,13 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrderStatusDaoImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+    public OrderStatusDaoImpl(DataSource dataSource) 
+    	{ jdbcTemplate = new JdbcTemplate(dataSource); }
 
-    private RowMapper<OrderStatus> mapper = (resultSet, i) -> {
+    private RowMapper<OrderStatus> mapper = (rs, i) -> {
         OrderStatus orderStatus = new OrderStatus();
-        orderStatus.setStatusId(resultSet.getInt("id"));
-        orderStatus.setStatusName(resultSet.getString("name"));
+        orderStatus.setId(rs.getInt("id"));
+        orderStatus.setName(rs.getString("name"));
         return orderStatus;
     };
 
@@ -35,31 +36,47 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
     public Integer create(OrderStatus orderStatus) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(OrderTypeSql.INSERT, new String[] {"id"});
-            ps.setString(2, orderStatus.getStatusName());
+            PreparedStatement ps = connection.prepareStatement(OrderTypeSql.INSERT,
+            		new String[] { "id" });
+            ps.setString(1, orderStatus.getName());
             return ps;
         }, keyHolder);
-        orderStatus.setStatusId((Integer) keyHolder.getKey());
-        return orderStatus.getStatusId();
+        orderStatus.setId((Integer) keyHolder.getKey());
+        return orderStatus.getId();
     }
 
     @Override
     public boolean update(OrderStatus orderStatus) {
-        return false;
+        return jdbcTemplate.update(OrderStatusSql.UPDATE, orderStatus.getName(), 
+        		orderStatus.getId()) > 0;
     }
+    
+	@Override
+	public boolean updateOrderStatus(Order order, OrderStatus orderStatus) {
+		return jdbcTemplate.update(OrderStatusSql.UPDATE_ORDER_STATUS,
+				mapper, orderStatus.getId(), order.getId()) > 0;
+	}
 
     @Override
     public boolean delete(OrderStatus orderStatus) {
-        return false;
-    }
-
-    @Override
-    public List<OrderStatus> findAll() {
-        return null;
+        return jdbcTemplate.update(OrderStatusSql.DELETE, orderStatus.getId()) > 0;
     }
 
     @Override
     public OrderStatus findById(Integer id) {
-        return null;
+        return jdbcTemplate.queryForObject(OrderStatusSql.FIND_BY_ID,
+        		new Object[] { id }, mapper);
     }
+
+	@Override
+	public OrderStatus findByName(String name) {
+		return jdbcTemplate.queryForObject(OrderStatusSql.FIND_BY_NAME,
+				new Object[] { name }, mapper);
+	}
+	
+    @Override
+    public List<OrderStatus> findAll() {
+    	return jdbcTemplate.query(OrderStatusSql.FIND_ALL, mapper);
+    }
+
 }

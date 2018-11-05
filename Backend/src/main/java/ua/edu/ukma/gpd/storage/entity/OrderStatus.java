@@ -2,31 +2,35 @@ package ua.edu.ukma.gpd.storage.entity;
 
 public class OrderStatus {
 
-    private Integer statusId;
+    private Integer id;
 
-    private String statusName;
+    private String name;
 
-    public Integer getStatusId() {
-        return statusId;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getStatusName() {
-        return statusName;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return "OrderStatus{" +
-                "statusId=" + statusId +
-                ", statusName='" + statusName + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OrderStatus [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append("]");
+		return builder.toString();
+	}
+    
 }
