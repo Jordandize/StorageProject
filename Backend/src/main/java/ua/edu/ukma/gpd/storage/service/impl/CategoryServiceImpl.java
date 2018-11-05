@@ -50,7 +50,8 @@ public class CategoryServiceImpl implements CategoryService {
         try{
             category = categoryDao.findById(id);
         } catch (EmptyResultDataAccessException e){
-            category = null;
+             category = null;
+
         } catch (Exception e){
             throw new Exception("Exeption occured in CategoryServiceImpl: operation getCategoryById [" + id + "] failed.", e);
         }
@@ -62,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
         try{
             return categoryDao.findAll();
         } catch (Exception e){
-            throw new Exception("CategoryServiceImpl: Get all users operation failed", e);
+            throw new Exception("CategoryServiceImpl: Get all categories operation failed", e);
         }
     }
 }

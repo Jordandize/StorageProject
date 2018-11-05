@@ -1,13 +1,11 @@
 package ua.edu.ukma.gpd.storage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,6 +38,5 @@ public class CategoryController {
         }
         return category;
     }
-
 
 }
