@@ -2,7 +2,7 @@ package ua.edu.ukma.gpd.storage.entity;
 
 public class Order {
 
-    private Long orderId;
+    private Long id;
 
     private Long parentId;
 
@@ -25,12 +25,12 @@ public class Order {
     // TO DO LARGE OBJECT
 
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getParentId() {
@@ -108,7 +108,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
+                "orderId=" + id +
                 ", parentId=" + parentId +
                 ", orderType=" + orderType +
                 ", orderStatus=" + orderStatus +
