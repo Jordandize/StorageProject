@@ -44,21 +44,28 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authResult) throws IOException, ServletException {
-		super.successfulAuthentication(request, response, chain, authResult);
+			Authentication authentication) throws IOException, ServletException {
+		super.successfulAuthentication(request, response, chain, authentication);
 		chain.doFilter(request, response);
+	}
+	
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 	}
 
 	private Authentication tokenToAuth(String encodedToken) {
+		Token token;
 		try {
 			String decodedToken = cryptService.decrypt(encodedToken);
-			Token token = new ObjectMapper().readValue(decodedToken, Token.class);
-			return this.getAuthenticationManager().authenticate(
-					new UsernamePasswordAuthenticationToken(token.getEmail(), token.getPassword()));
+			token = new ObjectMapper().readValue(decodedToken, Token.class);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			token = new Token(null, null);
 		}
+		return this.getAuthenticationManager().authenticate(
+				new UsernamePasswordAuthenticationToken(token.getEmail(), token.getPassword()));
 	}
 
 	public void setCryptService(CryptService cryptService) {

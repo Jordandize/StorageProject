@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import ua.edu.ukma.gpd.storage.configuration.auth.RestAuthenticationFilter;
@@ -57,16 +58,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+        	.addFilterAfter(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
     		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
-        	.addFilterAfter(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
         	.antMatchers("/api/foos").authenticated()
-        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE");
+        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
+        	.antMatchers("/login").anonymous()
+        	.anyRequest().authenticated();
     }
 
     private RestAuthenticationFilter restAuthenticationFilter() throws Exception {
@@ -83,7 +86,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     			new TokenAuthenticationProcessingFilter(
     					defaultFilterProcessesUrl);
     	filter.setAuthenticationManager(authenticationManagerBean());
-    	filter.setAuthenticationFailureHandler(authFailureHandler);
     	filter.setCryptService(cryptService);
     	return filter;
     }
