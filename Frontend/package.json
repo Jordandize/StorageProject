@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-     "build": "ng build --prod",
+    "build": "ng build --prod",
     "postbuild": "npm run deploy",
     "predeploy": "rimraf ../Backend/src/main/resources/static && mkdirp ../Backend/src/main/resources/static",
     "deploy": "copyfiles -f dist/** ../Backend/src/main/resources/static",
