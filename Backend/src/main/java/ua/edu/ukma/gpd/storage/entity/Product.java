@@ -10,7 +10,7 @@ public class Product {
 
     private Integer amount;
 
-    private String description;
+    private String annotation;
 
     private Boolean isActive;
 
@@ -46,12 +46,12 @@ public class Product {
         this.amount = amount;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAnnotation() {
+        return annotation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAnnotation(String description) {
+        this.annotation = description;
     }
 
     public Boolean getActive() {
@@ -69,7 +69,7 @@ public class Product {
                 ", categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +
-                ", description='" + description + '\'' +
+                ", annotation='" + annotation + '\'' +
                 ", isActive=" + isActive +
                 '}';
     }
