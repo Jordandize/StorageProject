@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDao {
 
     private RowMapper<Order> mapper = (resultSet, i) -> {
         Order order = new Order();
-        order.setOrderId(resultSet.getLong("id"));
+        order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
         order.setOrderType(resultSet.getInt("id_order_type"));
         order.setOrderStatus(resultSet.getInt("id_order_status"));
@@ -56,7 +56,7 @@ public class OrderDaoImpl implements OrderDao {
             ps.setLong(10, order.getAssignedTo());
             return ps;
         }, keyHolder);
-        order.setOrderId((Long) keyHolder.getKey());
-        return order.getOrderId();
+        order.setId((Long) keyHolder.getKey());
+        return order.getId();
     }
 }

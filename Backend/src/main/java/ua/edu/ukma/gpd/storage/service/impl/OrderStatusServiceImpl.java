@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ua.edu.ukma.gpd.storage.dao.OrderStatusDao;
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderStatusService;
 
@@ -61,6 +62,18 @@ public class OrderStatusServiceImpl implements OrderStatusService {
 			orderStatuses = null;
 		}
 		return orderStatuses;
+	}
+
+	@Override
+	public boolean setStatus(Order order, OrderStatus orderStatus) throws Exception {
+		boolean set;
+		try {
+			set = orderStatusDao.updateOrderStatus(order, orderStatus);
+		} catch (Exception e) {
+			e.printStackTrace();
+			set = false;
+		}
+		return set;
 	}
 
 }

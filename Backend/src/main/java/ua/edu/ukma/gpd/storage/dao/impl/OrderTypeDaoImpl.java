@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderTypeDao;
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderType;
 import ua.edu.ukma.gpd.storage.sql.OrderTypeSql;
 
@@ -48,6 +49,12 @@ public class OrderTypeDaoImpl implements OrderTypeDao {
         return jdbcTemplate.update(OrderTypeSql.UPDATE, 
         		mapper, orderType.getName(), orderType.getId()) > 0;
     }
+
+	@Override
+	public boolean updateOrderType(Order order, OrderType orderType) {
+		return jdbcTemplate.update(OrderTypeSql.UPDATE_ORDER_TYPE,
+				mapper, orderType.getId(), order.getId()) > 0;
+	}
 
     @Override
     public boolean delete(OrderType orderType) {

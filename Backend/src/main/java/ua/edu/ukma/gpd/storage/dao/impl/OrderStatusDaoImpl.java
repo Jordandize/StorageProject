@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderStatusDao;
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderStatus;
 import ua.edu.ukma.gpd.storage.sql.OrderStatusSql;
 import ua.edu.ukma.gpd.storage.sql.OrderTypeSql;
@@ -49,6 +50,12 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
         return jdbcTemplate.update(OrderStatusSql.UPDATE, orderStatus.getName(), 
         		orderStatus.getId()) > 0;
     }
+    
+	@Override
+	public boolean updateOrderStatus(Order order, OrderStatus orderStatus) {
+		return jdbcTemplate.update(OrderStatusSql.UPDATE_ORDER_STATUS,
+				mapper, orderStatus.getId(), order.getId()) > 0;
+	}
 
     @Override
     public boolean delete(OrderStatus orderStatus) {

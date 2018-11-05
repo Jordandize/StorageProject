@@ -9,6 +9,11 @@ public class OrderStatusSql {
 			"UPDATE order_statuses "
 			+ "SET name = ?"
 			+ "WHERE id = ?";
+    
+	public static final String UPDATE_ORDER_STATUS =
+			"UPDATE orders "
+			+ "SET id_status = ?"
+			+ "WHERE id = ?";
 
 	public static final String DELETE =
 		"DELETE FROM order_statuses WHERE id = ?";

@@ -2,6 +2,7 @@ package ua.edu.ukma.gpd.storage.service;
 
 import java.util.List;
 
+import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderStatus;
 
 public interface OrderStatusService {
@@ -13,5 +14,7 @@ public interface OrderStatusService {
 	OrderStatus getByName(String name) throws Exception;
 
 	List<OrderStatus> getAll() throws Exception;
+	
+	boolean setStatus(Order order, OrderStatus orderStatus) throws Exception;
 
 }
