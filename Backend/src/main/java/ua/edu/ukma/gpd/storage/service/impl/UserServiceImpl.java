@@ -24,11 +24,13 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Long add(User user) throws Exception {
+		Long id = null;
 		try {
-			boolean exists = userDao.findById(user.getId()) != null;
-			if (!exists){
-				Long id = userDao.create(user);
-				Role role = roleService.getRoleByName(Role.ROLE_USER);
+			User exists = getByEmail(user.getEmail());
+			if(exists == null) {
+				user.setActive(true);
+				id = userDao.create(user);
+				Role role = roleService.getRoleByName(Role.USER);
 				roleService.addRoleToUser(user, role);
 				return id;
 			} else {
@@ -37,6 +39,15 @@ public class UserServiceImpl implements UserService {
 		} catch(EmailAlreadyInUseException em) {
 			throw em;
 		} catch (Exception e) {
+			user.setActive(false);
+			try {
+				if(id != null) {
+					userDao.delete(user);
+					roleService.removeRolesForUser(user);
+				}
+			} catch (Exception exc) {
+				throw new Exception("UserServiceImpl: Clean results of failed operation add user [" + user + "] operation failed", e);
+			}
 			throw new Exception("UserServiceImpl: Add user [" + user + "] operation failed", e);
 		}
 	}

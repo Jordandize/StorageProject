@@ -19,6 +19,8 @@ public class UserPrincipal implements UserDetails {
 	
 	private User user;
 	
+	private String rawPassword;
+	
 	public UserPrincipal(User user, RoleService roleService) {
 		this.user = user;
 		this.roleService = roleService;
@@ -64,6 +66,14 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	
+	public void setRawPassword(String rawPassword) {
+		this.rawPassword = rawPassword;
+	}
+	
+	public String getRawPassword() {
+		return rawPassword;
 	}
 	
 	public User getUser() {

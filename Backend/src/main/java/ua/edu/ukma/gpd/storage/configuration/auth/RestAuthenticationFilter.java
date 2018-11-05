@@ -19,9 +19,14 @@ public class RestAuthenticationFilter extends UsernamePasswordAuthenticationFilt
 	public Authentication attemptAuthentication(
 			HttpServletRequest request, 
 			HttpServletResponse response) {
-		UsernamePasswordAuthenticationToken authRequest = jsonToAuthRequest(request);
-		setDetails(request, authRequest);
-		return this.getAuthenticationManager().authenticate(authRequest);
+		UsernamePasswordAuthenticationToken userAuth = jsonToAuthRequest(request);
+		setDetails(request, userAuth);
+		Authentication auth = this.getAuthenticationManager().authenticate(userAuth);
+		if(auth != null && auth.getPrincipal() instanceof UserPrincipal) {
+			((UserPrincipal) auth.getPrincipal())
+					.setRawPassword(userAuth.getCredentials().toString());
+		}
+		return auth;
 	}
 	
 	private UsernamePasswordAuthenticationToken jsonToAuthRequest(HttpServletRequest request) {

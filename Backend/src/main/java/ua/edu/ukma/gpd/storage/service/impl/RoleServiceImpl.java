@@ -62,4 +62,15 @@ public class RoleServiceImpl implements RoleService {
 		return added;
 	}
 
+	@Override
+	public boolean removeRolesForUser(User user) throws Exception {
+		boolean removed = false;
+		try {
+			removed = usersRolesDao.delete(user);
+		} catch (Exception ex) {
+			throw new Exception("RoleServiceImpl: Remove roles for user [" + user + "] operation failed", ex);
+		}
+		return removed;
+	}
+
 }

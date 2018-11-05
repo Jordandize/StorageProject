@@ -12,5 +12,7 @@ public interface RoleService {
 	public List<Role> getRolesForUser(User user) throws Exception;
 	
 	public boolean addRoleToUser(User user, Role role) throws Exception;
+	
+	public boolean removeRolesForUser(User user) throws Exception;
 
 }
