@@ -1,11 +1,11 @@
 package ua.edu.ukma.gpd.storage.configuration.auth;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -19,8 +19,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import ua.edu.ukma.gpd.storage.configuration.SecurityConfiguration;
+import ua.edu.ukma.gpd.storage.service.CryptService;
+
 @Component
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+	
+	@Autowired
+	private CryptService cryptService;
 	
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	 
@@ -35,6 +41,10 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     		roles.add(auth.toString());
     	responseUser.putPOJO("roles", roles);
     	response.getWriter().write(responseUser.toString());
+    	UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    	response.setHeader(SecurityConfiguration.HEADER_SECURITY_TOKEN,
+    			cryptService.encrypt(
+    					mapper.writeValueAsString(new Token(userPrincipal.getUsername(), userPrincipal.getRawPassword()))));
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         if(savedRequest == null) {
             clearAuthenticationAttributes(request);
@@ -53,4 +63,5 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     public void setRequestCache(RequestCache requestCache) {
         this.requestCache = requestCache;
     }
+    
 }
