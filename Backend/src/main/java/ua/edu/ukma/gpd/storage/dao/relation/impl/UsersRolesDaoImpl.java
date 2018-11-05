@@ -43,6 +43,11 @@ public class UsersRolesDaoImpl implements UsersRolesDao {
 		return jdbcTemplate.update(UsersRolesSql.INSERT,
 				user.getId(), role.getId()) > 0;
 	}
+	
+	@Override
+	public boolean delete(User user) {
+		return jdbcTemplate.update(UsersRolesSql.DELETE_USER_ROLES, user.getId()) > 0;
+	}
 
 	@Override
 	public List<Role> findByUser(User user) {
@@ -54,16 +59,6 @@ public class UsersRolesDaoImpl implements UsersRolesDao {
 	public List<User> findByRole(Role role) {
 		return jdbcTemplate.query(UsersRolesSql.FIND_BY_ID_ROLE, 
 				userMapper, role.getId());
-	}
-
-	@Override
-	public void createUsersRolesTable() {
-		jdbcTemplate.execute(UsersRolesSql.CREATE_TABLE);
-	}
-
-	@Override
-	public void dropUsersRolesTable() {
-		jdbcTemplate.execute(UsersRolesSql.DROP_TABLE);
 	}
 
 }
