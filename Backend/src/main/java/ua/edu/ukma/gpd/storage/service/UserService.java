@@ -7,12 +7,12 @@ import ua.edu.ukma.gpd.storage.exception.EmailAlreadyInUseException;
 
 public interface UserService {
 	
-	public Long add(User user) throws EmailAlreadyInUseException, Exception;
+	Long add(User user) throws EmailAlreadyInUseException, Exception;
 	
-	public User getById(Long id) throws Exception;
+	User getById(Long id) throws Exception;
 	
-	public User getByEmail(String email) throws Exception;
+	User getByEmail(String email) throws Exception;
 
-	public List<User> getAll() throws Exception;
+	List<User> getAll() throws Exception;
 	
 }

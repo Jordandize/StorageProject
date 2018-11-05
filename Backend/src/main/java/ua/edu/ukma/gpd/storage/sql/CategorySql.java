@@ -18,4 +18,7 @@ public class CategorySql {
     public static final String FIND_ALL =
             "SELECT * FROM categories";
 
+    public static final String FIND_BY_NAME =
+            "SELECT * FROM categories WHERE name = ?";
+
 }

@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Long add(User user) throws Exception {
 		try {
-			User exists = getByEmail(user.getEmail());
-			if(exists == null) {
+			boolean exists = userDao.findById(user.getId()) != null;
+			if (!exists){
 				Long id = userDao.create(user);
 				Role role = roleService.getRoleByName(Role.ROLE_USER);
 				roleService.addRoleToUser(user, role);

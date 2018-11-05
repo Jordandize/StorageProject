@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryDao {
 
-    Long create(Category category);
+    Integer create(Category category);
 
     boolean update(Category category);
 
@@ -15,5 +15,7 @@ public interface CategoryDao {
     Category findById(Long id);
 
     List<Category> findAll();
+
+    Category findByName(String name);
 
 }

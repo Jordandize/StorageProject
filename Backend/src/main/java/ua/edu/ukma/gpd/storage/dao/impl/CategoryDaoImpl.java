@@ -24,13 +24,13 @@ public class CategoryDaoImpl implements CategoryDao {
 
     private RowMapper<Category> mapper = (resultSet, i) -> {
         Category category = new Category();
-        category.setId(resultSet.getLong("id"));
+        category.setId(resultSet.getInt("id"));
         category.setName(resultSet.getString("name"));
         return category;
     };
 
     @Override
-    public Long create(Category category) {
+    public Integer create(Category category) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection ->{
             PreparedStatement ps = connection.prepareStatement(CategorySql.INSERT,
@@ -38,7 +38,7 @@ public class CategoryDaoImpl implements CategoryDao {
             ps.setString(1, category.getName());
             return ps;
                 }, keyHolder);
-        category.setId((Long) keyHolder.getKey());
+        category.setId((Integer) keyHolder.getKey());
         return category.getId();
     }
 
@@ -60,5 +60,10 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public List<Category> findAll() {
         return jdbcTemplate.query(CategorySql.FIND_ALL, mapper);
+    }
+
+    @Override
+    public Category findByName(String name){
+        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_NAME, new Object[] {name}, mapper);
     }
 }
