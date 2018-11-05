@@ -8,9 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 	
+	/*
+	 * Is this safe?
+	 * TODO
+	 */
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**");
+		registry.addMapping("/**").allowedOrigins("**");
 	}
 	
 }

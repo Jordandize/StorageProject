@@ -67,8 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
-        	.antMatchers("/login").anonymous()
-        	.anyRequest().authenticated();
+        	.antMatchers("/login").anonymous();
     }
 
     private RestAuthenticationFilter restAuthenticationFilter() throws Exception {
