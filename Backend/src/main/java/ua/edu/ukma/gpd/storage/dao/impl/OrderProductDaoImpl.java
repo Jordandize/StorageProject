@@ -33,11 +33,9 @@ public class OrderProductDaoImpl implements OrderProductDao {
 
     // FIX this method
     @Override
-    public OrderProduct create(OrderProduct orderProduct, Order order, Product product) {
-         jdbcTemplate.update(OrderProductSql.INSERT, order.getOrderId(), product.getProdId(),
+    public OrderProduct create(OrderProduct orderProduct) {
+         jdbcTemplate.update(OrderProductSql.INSERT, orderProduct.getOrderId(), orderProduct.getProductId(),
                 orderProduct.getAmount(), orderProduct.getAmountReturned());
-         orderProduct.setOrderId(order.getOrderId());
-         orderProduct.setProductId(product.getProdId());
          return orderProduct;
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderProductService {
 
-    Long add(OrderProduct orderProduct, Order order, Product product) throws Exception;
+    OrderProduct add(OrderProduct orderProduct) throws Exception;
 
     OrderProduct findById(Long orderId, Long productId) throws Exception;
 

@@ -19,18 +19,19 @@ public class OrderProductServiceImpl implements OrderProductService {
     private OrderProductDao orderProductDao;
 
     @Override
-    public Long add(OrderProduct orderProduct, Order order, Product product) throws Exception {
+    public OrderProduct add(OrderProduct orderProduct) throws Exception {
+        OrderProduct createdOrderProduct = null;
         try {
-            boolean exists = orderProductDao.findById(order.getOrderId(), product.getProdId()) != null;
+            boolean exists = orderProductDao.findById(orderProduct.getOrderId(), orderProduct.getProductId()) != null;
             if(!exists){
-                Long id = orderProductDao.create(orderProduct, order, product);
-                return id;
+                createdOrderProduct = orderProductDao.create(orderProduct);
             } else {
-                throw new Exception("Exeption occured in OrderProductServiceImpl: operation add [" + orderProductDao.findById(order.getOrderId(),product.getProdId()) + "] failed.");
+                throw new Exception("Exeption occured in OrderProductServiceImpl: operation add [" + orderProduct.getOrderId() + " and " + orderProduct.getProductId() + "] failed.");
             }
         } catch (Exception e){
             throw new Exception(e);
         }
+        return createdOrderProduct;
     }
 
     @Override
