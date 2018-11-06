@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import ua.edu.ukma.gpd.storage.configuration.auth.RestAuthenticationFilter;
@@ -68,9 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
-        	.antMatchers("/login").anonymous();
-        
-        	
+        	.antMatchers("/login").anonymous()
+        	.and().cors();
     }
 
     private RestAuthenticationFilter restAuthenticationFilter() throws Exception {
