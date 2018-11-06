@@ -1,8 +1,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 .content{
   margin-top: 40px;
 }
-html, body {height:100%; }
+html, body {height:100%;margin: 0;
+  font-family: Roboto, sans-serif; }
 h1{
   color: #81cbf0;
 }
@@ -13,14 +15,22 @@ h1{
   color: #ffffff;
 }
 
+.example-header-image {
+  background-image: url('https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png');
+  background-size: cover;
+}
+
+mat-toolbar-row {
+  justify-content: space-between;
+}
 th {
   text-align: center;
 }
-.logout{
-  margin-left:100%;
+.full{
+  height:100vh;
 }
 .example-container{
-  padding-top:30%;
+  min-height:90%
 }
 .change{
   margin-top: 30px;
