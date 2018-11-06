@@ -1,51 +1,138 @@
 <body ng-app="Commande" ng-controller="commandeController">
-<h1>Goods for order</h1>
+<h1>Order</h1>
 <div class="content">
+
+
+
+  <div class="col-md-12">
+    <table class="table table-striped table-hover table-responsive">
+      <tr class="form-group">
+        <label for="ordStatus">Status*</label>
+        <select formControlName="ordStatus" id="ordStatus" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+          <option value="Phones">Processing</option>
+          <option value="Laptops">Waiting</option>
+          <option value="Printers">Ready</option>
+        </select>
+        <!--<input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />-->
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+          <div *ngIf="f.firstName.errors.required">First Name is required</div>
+        </div>
+      </tr>
+      <thead>
+
+      <tr>
+
+        <th class="form-group">
+          <label for="ordType">Type*</label>
+          <select formControlName="ordType" id="ordType" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <option value="Phones">Order</option>
+            <option value="Laptops">Return</option>
+          </select>
+          <!--<input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />-->
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
+        </th>
+        <th>
+          <label for="parentId">Parent ID</label>
+          <input type="number" id="parentId" name="ordId"
+                 value="1"
+                 min="1"/>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label for="createdDate">Created</label>
+          <input type="date" id="createdDate" name="crDate"
+                 value="2018-07-22"
+                 min="2018-01-01" max="2018-12-31" />
+        </th>
+        <th>
+          <label for="modifiedDate">Modified</label>
+          <input type="date" id="modifiedDate" name="modDate"
+                 value="2018-07-22"
+                 min="2018-01-01" max="2018-12-31" />
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label for="crBy">Created By</label>
+          <select formControlName="crBy" id="crBy" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <option value="Phones">User 01</option>
+            <option value="Laptops">User 02</option>
+            <option value="Printers">User 03</option>
+            <option value="Keyboards">User 04</option>
+          </select>
+        </th>
+        <th>
+          <label for="assTo">Assigned to</label>
+          <select formControlName="assTo" id="assTo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <option value="Phones">Storekeeper 01</option>
+            <option value="Laptops">Storekeeper 02</option>
+          </select>
+        </th>
+      </tr>
+      </thead>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <input type="text" formControlName="lastName" id="comment" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </div>
+      </div>
+      <div>
+        <label for="isArchived">isArchived</label>
+        <input type="checkbox" id="isArchived" name="isArch"/>
+      </div>
+
+    </table>
+    </div>
   <div class="col-md-12">
     <table class="table table-striped table-hover table-responsive">
       <thead>
       <tr>
-        <th>Number</th>
+        <th>№</th>
         <th>Category</th>
         <th>Product</th>
         <th>Quantity</th>
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="article in articles">
+      <tr ng-app="products" ng-controller="test">
         <th>
-          <input type="number" ng-model="article.id" class="form-control bfh-number" placeholder="Id" min=0>
+          <input type="number" ng-model="product.id" class="form-control bfh-number" placeholder="1" min="1">
         </th>
-        <td>
-          <select>
+        <th>
+          <select id="category">
             <option value="Phones">Phones</option>
             <option value="Laptops">Laptops</option>
             <option value="Printers">Printers</option>
             <option value="Keyboards">Keyboards</option>
           </select>
-        </td>
-        <td>
-          <select>
+        </th>
+        <th>
+          <select id="product">
             <option value="Sony">Sony Z2</option>
             <option value="Toshiba">Toshiba N1</option>
             <option value="Acer">Acer XPP43</option>
             <option value="Asus">Asus XPS159</option>
           </select>
-        </td>
+        </th>
         <td>
-          <input type="number" ng-model="article.price" class="form-control bfh-number">
+          <input type="number" id="qnt" ng-model="product.qnt" class="form-control bfh-number" placeholder="1" min="1">
         </td>
+        <button ng-click="clickToClone('mainDiv', 'cloneDiv')">➕</button>
+        <button ng-click="clickToClone('mainDiv', 'cloneDiv')">❌</button>
       </tr>
-      <tr class="success">
-        <th class="success">TOTAL</th>
-        <td class="success"></td>
-        <td class="success"></td>
-        <td class="success"></td>
-        <td class="success"></td>
+      <tr id="cloneDiv">
       </tr>
       </tbody>
     </table>
-    <a href ng:click="AjouterArticle()" class="btn btn-primary">Ok<i class="fa fa-plus"></i></a>
+
+
+
+    <a href ng:click="AjouterArticle()" class="btn btn-primary">Send<i class="fa fa-plus"></i></a>
   </div>
+
 </div>
 </body>
