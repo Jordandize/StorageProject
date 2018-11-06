@@ -1,6 +1,5 @@
 package ua.edu.ukma.gpd.storage.service.impl;
 
-import com.sun.deploy.security.ruleset.ExceptionRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
