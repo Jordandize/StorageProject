@@ -27,7 +27,7 @@ public class ProductDaoImpl implements ProductDao {
         product.setCategoryId(resultSet.getLong("categoryId"));
         product.setName(resultSet.getString("name"));
         product.setAmount(resultSet.getInt("amount"));
-        product.setDescription(resultSet.getString("description"));
+        product.setAnnotation(resultSet.getString("description"));
         product.setActive(resultSet.getBoolean("isActive"));
         return product;
     };
@@ -40,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
             ps.setLong(1, product.getCategoryId());
             ps.setString(2, product.getName());
             ps.setInt(3, product.getAmount());
-            ps.setString(4, product.getDescription());
+            ps.setString(4, product.getAnnotation());
             ps.setBoolean(5, product.getActive());
             return ps;
         }, keyHolder);
@@ -52,14 +52,14 @@ public class ProductDaoImpl implements ProductDao {
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
                 product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getDescription(), product.getActive()) > 0;
+                product.getAnnotation(), product.getActive()) > 0;
     }
 
     @Override
     public boolean delete(Product product) {
         return jdbcTemplate.update(ProductSql.DELETE,
                 product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getDescription(), product.getActive()) > 0;
+                product.getAnnotation(), product.getActive()) > 0;
     }
 
     @Override

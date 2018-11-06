@@ -14,6 +14,7 @@ import ua.edu.ukma.gpd.storage.sql.OrderSql;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -58,5 +59,15 @@ public class OrderDaoImpl implements OrderDao {
         }, keyHolder);
         order.setId((Long) keyHolder.getKey());
         return order.getId();
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return jdbcTemplate.queryForObject(OrderSql.FIND_BY_ID, new String[] {"id"}, mapper);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return jdbcTemplate.query(OrderSql.FIND_ALL, mapper);
     }
 }

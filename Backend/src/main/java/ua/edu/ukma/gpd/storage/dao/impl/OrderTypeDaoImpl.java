@@ -78,6 +78,5 @@ public class OrderTypeDaoImpl implements OrderTypeDao {
     public List<OrderType> findAll() {
         return jdbcTemplate.query(OrderTypeSql.FIND_ALL, mapper);
     }
-    
-
+   
 }
