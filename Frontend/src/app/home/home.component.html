@@ -1,10 +1,41 @@
-﻿<h1>Hello {{currentUser.firstName}}!</h1>
-<p>You're successfully logged in!</p>
-<h3>All registered users:</h3>
+﻿<!--><h1>Hello {{currentUser.firstName}}!</h1>-->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" ng-value="session" >
+        <a class="navbar-brand" style="color:white;">Log in as: {{ session }} </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+       
+       <div class="collapse navbar-collapse "  id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto"  >
+        <li class="nav-item "  style="float: right;">
+        <a class="nav-link btn active logout"  routerLink='/login' style="cursor: pointer; ">Logout</a>
+        </li>
+        </ul>
+        <!-- (click)="destroy()"-->
+        </div>
+        </nav>
+       
+               
+              <mat-sidenav-container class="example-container">
+                <mat-sidenav #drawer mode="side" opened role="navigation">
+                  <mat-nav-list class="change">
+                    <a mat-list-item  ></a>
+                    <a mat-list-item *ngFor="let user of users" routerLink='{{ user.url }}' >{{ user.username }}</a>
+                  </mat-nav-list>
+                </mat-sidenav>
+                <mat-sidenav-content>
+                  <router-outlet></router-outlet>
+                </mat-sidenav-content>
+              </mat-sidenav-container>
+<!--<div style="width:30%;">
+        <ul>
+                <li *ngFor="let user of users">{{ user.id }} {{ user.username }}</li>
+        </ul>
+</div>
 <ul>
     <li *ngFor="let user of users">
         {{user.username}} ({{user.firstName}} {{user.lastName}})
         - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
     </li>
-</ul>
-<p><a [routerLink]="['/login']">Logout</a></p>
+</ul>-->
