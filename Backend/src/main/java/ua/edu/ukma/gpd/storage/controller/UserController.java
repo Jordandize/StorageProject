@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
 import ua.edu.ukma.gpd.storage.entity.User;
+import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
@@ -25,11 +26,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	@GetMapping
 	public List<User> getUsers() {
 		List<User> users;
 		try {
-			users = userService.getAll();	
+			users = userService.getAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 			users = null;
