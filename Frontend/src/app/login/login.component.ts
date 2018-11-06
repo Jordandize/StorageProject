@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpBackend } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
+import  axios from 'axios';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -59,8 +60,8 @@ export class LoginComponent implements OnInit {
         };
         //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
-      return this.http.post('http://localhost:8080/login', data, {headers: headers}).subscribe(
-        data => {
+        
+      return axios.post('http://localhost:8080/login', data, {headers: headers}).then((response) =>{
             
             swal({
                 position: 'top-end',
@@ -69,11 +70,13 @@ export class LoginComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-              sessionStorage.setItem('email',this.f.username.value );
+              console.log(response.headers['x-auth-token']);
+              sessionStorage.setItem('id',response.headers['x-auth-token']);
+              sessionStorage.setItem('email',this.f.username.value);
               console.log(this.f.username.value);
           this.router.navigate(['/home']);
-        },
-        error => {
+        })
+        .catch((error) => {
             if(error.status==401){
             swal({
                 type: 'error',
