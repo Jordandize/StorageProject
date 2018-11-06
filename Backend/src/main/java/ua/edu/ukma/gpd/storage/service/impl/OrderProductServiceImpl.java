@@ -26,7 +26,8 @@ public class OrderProductServiceImpl implements OrderProductService {
             if(!exists){
                 createdOrderProduct = orderProductDao.create(orderProduct);
             } else {
-                throw new Exception("Exeption occured in OrderProductServiceImpl: operation add [" + orderProduct.getOrderId() + " and " + orderProduct.getProductId() + "] failed.");
+                throw new Exception("Exeption occured in OrderProductServiceImpl: operation add ["
+                        + orderProduct.getOrderId() + " and " + orderProduct.getProductId() + "] failed.");
             }
         } catch (Exception e){
             throw new Exception(e);

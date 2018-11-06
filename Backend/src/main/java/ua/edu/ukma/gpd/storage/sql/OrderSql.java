@@ -12,4 +12,7 @@ public class OrderSql {
     public static final String FIND_ALL =
             "SELECT * FROM orders";
 
+    public static final String FIND_ORDERS_FOR_USER =
+            "SELECT * FROM orders WHERE id_user = (?)";
+
 }

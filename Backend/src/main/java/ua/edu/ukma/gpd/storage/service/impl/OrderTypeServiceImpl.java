@@ -18,7 +18,7 @@ public class OrderTypeServiceImpl implements OrderTypeService {
 	
 	@Override
 	public Integer add(OrderType orderType) throws Exception {
-		Integer id;
+		Integer id = null;
 		try {
 			id = orderTypeDao.create(orderType);
 		} catch (Exception e) {

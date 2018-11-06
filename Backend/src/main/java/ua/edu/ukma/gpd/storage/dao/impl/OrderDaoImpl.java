@@ -42,13 +42,13 @@ public class OrderDaoImpl implements OrderDao {
     };
 
     @Override
-    public Long create(Order order, OrderType orderType, OrderStatus orderStatus) {
+    public Long create(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
             ps.setLong(2, order.getParentId());
-            ps.setInt(3, orderType.getId());
-            ps.setInt(4, orderStatus.getId());
+            ps.setInt(3, order.getOrderType());
+            ps.setInt(4, order.getOrderStatus());
             ps.setString(5, order.getCreationDateTime());
             ps.setString(6, order.getModifiedDateTime());
             ps.setString(7, order.getAnnotation());
@@ -70,4 +70,11 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> findAll() {
         return jdbcTemplate.query(OrderSql.FIND_ALL, mapper);
     }
+
+    @Override
+    public List<Order> findOrdersForUser(Long userId) {
+        return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, mapper);
+    }
+
+
 }

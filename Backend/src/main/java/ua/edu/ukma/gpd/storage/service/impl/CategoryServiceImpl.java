@@ -45,12 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryById(Long id) throws Exception {
-        Category category;
+        Category category = null;
         try{
             category = categoryDao.findById(id);
         } catch (EmptyResultDataAccessException e){
-             category = null;
-
+            e.printStackTrace();
+            category = null;
         } catch (Exception e){
             throw new Exception("Exeption occured in CategoryServiceImpl: operation getCategoryById [" + id + "] failed.", e);
         }

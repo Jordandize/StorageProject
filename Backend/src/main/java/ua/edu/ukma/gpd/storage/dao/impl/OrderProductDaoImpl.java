@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderProductDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+@Repository
 public class OrderProductDaoImpl implements OrderProductDao {
 
     private JdbcTemplate jdbcTemplate;

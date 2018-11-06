@@ -1,9 +1,6 @@
 package ua.edu.ukma.gpd.storage.dao;
 
-
-import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
-import ua.edu.ukma.gpd.storage.entity.Product;
 
 import java.util.List;
 

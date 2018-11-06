@@ -18,7 +18,7 @@ public class OrderStatusServiceImpl implements OrderStatusService {
 	
 	@Override
 	public Integer add(OrderStatus orderStatus) throws Exception {
-		Integer id;
+		Integer id = null;
 		try {
 			id = orderStatusDao.create(orderStatus);
 		} catch (Exception e) {
