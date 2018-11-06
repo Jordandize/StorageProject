@@ -31,15 +31,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
         return orderProduct;
     };
 
+    // FIX this method
     @Override
-    public Long create(OrderProduct orderProduct, Order order, Product product) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(OrderProductSql.INSERT,
-                // TODO
-               // product.getProdId(), order.,
+    public OrderProduct create(OrderProduct orderProduct, Order order, Product product) {
+         jdbcTemplate.update(OrderProductSql.INSERT, order.getOrderId(), product.getProdId(),
                 orderProduct.getAmount(), orderProduct.getAmountReturned());
-        orderProduct.setProductId((Long) keyHolder.getKey());
-        return null;
+         orderProduct.setOrderId(order.getOrderId());
+         orderProduct.setProductId(product.getProdId());
+         return orderProduct;
     }
 
     @Override
@@ -53,8 +52,13 @@ public class OrderProductDaoImpl implements OrderProductDao {
     }
 
     @Override
+    public OrderProduct findById(Long orderId, Long productId){
+        return jdbcTemplate.queryForObject(OrderProductSql.FIND_BY_ID, new Object[] {orderId, productId}, mapper);
+    }
+
+    @Override
     public List<OrderProduct> findAll() {
-        return null;
+        return jdbcTemplate.query(OrderProductSql.FIND_ALL, mapper);
     }
 
     @Override

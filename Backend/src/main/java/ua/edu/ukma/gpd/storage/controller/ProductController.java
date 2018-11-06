@@ -20,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public List<Product> getProducts() throws Exception{
+    public List<Product> getProducts(){
         List<Product> products;
         try {
             products = productService.findAll();
@@ -31,8 +31,8 @@ public class ProductController {
         return products;
     }
 
-    @GetMapping
-    public Product getProductById(Long id) throws Exception{
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable("id") Long id){
         Product product;
         try{
             product = productService.findById(id);

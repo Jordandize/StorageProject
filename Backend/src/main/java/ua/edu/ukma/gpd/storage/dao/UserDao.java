@@ -6,16 +6,16 @@ import ua.edu.ukma.gpd.storage.entity.User;
 
 public interface UserDao {
 
-	public Long create(User user);
+	Long create(User user);
 	
-	public boolean update(User user);
+	boolean update(User user);
 	
-	public boolean delete(User user);
+	boolean delete(User user);
 	
-	public User findById(Long id);
+	User findById(Long id);
 	
-	public User findByEmail(String email);
+	User findByEmail(String email);
 	
-	public List<User> findAll();
+	List<User> findAll();
 
 }

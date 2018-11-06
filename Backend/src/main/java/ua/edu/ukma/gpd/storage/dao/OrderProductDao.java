@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderProductDao {
 
-    Long create(OrderProduct orderProduct, Order order, Product product);
+    OrderProduct create(OrderProduct orderProduct, Order order, Product product);
 
     boolean update(OrderProduct orderProduct);
 
@@ -18,5 +18,7 @@ public interface OrderProductDao {
     List<OrderProduct> findAll();
 
     OrderProduct findProductAmount(Integer amount);
+
+    OrderProduct findById(Long orderId, Long productId);
 
 }
