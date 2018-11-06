@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderProductDao {
 
-    OrderProduct create(OrderProduct orderProduct, Order order, Product product);
+    OrderProduct create(OrderProduct orderProduct);
 
     boolean update(OrderProduct orderProduct);
 
