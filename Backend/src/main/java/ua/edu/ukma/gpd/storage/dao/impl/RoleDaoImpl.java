@@ -54,16 +54,4 @@ public class RoleDaoImpl implements RoleDao {
 		return jdbcTemplate.query(RoleSql.FIND_ALL, mapper);
 	}
 
-	@Override
-	public void createRolesTable() {
-		jdbcTemplate.execute(RoleSql.CREATE_TABLE);
-	}
-
-	@Override
-	public void dropRolesTable() {
-		jdbcTemplate.execute(RoleSql.DROP_TABLE);
-	}
-	
-	
-
 }

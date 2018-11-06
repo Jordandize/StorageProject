@@ -28,7 +28,7 @@ public class OrderDaoImpl implements OrderDao {
 
     private RowMapper<Order> mapper = (resultSet, i) -> {
         Order order = new Order();
-        order.setOrderId(resultSet.getLong("id"));
+        order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
         order.setOrderType(resultSet.getInt("id_order_type"));
         order.setOrderStatus(resultSet.getInt("id_order_status"));
@@ -47,8 +47,8 @@ public class OrderDaoImpl implements OrderDao {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
             ps.setLong(2, order.getParentId());
-            ps.setInt(3, orderType.getTypeId());
-            ps.setInt(4, orderStatus.getStatusId());
+            ps.setInt(3, orderType.getId());
+            ps.setInt(4, orderStatus.getId());
             ps.setString(5, order.getCreationDateTime());
             ps.setString(6, order.getModifiedDateTime());
             ps.setString(7, order.getAnnotation());
@@ -57,8 +57,8 @@ public class OrderDaoImpl implements OrderDao {
             ps.setLong(10, order.getAssignedTo());
             return ps;
         }, keyHolder);
-        order.setOrderId((Long) keyHolder.getKey());
-        return order.getOrderId();
+        order.setId((Long) keyHolder.getKey());
+        return order.getId();
     }
 
     @Override

@@ -2,17 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import swal from 'sweetalert2';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
+interface Alert2 {
+    message: string;
+  }
 
+  
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
 
+    
     constructor(
         private http: HttpClient,
         private formBuilder: FormBuilder,
@@ -34,12 +40,10 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
-
         this.loading = true;
         const head = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -53,9 +57,24 @@ export class RegisterComponent implements OnInit {
         };
         return this.http.post('http://localhost:8080/users', user, {headers: head}).subscribe(
          data => {
+              swal({
+                position: 'top-end',
+                type: 'success',
+                title: 'You successfully registered!',
+                showConfirmButton: false,
+                timer: 1500
+              })
                     this.router.navigate(['/login']);
                 },
                 error => {
+                    console.log(error);
+                  
+                    swal({
+                        type: 'error',
+                        title: 'Error!',
+                        text:error.error.errors ? JSON.stringify(error.error.errors) + (error.error.global ?  JSON.stringify(error.error.global): "" ) :""  
+                      })
+                   
                     this.loading = false;
                 }
                 );

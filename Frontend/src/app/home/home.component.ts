@@ -3,20 +3,36 @@ import { first } from 'rxjs/operators';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
+import {MatTabsModule} from '@angular/material/tabs';
+import "@angular/material/prebuilt-themes/indigo-pink.css";
 
-class User {
+
+export class User {
   id: number;
   username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+  url:string;
+  constructor(public id2:number, public username2:string, public url2:string) {
+    this.id = id2;
+    this.username=username2;
+    this.url = url2;
+ }
+}
+export class Current {
+  email: string;
+  constructor(public email2:string) {
+    this.email = email2;
+ }
 }
 
 @Component({templateUrl: 'home.component.html'})
 export class HomeComponent implements OnInit {
     currentUser: User;
-    users: User[] = [];
-
+     session = sessionStorage.getItem('email');
+    public  users: [User,User,User] = [ 
+      new User(1,'CreateOrder','/order'), 
+      new User(2,'List of Orders','/listOrders'), 
+      new User(3,'List of Products','/listProducts'),
+];
     // constructor(private userService: UserService) {
   //     //     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   //     // }
@@ -28,7 +44,10 @@ export class HomeComponent implements OnInit {
     private router: Router) {}
 
     ngOnInit() {
-
+      console.log(sessionStorage.getItem('email'));
+     // destroy(){
+  //      sessionStorage.removeItem('email');
+  //    }
       // return this.http.get('http://localhost:8080/users', user, {headers: head}).subscribe(
       //   data => {
       //     this.currentUser = data;

@@ -13,9 +13,5 @@ public interface RoleDao {
 	public Role findByName(String name);
 	
 	public List<Role> findAll();
-	
-	public void createRolesTable();
-	
-	public void dropRolesTable();
 
 }
