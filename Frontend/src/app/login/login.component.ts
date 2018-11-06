@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpBackend } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
 
       return this.http.post('http://localhost:8080/login', data, {headers: headers}).subscribe(
         data => {
+            
             swal({
                 position: 'top-end',
                 type: 'success',
@@ -68,9 +69,18 @@ export class LoginComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
+              sessionStorage.setItem('email',this.f.username.value );
+              console.log(this.f.username.value);
           this.router.navigate(['/home']);
         },
         error => {
+            if(error.status==401){
+            swal({
+                type: 'error',
+                title: 'Error!',
+                text:"Такого користувача не існує" 
+              })
+            }
           this.loading = false;
         }
       );

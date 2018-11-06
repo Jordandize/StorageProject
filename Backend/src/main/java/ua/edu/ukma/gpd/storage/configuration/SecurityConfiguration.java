@@ -69,6 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
         	.antMatchers("/login").anonymous();
+        
         	
     }
 
