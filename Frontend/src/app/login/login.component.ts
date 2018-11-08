@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
         
-      return axios.post('http://storage-pro.herokuapp.com/login', data, {headers: headers}).then((response) =>{
+      return axios.post('https://storage-pro.herokuapp.com/login', data, {headers: headers}).then((response) =>{
             
             swal({
                 position: 'top-end',
