@@ -4,10 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
-    "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../Backend/src/main/resources/static && mkdirp ../Backend/src/main/resources/static",
-    "deploy": "copyfiles -f dist/** ../Backend/src/main/resources/static",
+    "build": "ng build --prod --output-path ./dist/META-INF/resources",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
