@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        return this.http.post('http://storage-pro.herokuapp.com/users', user, {headers: head}).subscribe(
+        return this.http.post('https://storage-pro.herokuapp.com/users', user, {headers: head}).subscribe(
          data => {
               swal({
                 position: 'top-end',
