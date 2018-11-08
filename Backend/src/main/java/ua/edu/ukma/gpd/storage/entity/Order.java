@@ -1,5 +1,7 @@
 package ua.edu.ukma.gpd.storage.entity;
 
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
+
 public class Order {
 
     private Long id;
@@ -8,7 +10,7 @@ public class Order {
 
     private Integer orderType;
 
-    private Integer orderStatus;
+    private OrderStatus orderStatus;
 
     private String creationDateTime;
 
@@ -49,11 +51,11 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public Integer getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 

@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 
-import javax.print.attribute.standard.OrientationRequested;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -56,7 +56,7 @@ public class OrderController {
         LocalDateTime now = LocalDateTime.now();
         Order order = new Order();
         order.setParentId(null);
-        order.setOrderStatus(1);
+        order.setOrderStatus(OrderStatus.OPENED);
         order.setOrderType(form.getOrderType());
         order.setCreationDateTime(dtf.format(now));
         order.setModifiedDateTime(null);
