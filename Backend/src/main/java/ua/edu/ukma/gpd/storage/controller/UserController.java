@@ -26,6 +26,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private EmailService emailService;
 	
