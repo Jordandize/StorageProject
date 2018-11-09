@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderProductDto;
-import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
-import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.service.OrderProductService;
 
 import javax.validation.Valid;

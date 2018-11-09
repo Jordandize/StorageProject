@@ -11,7 +11,7 @@ import ua.edu.ukma.gpd.storage.service.EmailService;
 public class EmailServiceImpl implements EmailService {
 
 	@Autowired
-	public JavaMailSender emailSender;
+	private JavaMailSender emailSender;
 	
 	@Autowired
 	private SimpleMailMessage greeting;
