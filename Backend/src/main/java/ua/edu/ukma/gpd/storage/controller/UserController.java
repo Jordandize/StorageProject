@@ -3,7 +3,6 @@ package ua.edu.ukma.gpd.storage.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private EmailService emailService;
 	
@@ -61,6 +59,7 @@ public class UserController {
 		try {
 			User user = buildUserFromDto(form);
 			id = userService.add(user);
+			emailService.sendGreeting(user.getEmail());
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
