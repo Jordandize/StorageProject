@@ -20,15 +20,15 @@ public class ProductDaoImpl implements ProductDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductDaoImpl (DataSource dataSource) { jdbcTemplate = new JdbcTemplate(dataSource);}
+    public ProductDaoImpl(DataSource dataSource)
+    	{ jdbcTemplate = new JdbcTemplate(dataSource); }
 
-    private RowMapper<Product> mapper = (resultSet, i) -> {
+    private RowMapper<Product> mapper = (rs, i) -> {
         Product product = new Product();
-        product.setCategoryId(resultSet.getLong("categoryId"));
-        product.setName(resultSet.getString("name"));
-        product.setAmount(resultSet.getInt("amount"));
-        product.setAnnotation(resultSet.getString("description"));
-        product.setActive(resultSet.getBoolean("isActive"));
+        product.setIdCategory(rs.getLong   ("id_category"));
+        product.setName      (rs.getString ("name"));
+        product.setAmount    (rs.getInt    ("amount"));
+        product.setActive    (rs.getBoolean("active"));
         return product;
     };
 
@@ -36,44 +36,45 @@ public class ProductDaoImpl implements ProductDao {
     public Long create(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT, new String[]{"productId"});
-            ps.setLong(1, product.getCategoryId());
-            ps.setString(2, product.getName());
-            ps.setInt(3, product.getAmount());
-            ps.setString(4, product.getAnnotation());
-            ps.setBoolean(5, product.getActive());
+            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT,
+            		new String[] { "id" });
+            ps.setString (1, product.getName());
+            ps.setInt    (2, product.getAmount());
+            ps.setLong   (3, product.getIdCategory());
+            ps.setBoolean(4, product.isActive());
             return ps;
         }, keyHolder);
-        product.setProdId((Long) keyHolder.getKey());
-        return product.getCategoryId();
+        product.setId((Long) keyHolder.getKey());
+        return product.getId();
     }
 
     @Override
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
-                product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getAnnotation(), product.getActive()) > 0;
+                product.getName(), product.getAmount(), product.getIdCategory(), 
+                product.isActive(), product.getId()) > 0;
     }
 
     @Override
     public boolean delete(Product product) {
-        return jdbcTemplate.update(ProductSql.DELETE,
-                product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getAnnotation(), product.getActive()) > 0;
+        return jdbcTemplate.update(ProductSql.DELETE, product.getId()) > 0;
     }
 
     @Override
     public Product findById(Long id) {
-        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_ID, new Object[] { id }, mapper);
+        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_ID, 
+        		new Object[] { id }, mapper);
     }
 
     @Override
     public Product findByName(String name) {
-        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_NAME, new Object[] { name }, mapper);
+        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_NAME, 
+        		new Object[] { name }, mapper);
     }
 
     @Override
     public List<Product> findAll() {
         return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
     }
+    
 }
