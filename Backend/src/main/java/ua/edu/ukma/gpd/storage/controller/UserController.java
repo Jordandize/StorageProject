@@ -29,27 +29,13 @@ public class UserController {
 	private EmailService emailService;
 	
 	@GetMapping
-	public List<User> getUsers() {
-		List<User> users;
-		try {
-			users = userService.getAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-			users = null;
-		}
-		return users;
+	public List<User> getUsers() throws Exception {
+		return userService.getAll();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUserById(@PathVariable("id") Long id) {
-		User user;
-		try {
-			user = userService.getById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			user = null;
-		}
-		return user;
+	public User getUserById(@PathVariable("id") Long id) throws Exception {
+		return userService.getById(id);
 	}
 	
 	@PostMapping

@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.CategoryDao;
 import ua.edu.ukma.gpd.storage.entity.Category;
+import ua.edu.ukma.gpd.storage.exception.NotUniqueValueException;
 import ua.edu.ukma.gpd.storage.service.CategoryService;
 
 import java.util.List;
@@ -16,51 +17,45 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDao categoryDao;
 
     @Override
-    public Integer add(Category category) throws Exception {
+    public Long add(Category category) throws Exception {
         try {
-            boolean exists = categoryDao.findByName(category.getName()) != null;
-            if (!exists) {
-                Integer id = categoryDao.create(category);
-                return id;
+            Category exists = getByName(category.getName());
+            if (exists == null) {
+                return categoryDao.create(category);
             } else {
-                throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category.getName() + "] failed.");
+            	throw new NotUniqueValueException("Category", "name", category.getName());
             }
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category + "] failed.");
         }
     }
 
     @Override
-    public Category getCategoryByName(String name) throws Exception {
-        Category category;
-        try{
-            category = categoryDao.findByName(name);
+    public Category getByName(String name) throws Exception {
+        try {
+            return categoryDao.findByName(name);
         } catch (EmptyResultDataAccessException e){
-            category = null;
+            return null;
         } catch (Exception e){
             throw new Exception("Exeption occured in CategoryServiceImpl: operation getCategoryByName [" + name + "] failed.", e);
         }
-        return category;
     }
 
     @Override
-    public Category getCategoryById(Long id) throws Exception {
-        Category category = null;
-        try{
-            category = categoryDao.findById(id);
-        } catch (EmptyResultDataAccessException e){
-            e.printStackTrace();
-            category = null;
+    public Category getById(Long id) throws Exception {
+        try {
+            return categoryDao.findById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e){
             throw new Exception("Exeption occured in CategoryServiceImpl: operation getCategoryById [" + id + "] failed.", e);
         }
-        return category;
     }
 
     @Override
-    public List<Category> findAll() throws Exception{
-        try{
-            return categoryDao.findAll();
+    public List<Category> getAll() throws Exception{
+        try {
+        	return categoryDao.findAll();
         } catch (Exception e){
             throw new Exception("CategoryServiceImpl: Get all categories operation failed", e);
         }

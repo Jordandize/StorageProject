@@ -2,75 +2,71 @@ package ua.edu.ukma.gpd.storage.entity;
 
 public class Product {
 
-    private Long prodId;
+    private Long id;
 
-    private Long categoryId;
+    private Long idCategory;
 
     private String name;
 
     private Integer amount;
 
-    private String annotation;
+    private boolean active;
 
-    private Boolean isActive;
+	public Long getId() {
+		return id;
+	}
 
-    public Long getProdId() {
-        return prodId;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setProdId(Long prodId) {
-        this.prodId = prodId;
-    }
+	public Long getIdCategory() {
+		return idCategory;
+	}
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
+	public void setIdCategory(Long idCategory) {
+		this.idCategory = idCategory;
+	}
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Integer getAmount() {
+		return amount;
+	}
 
-    public Integer getAmount() {
-        return amount;
-    }
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
+	public boolean isActive() {
+		return active;
+	}
 
-    public String getAnnotation() {
-        return annotation;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
-    public void setAnnotation(String description) {
-        this.annotation = description;
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Product [id=");
+		builder.append(id);
+		builder.append(", idCategory=");
+		builder.append(idCategory);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", active=");
+		builder.append(active);
+		builder.append("]");
+		return builder.toString();
+	}
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDao{" +
-                "prodId=" + prodId +
-                ", categoryId=" + categoryId +
-                ", name='" + name + '\'' +
-                ", amount=" + amount +
-                ", annotation='" + annotation + '\'' +
-                ", isActive=" + isActive +
-                '}';
-    }
 }
