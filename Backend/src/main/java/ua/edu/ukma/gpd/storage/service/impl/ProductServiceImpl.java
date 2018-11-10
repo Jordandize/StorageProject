@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.ProductDao;
+import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.exception.NotUniqueValueException;
 import ua.edu.ukma.gpd.storage.service.ProductService;
@@ -56,6 +57,15 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAll() throws Exception{
         try {
             return productDao.findAll();
+        } catch (Exception e){
+            throw new Exception("ProductServiceImpl: Get all products operation failed", e);
+        }
+    }
+    
+    @Override
+    public List<Product> getByCategory(Category category) throws Exception {
+        try {
+            return productDao.findByCategory(category);
         } catch (Exception e){
             throw new Exception("ProductServiceImpl: Get all products operation failed", e);
         }

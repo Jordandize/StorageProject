@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.ProductDao;
+import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.sql.ProductSql;
 
@@ -76,5 +77,11 @@ public class ProductDaoImpl implements ProductDao {
     public List<Product> findAll() {
         return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
     }
+
+	@Override
+	public List<Product> findByCategory(Category category) {
+		return jdbcTemplate.query(ProductSql.FIND_BY_CATEGORY,
+				new Object[] { category.getId() }, mapper);
+	}
     
 }
