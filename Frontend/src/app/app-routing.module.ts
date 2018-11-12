@@ -4,7 +4,7 @@ import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
-import { CabinetComponent } from './cabinet';
+import { UserComponent } from './userPage';
 
 const routes: Routes = [
   {
@@ -12,26 +12,26 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
+ {
     path: 'register',
-    component: RegisterComponent
+   component: RegisterComponent
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'order',
     component: OrderComponent
   },
   {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
     path: 'user',
-    component: CabinetComponent
+    component: UserComponent
   }
+  //{
+  //  path: 'user',
+  //  component: CabinetComponent
+ // }
 
 ];
 
