@@ -35,7 +35,7 @@ public class ProductController {
     public Product getProductById(@PathVariable("id") Long id){
         Product product;
         try{
-            product = productService.findById(id);
+            product = productService.getById(id);
         } catch (Exception e){
             e.printStackTrace();
             product = null;
@@ -63,7 +63,7 @@ public class ProductController {
         Product product = new Product();
         product.setName(form.getName());
         product.setAmount(form.getAmount());
-        product.setAnnotation(form.getAnnotation());
+        product.setDescription(form.getDescription());
         product.setActive(form.getActive());
         return product;
     }

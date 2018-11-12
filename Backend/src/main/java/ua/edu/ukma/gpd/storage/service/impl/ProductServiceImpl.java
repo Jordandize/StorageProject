@@ -16,32 +16,32 @@ public class ProductServiceImpl implements ProductService {
     public ProductDao productDao;
 
     @Override
-    public Long add(Product product) throws Exception {
+    public Long add(Product product) throws Exception{
+        Long id = null;
         try{
-            boolean exists = productDao.findByName(product.getName()) != null;
-            if (!exists){
-                Long id = productDao.create(product);
-                return id;
-            } else {
-              throw new Exception("Exeption occured in ProductServiceImpl: operation add [" + product.getName() + "] failed.");
+            Product exists = getById(product.getProdId());
+            if (exists == null){
+                System.out.println("creating");
+                id = productDao.create(product);
             }
+        } catch (EmptyResultDataAccessException e){
+            return null;
         } catch (Exception e){
-            throw new Exception(e);
+            System.out.println("here!");
+            throw new Exception("Exeption occured in ProductServiceImpl: operation add [" + product.getName() + "] failed.");
         }
+        return id;
     }
 
     @Override
-    public Product findById(Long id) throws Exception {
-        Product product;
+    public Product getById(Long id) throws Exception {
         try {
-            product = productDao.findById(id);
+            return productDao.findById(id);
         } catch (EmptyResultDataAccessException e){
-            e.printStackTrace();
             return null;
         } catch (Exception e){
-            throw new Exception("Exeption occured in ProductServiceImpl: operation getProductById [" + id + "] failed.", e);
+            throw new Exception("Exeption occured in ProductServiceImpl: operation getProductById [" + id + "] failed.");
         }
-        return product;
     }
 
     @Override
