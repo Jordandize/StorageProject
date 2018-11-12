@@ -1,63 +1,29 @@
-﻿<!--<h1>Hello {{currentUser.firstName}}!</h1>-->
-
- <!--nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" ng-value="session" >
-        <a class="navbar-brand" style="color:white;">Log in as: {{ session }} </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-       
-       <div class="collapse navbar-collapse "  id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto"  >
-        <li class="nav-item "  style="float: right;">
-        <a class="nav-link btn active logout"  routerLink='/login' style="cursor: pointer; ">Logout</a>
-        </li>
-        </ul>
-      </div>
-    </nav>-->
-        <!-- (click)="destroy()"-->
+﻿
         
-        <div class="full alternative">
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <mat-card   class="example-card" [style.backgroundColor]="'#673AB7'">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image" ></div>
-                      <mat-card-title><button mat-stroked-button class="head1" style="color:white" >{{ session }}</button></mat-card-title>
-                    </mat-card-header>
-                  </mat-card>
-            <span ><button mat-stroked-button class="head1" routerLink='/login' style="cursor: pointer;" (click)="myFunc()">Logout</button></span>
-            </mat-toolbar-row>
-        </mat-toolbar>
-               
-              <mat-sidenav-container class="example-container">
-                <mat-sidenav #drawer mode="side" opened role="navigation" >
-                  <mat-nav-list class="change">
-                    <a mat-list-item *ngFor="let user of users" routerLink='{{ user.url }}' >{{ user.username }}</a>
-                  </mat-nav-list>
-                </mat-sidenav>
 
-                <mat-form-field style="width:30%; margin-left:3%; margin-top:2%;">
+
+                <mat-form-field style="width:30%;  margin-left:180px; margin-right:100px;">
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                   </mat-form-field>
                   
-                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:90%; margin-left:3%; ">
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:80%; margin-left:180px; margin-right:100px; ">
                   
                     
-                    <ng-container matColumnDef="orderId">
+                    <ng-container matColumnDef="id">
                       <th mat-header-cell *matHeaderCellDef> Order </th>
-                      <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     </ng-container>
                   
                     
-                    <ng-container matColumnDef="status">
-                      <th mat-header-cell *matHeaderCellDef> Status </th>
-                      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                    <ng-container matColumnDef="creationDateTime">
+                      <th mat-header-cell *matHeaderCellDef> Created </th>
+                      <td mat-cell *matCellDef="let element"> {{element.creationDateTime}} </td>
                     </ng-container>
                   
                    
-                    <ng-container matColumnDef="comment">
+                    <ng-container matColumnDef="annotation">
                       <th mat-header-cell *matHeaderCellDef> Comment </th>
-                      <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.annotation}} </td>
                     </ng-container>
                   
                     
@@ -65,18 +31,8 @@
                   
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 12]" showFirstLastButtons></mat-paginator>
                   </table>
-              </mat-sidenav-container>
-             
-              </div>
-<!--<div style="width:30%;">
-        <ul>
-                <li *ngFor="let user of users">{{ user.id }} {{ user.username }}</li>
-        </ul>
-</div>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>-->
+                  
+            
+

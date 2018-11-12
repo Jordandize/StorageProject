@@ -6,6 +6,7 @@ import { HttpClient, HttpParams, HttpBackend } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 import  axios from 'axios';
+import { baseUrl } from '../../varUrl';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    baseUrl = baseUrl;
 
     constructor(
         private http: HttpClient,
@@ -61,7 +63,7 @@ export class LoginComponent implements OnInit {
         //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
         
-      return axios.post('https://storage-pro.herokuapp.com/login', data, {headers: headers}).then((response) =>{
+      return axios.post(this.baseUrl+"/login", data, {headers: headers}).then((response) =>{
             
             swal({
                 position: 'top-end',
@@ -70,11 +72,14 @@ export class LoginComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
+            
+              console.log(  response.data.user.id);
               console.log(response.headers['x-auth-token']);
               sessionStorage.setItem('id',response.headers['x-auth-token']);
+              sessionStorage.setItem('userId',response.data.user.id);
               sessionStorage.setItem('email',this.f.username.value);
               console.log(this.f.username.value);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/user']);
         })
         .catch((error) => {
             if(error.status==401){
