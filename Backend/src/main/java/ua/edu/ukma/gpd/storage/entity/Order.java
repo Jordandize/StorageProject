@@ -2,6 +2,8 @@ package ua.edu.ukma.gpd.storage.entity;
 
 import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 
+import java.sql.Timestamp;
+
 public class Order {
 
     private Long id;
@@ -10,11 +12,11 @@ public class Order {
 
     private Integer orderType;
 
-    private OrderStatus orderStatus;
+    private Integer orderStatus;
 
-    private String creationDateTime;
+    private Timestamp creationDateTime;
 
-    private String modifiedDateTime;
+    private Timestamp modifiedDateTime;
 
     private String annotation;
 
@@ -51,27 +53,27 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public OrderStatus getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public String getCreationDateTime() {
+    public Timestamp getCreationDateTime() {
         return creationDateTime;
     }
 
-    public void setCreationDateTime(String creationDateTime) {
+    public void setCreationDateTime(Timestamp creationDateTime) {
         this.creationDateTime = creationDateTime;
     }
 
-    public String getModifiedDateTime() {
+    public Timestamp getModifiedDateTime() {
         return modifiedDateTime;
     }
 
-    public void setModifiedDateTime(String modifiedDateTime) {
+    public void setModifiedDateTime(Timestamp modifiedDateTime) {
         this.modifiedDateTime = modifiedDateTime;
     }
 

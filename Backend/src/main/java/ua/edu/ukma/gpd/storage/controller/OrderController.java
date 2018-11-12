@@ -1,5 +1,6 @@
 package ua.edu.ukma.gpd.storage.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,6 +24,18 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
+    public List<Order> getAll(){
+        List<Order> orders = null;
+        try{
+            orders = orderService.findAll();
+        } catch (Exception  e){
+            e.printStackTrace();
+            orders = null;
+        }
+        return orders;
+    }
+
+    @GetMapping("/{id_user}")
     public List<Order> findOrdersForUser(@RequestParam(required = true) Long userId){
         List<Order> orders = null;
         try {
@@ -52,17 +66,18 @@ public class OrderController {
     // FOR EDITING ANOTHER CONTROLLER
 
     private Order buildOrder(OrderDto form){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Order order = new Order();
-        order.setParentId(null);
-        order.setOrderStatus(OrderStatus.OPENED);
+        order.setParentId((long)2);
+        order.setOrderStatus(1);
         order.setOrderType(form.getOrderType());
-        order.setCreationDateTime(dtf.format(now));
-        order.setModifiedDateTime(null);
+        order.setCreationDateTime(timestamp);
+        order.setModifiedDateTime(timestamp);
+        order.setAnnotation(form.getAnnotation());
         order.setArchived(false);
         order.setCreatedBy(form.getCreatedBy());
-        order.setAssignedTo(null);
+        order.setAssignedTo((long)1);
+        System.out.println(order);
         return order;
     }
 }

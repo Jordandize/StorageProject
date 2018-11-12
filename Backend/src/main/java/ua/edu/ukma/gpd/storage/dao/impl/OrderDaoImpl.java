@@ -30,14 +30,14 @@ public class OrderDaoImpl implements OrderDao {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
-        order.setOrderType(resultSet.getInt("id_order_type"));
         order.setOrderStatus(resultSet.getInt("id_order_status"));
-        order.setCreationDateTime(resultSet.getString("created"));
-        order.setModifiedDateTime(resultSet.getString("changed"));
+        order.setOrderType(resultSet.getInt("id_order_type"));
+        order.setCreationDateTime(resultSet.getTimestamp("created"));
+        order.setModifiedDateTime(resultSet.getTimestamp("changed"));
         order.setAnnotation(resultSet.getString("annotation"));
-        order.setArchived(resultSet.getBoolean("isArchived"));
-        order.setCreatedBy(resultSet.getLong("createdBy"));
-        order.setAssignedTo(resultSet.getLong("assignedTo"));
+        order.setArchived(resultSet.getBoolean("archived"));
+        order.setCreatedBy(resultSet.getLong("id_user"));
+        order.setAssignedTo(resultSet.getLong("id_keeper"));
         return order;
     };
 
@@ -45,16 +45,18 @@ public class OrderDaoImpl implements OrderDao {
     public Long create(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
+            System.out.println("here");
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
-            ps.setLong(2, order.getParentId());
-            ps.setInt(3, order.getOrderType());
-            ps.setInt(4, order.getOrderStatus());
-            ps.setString(5, order.getCreationDateTime());
-            ps.setString(6, order.getModifiedDateTime());
-            ps.setString(7, order.getAnnotation());
-            ps.setBoolean(8, order.getArchived());
-            ps.setLong(9, order.getCreatedBy());
-            ps.setLong(10, order.getAssignedTo());
+            ps.setLong(1, order.getParentId());
+            ps.setInt(2, order.getOrderType());
+            ps.setInt(3, order.getOrderStatus());
+            ps.setTimestamp(4, order.getCreationDateTime());
+            ps.setTimestamp(5, order.getModifiedDateTime());
+            ps.setString(6, order.getAnnotation());
+            ps.setBoolean(7, order.getArchived());
+            ps.setLong(8, order.getCreatedBy());
+            ps.setLong(9, order.getAssignedTo());
+            System.out.println(ps);
             return ps;
         }, keyHolder);
         order.setId((Long) keyHolder.getKey());
@@ -63,7 +65,8 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order findById(Long id) {
-        return jdbcTemplate.queryForObject(OrderSql.FIND_BY_ID, new String[] {"id"}, mapper);
+        return jdbcTemplate.queryForObject(OrderSql.FIND_BY_ID,
+                new Object[] { id }, mapper);
     }
 
     @Override
