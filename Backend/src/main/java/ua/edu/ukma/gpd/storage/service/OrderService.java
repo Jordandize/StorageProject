@@ -8,6 +8,10 @@ public interface OrderService {
 
     Long add(Order order);
 
+    Order findById(Long id) throws Exception;
+
+    List<Order> findAll() throws Exception;
+
     List<Order> findOrdersForUser(Long userId) throws Exception;
 
 }
