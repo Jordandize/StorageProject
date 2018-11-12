@@ -1,5 +1,8 @@
 package ua.edu.ukma.gpd.storage.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"password", "active"})
 public class User {
 	
 	private Long id;

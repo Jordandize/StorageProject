@@ -35,13 +35,13 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     		Authentication authentication) throws ServletException, IOException {
     	ObjectMapper mapper = new ObjectMapper();
     	ObjectNode responseUser = mapper.createObjectNode();
-    	responseUser.put("email", authentication.getName());
+    	UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    	responseUser.putPOJO("user", mapper.writeValueAsString(userPrincipal.getUser()));
     	ArrayNode roles = mapper.createArrayNode();
     	for(GrantedAuthority auth: authentication.getAuthorities())
     		roles.add(auth.toString());
     	responseUser.putPOJO("roles", roles);
     	response.getWriter().write(responseUser.toString());
-    	UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
     	response.setHeader(SecurityConfiguration.HEADER_SECURITY_TOKEN,
     			cryptService.encrypt(
     					mapper.writeValueAsString(new Token(userPrincipal.getUsername(), userPrincipal.getRawPassword()))));
