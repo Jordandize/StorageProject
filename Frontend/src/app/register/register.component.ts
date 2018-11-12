@@ -11,14 +11,14 @@ interface Alert2 {
     message: string;
   }
 
-  
+
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
 
-    
+
     constructor(
         private http: HttpClient,
         private formBuilder: FormBuilder,
@@ -63,18 +63,19 @@ export class RegisterComponent implements OnInit {
                 title: 'You successfully registered!',
                 showConfirmButton: false,
                 timer: 1500
-              })
+              });
                     this.router.navigate(['/login']);
                 },
                 error => {
                     console.log(error);
-                  
+
                     swal({
                         type: 'error',
                         title: 'Error!',
-                        text:error.error.errors ? JSON.stringify(error.error.errors) + (error.error.global ?  JSON.stringify(error.error.global): "" ) :""  
-                      })
-                   
+                        // tslint:disable-next-line:max-line-length
+                        text: error.error.errors ? JSON.stringify(error.error.errors) + (error.error.global ?  JSON.stringify(error.error.global) : '' ) : ''
+                      });
+
                     this.loading = false;
                 }
                 );

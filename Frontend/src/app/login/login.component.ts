@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpBackend } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
-import  axios from 'axios';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -54,40 +52,41 @@ export class LoginComponent implements OnInit {
 
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-        const data = {
+        const loginForm = {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-        //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
-        
-      return axios.post('https://storage-pro.herokuapp.com/login', data, {headers: headers}).then((response) =>{
-            
+        console.log(33);
+      return this.http.post('https://storage-pro.herokuapp.com/login', loginForm, {headers: headers, observe: 'response'})
+        .subscribe(
+            (data) => {
+            console.log(44);
             swal({
                 position: 'top-end',
                 type: 'success',
                 title: 'You successfully sign in!',
                 showConfirmButton: false,
                 timer: 1500
-              })
-              console.log(response.headers['x-auth-token']);
-              sessionStorage.setItem('id',response.headers['x-auth-token']);
-              sessionStorage.setItem('email',this.f.username.value);
-              console.log(this.f.username.value);
-          this.router.navigate(['/home']);
-        })
-        .catch((error) => {
-            if(error.status==401){
-            swal({
-                type: 'error',
-                title: 'Error!',
-                text:"Такого користувача не існує" 
-              })
+            });
+            console.log(55);
+            console.log(data);
+            sessionStorage.setItem('id', data.headers['x-auth-token']);
+            sessionStorage.setItem('email', this.f.username.value);
+            console.log(this.f.username.value);
+            this.router.navigate(['/home']);
+        },
+        error => {
+            if (error.status === 401) {
+                swal({
+                    type: 'error',
+                    title: 'Error!',
+                    text: 'Такого користувача не існує'
+                });
+            } else {
+            console.log(error);
             }
-          this.loading = false;
-        }
-      );
-
-
+            this.loading = false;
+        });
     }
 }

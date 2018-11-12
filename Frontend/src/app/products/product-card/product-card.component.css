@@ -1,0 +1,25 @@
+.card-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #fefefe
+}
+
+.pr-card {
+    /*background-color: lightsalmon;*/
+    border-radius: 2px;
+    /*height: 164px;*/
+}
+
+mat-card-title {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+mat-card > mat-card-subtitle {
+    margin-bottom: 6px;
+}
+
+mat-card-content p {
+    text-align: center;
+}

@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule }    from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,8 +12,12 @@ import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
 import { CabinetComponent } from './cabinet/cabinet.component';
-import { MatTabsModule } from '@angular/material';
-import {CustomMaterialModule} from "./material.module";
+import { CustomMaterialModule } from './material.module';
+import { ProductsComponent } from './products/products.component';
+import { DashTestComponent } from './dash-test/dash-test.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProductCardComponent } from './products/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +26,10 @@ import {CustomMaterialModule} from "./material.module";
     LoginComponent,
     OrderComponent,
     HomeComponent,
-    CabinetComponent
-
+    CabinetComponent,
+    ProductsComponent,
+    DashTestComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,14 @@ import {CustomMaterialModule} from "./material.module";
     HttpClientModule,
     MatTabsModule,
     CustomMaterialModule,
-    routing
+    routing,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
