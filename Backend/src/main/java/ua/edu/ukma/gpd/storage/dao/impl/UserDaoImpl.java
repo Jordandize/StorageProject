@@ -36,13 +36,13 @@ public class UserDaoImpl implements UserDao {
 	
 	private RowMapper<User> mapper = (rs, i) -> {
 		User user = new User();
-		user.setId(rs.getLong("id"));
-		user.setEmail(rs.getString("email"));
-		user.setPassword(rs.getString("password"));
-		user.setName(rs.getString("name"));
-		user.setSurname(rs.getString("surname"));
-		user.setPhone(rs.getString("phone"));
-		user.setActive(rs.getBoolean("active"));
+		user.setId      (rs.getLong   ("id"));
+		user.setEmail   (rs.getString ("email"));
+		user.setPassword(rs.getString ("password"));
+		user.setName    (rs.getString ("name"));
+		user.setSurname (rs.getString ("surname"));
+		user.setPhone   (rs.getString ("phone"));
+		user.setActive  (rs.getBoolean("active"));
 		return user;
 	};
 
@@ -52,11 +52,11 @@ public class UserDaoImpl implements UserDao {
 		jdbcTemplate.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(UserSql.INSERT,
 					new String[] { "id" });
-			ps.setString(1, user.getEmail());
-			ps.setString(2, encoder().encode(user.getPassword()));
-			ps.setString(3, user.getName());
-			ps.setString(4, user.getSurname());
-			ps.setString(5, user.getPhone());
+			ps.setString (1, user.getEmail());
+			ps.setString (2, encoder().encode(user.getPassword()));
+			ps.setString (3, user.getName());
+			ps.setString (4, user.getSurname());
+			ps.setString (5, user.getPhone());
 			ps.setBoolean(6, user.isActive());
 			return ps;
 		}, keyHolder);
@@ -67,8 +67,8 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean update(User user) {
 		return jdbcTemplate.update(UserSql.UPDATE,
-				user.getEmail(), user.getPassword(), user.getName(),
-				user.getSurname(), user.getPhone(), user.isActive()) > 0;
+				user.getEmail(), user.getPassword(), user.getName(), user.getSurname(), 
+				user.getPhone(), user.isActive(), user.getId()) > 0;
 	}
 
 	@Override

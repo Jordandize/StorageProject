@@ -4,6 +4,8 @@
 /dist
 /tmp
 /out-tsc
+/node
+/target
 
 # dependencies
 /node_modules
@@ -33,6 +35,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+yarn.lock
 
 # System Files
 .DS_Store

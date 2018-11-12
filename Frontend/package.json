@@ -4,10 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
-    "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../Backend/src/main/resources/static && mkdirp ../Backend/src/main/resources/static",
-    "deploy": "copyfiles -f dist/** ../Backend/src/main/resources/static",
+    "build": "ng build --prod --output-path ./dist/META-INF/resources",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -25,6 +22,7 @@
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
+    "axios": "^0.18.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "sweetalert2": "^7.28.11",

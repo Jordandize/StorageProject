@@ -6,11 +6,12 @@ import java.util.List;
 
 public interface CategoryService {
 
-    Category getCategoryByName(String name) throws Exception;
+    Long add(Category category) throws Exception;
 
-    Category getCategoryById(Long id) throws Exception;
+    Category getById(Long id) throws Exception;
 
-    Integer add(Category category) throws Exception;
+    Category getByName(String name) throws Exception;
 
-    List<Category> findAll() throws Exception;
+    List<Category> getAll() throws Exception;
+    
 }

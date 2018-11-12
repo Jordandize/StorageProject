@@ -19,46 +19,32 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public List<Category> getCategories() {
-        List<Category> categories;
-        try{
-            categories = categoryService.findAll();
-        } catch (Exception e){
-            e.printStackTrace();
-            categories = null;
-        }
-        return categories;
+    public List<Category> getCategories() throws Exception {
+        return categoryService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable("id") Long id){
-        Category category;
-        try{
-            category = categoryService.getCategoryById(id);
-        } catch (Exception e){
-            e.printStackTrace();
-            category = null;
-        }
-        return category;
+    public Category getCategoryById(@PathVariable("id") Long id) throws Exception{
+        return categoryService.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Integer> addCategory(@Valid @RequestBody CategoryDto form) throws Exception{
+    public ResponseEntity<Long> addCategory(@Valid @RequestBody CategoryDto form) throws Exception{
         HttpStatus status;
-        Integer id;
+        Long id;
         try {
-            Category category = buildUserFromDto(form);
+            Category category = buildCategoryFromDto(form);
             id = categoryService.add(category);
             status = HttpStatus.OK;
         } catch (Exception e){
             e.printStackTrace();
-            id =- 1;
+            id = (long) -1;
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(id, status);
     }
 
-    private Category buildUserFromDto(CategoryDto form){
+    private Category buildCategoryFromDto(CategoryDto form){
         Category category = new Category();
         category.setName(form.getName());
         return category;

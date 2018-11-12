@@ -2,12 +2,9 @@ package ua.edu.ukma.gpd.storage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.OrderProductDao;
-import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
-import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.service.OrderProductService;
 
 import java.util.List;
