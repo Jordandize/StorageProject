@@ -6,7 +6,7 @@ import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({templateUrl: 'order.component.html'})
 export class OrderComponent implements OnInit {
-  loginForm: FormGroup;
+  orderForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -41,7 +41,13 @@ export class OrderComponent implements OnInit {
       //
     });
     const head = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get('http://localhost:4200/order', {headers: head}).subscribe(
+    let categories$ =  this.http.get('http://localhost:4200/order', {headers: head}).subscribe(
+      data => {},
+      error => {
+        this.loading = false;
+      }
+    );
+    let products$ =  this.http.get('http://localhost:4200/order', {headers: head}).subscribe(
       data => {},
       error => {
         this.loading = false;
@@ -54,6 +60,27 @@ export class OrderComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.orderForm.controls; }
+
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData:FormData = new FormData();
+      formData.append('uploadFile', file, file.name);
+      let headers = new Headers();
+      /** In Angular 5, including the header Content-Type can invalidate your request */
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      let options = new RequestOptions({ headers: headers });
+      this.http.post(`${this.apiEndPoint}`, formData, options)
+        .map(res => res.json())
+        .catch(error => Observable.throw(error))
+        .subscribe(
+          data => console.log('success'),
+          error => console.log(error)
+        )
+    }
+  }
 
   onSubmit() {
     this.submitted = true;
