@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Long add(Order order);
+    Long add(Order order) throws Exception;
 
     Order findById(Long id) throws Exception;
 

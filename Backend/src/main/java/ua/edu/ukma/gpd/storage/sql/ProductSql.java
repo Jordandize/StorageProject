@@ -2,13 +2,13 @@ package ua.edu.ukma.gpd.storage.sql;
 
 public class ProductSql {
 
-    public static final String INSERT = 
-    		"INSERT INTO products (name, amount, id_category, active) "
-    		+ "VALUES (?, ?, ?, ?)";
+    public static final String INSERT =
+            "INSERT INTO products (name, amount, id_category, description, active)"
+            + " VALUES (?, ?, ?, ?, ?)";
 
     public static final String UPDATE =
-            "UPDATE products "
-            + "SET name = ?, amount = ?, id_category = ?, active = ? "
+            "UPDATE products"
+            + " SET id_category = ?, name = ?, amount = ?, description = ?, active "
             + "WHERE id = ?";
 
     public static final String DELETE =

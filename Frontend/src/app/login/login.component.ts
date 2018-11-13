@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
+import { baseUrl } from '../../varUrl';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    baseUrl = baseUrl;
 
     constructor(
         private http: HttpClient,
@@ -56,12 +58,10 @@ export class LoginComponent implements OnInit {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-
-        console.log(33);
-      return this.http.post('https://storage-pro.herokuapp.com/login', loginForm, {headers: headers, observe: 'response'})
+        
+      return this.http.post(this.baseUrl+'/login', loginForm, {headers: headers, observe: 'response'})
         .subscribe(
             (data) => {
-            console.log(44);
             swal({
                 position: 'top-end',
                 type: 'success',
@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
             console.log(55);
             console.log(data);
             sessionStorage.setItem('id', data.headers['x-auth-token']);
+            sessionStorage.setItem('userId',response.data.user.id);
             sessionStorage.setItem('email', this.f.username.value);
             console.log(this.f.username.value);
             this.router.navigate(['/home']);
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit {
                 swal({
                     type: 'error',
                     title: 'Error!',
-                    text: 'Такого користувача не існує'
+                    text: 'Invalid email or password doesn\'t match'
                 });
             } else {
             console.log(error);

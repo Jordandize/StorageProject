@@ -38,8 +38,16 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id) throws Exception{
-        return productService.getById(id);
+    public Product getProductById(@PathVariable("id") Long id){
+        Product product;
+        try{
+            product = productService.getById(id);
+        } catch (Exception e){
+            e.printStackTrace();
+            product = null;
+        }
+        return product;
+
     }
 
     /*@PostMapping
@@ -55,6 +63,7 @@ public class ProductController {
             id = (long) -1;
             status = HttpStatus.BAD_REQUEST;
         }
+        System.out.println(id);
         return new ResponseEntity<>(id, status);
     }
 
@@ -62,7 +71,8 @@ public class ProductController {
         Product product = new Product();
         product.setName(form.getName());
         product.setAmount(form.getAmount());
-        product.setAnnotation(form.getAnnotation());
+        product.setCategoryId(form.getCategoryId());
+        product.setDescription(form.getDescription());
         product.setActive(form.getActive());
         return product;
     }*/

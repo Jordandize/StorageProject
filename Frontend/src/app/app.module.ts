@@ -11,6 +11,9 @@ import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
+import { HeaderComponent } from './header';
+import { SidebarComponent } from './sidebar';
+import { UserComponent } from './userPage';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
 import { ProductsComponent } from './products/products.component';
@@ -33,7 +36,10 @@ import { DefaultImagePipe } from './products/default-image.pipe';
     DashTestComponent,
     ProductCardComponent,
     StrLimitPipe,
-    DefaultImagePipe
+    DefaultImagePipe,
+    HeaderComponent,
+    SidebarComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

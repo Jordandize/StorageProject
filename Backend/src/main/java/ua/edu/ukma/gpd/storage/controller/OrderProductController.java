@@ -10,6 +10,7 @@ import ua.edu.ukma.gpd.storage.entity.OrderProduct;
 import ua.edu.ukma.gpd.storage.service.OrderProductService;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -43,29 +44,31 @@ public class OrderProductController {
 //        return orderProduct;
 //    }
 
-    @PostMapping
-    public ResponseEntity<OrderProduct> addOrderProduct(@Valid @RequestBody OrderProductDto form) throws Exception{
-        HttpStatus status;
-        OrderProduct orderProduct;
-        try{
-            orderProduct = buildOrderProductFromDto(form);
-            status = HttpStatus.OK;
-        } catch (Exception e){
-            e.printStackTrace();
-            orderProduct = null;
-            status = HttpStatus.BAD_REQUEST;
-        }
-        return new ResponseEntity<>(orderProduct, status);
-    }
+//    @PostMapping
+//    public ResponseEntity<OrderProduct> addOrderProduct(@Valid @RequestBody OrderProductDto form) throws Exception{
+//        HttpStatus status;
+//        OrderProduct orderProduct;
+//        try{
+//            //orderProduct = buildOrderProductFromDto(form);
+//            status = HttpStatus.OK;
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            orderProduct = null;
+//            status = HttpStatus.BAD_REQUEST;
+//        }
+//        return new ResponseEntity<>(orderProduct, status);
+//    }
+//
 
-    private OrderProduct buildOrderProductFromDto(OrderProductDto form){
-        OrderProduct orderProduct = new OrderProduct();
-        orderProduct.setOrderId(form.getOrderId());
-        orderProduct.setProductId(form.getProductId());
-        orderProduct.setAmount(form.getAmount());
-        orderProduct.setAmountReturned(form.getAmountReturned());
-        return orderProduct;
-    }
+
+//    private OrderProduct buildOrderProductFromDto(OrderProductDto form, ){
+//        OrderProduct orderProduct = new OrderProduct();
+//        orderProduct.
+//        orderProduct.setProductId(form.getProductId());
+//        orderProduct.setAmount();
+//        orderProduct.setAmountReturned(form.getAmountReturned());
+//        return orderProduct;
+//    }
 
 
 }

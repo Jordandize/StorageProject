@@ -8,14 +8,14 @@ import { CabinetComponent } from './cabinet';
 import { ProductsComponent } from './products/products.component';
 import { DashTestComponent } from './dash-test/dash-test.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
+import { UserComponent } from './userPage';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'order', component: OrderComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'user', component: CabinetComponent },
+  { path: 'user', component: UserComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'dashtest', component: DashTestComponent },
   { path: 'pr-card', component: ProductCardComponent }

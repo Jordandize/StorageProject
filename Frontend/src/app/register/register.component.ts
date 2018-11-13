@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import swal from 'sweetalert2';
+import { baseUrl } from '../../varUrl';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
     loading = false;
     submitted = false;
 
-
+    baseUrl = baseUrl;
+    
     constructor(
         private http: HttpClient,
         private formBuilder: FormBuilder,
@@ -55,7 +57,7 @@ export class RegisterComponent implements OnInit {
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        return this.http.post('https://storage-pro.herokuapp.com/users', user, {headers: head}).subscribe(
+        return this.http.post(this.baseUrl+"/users", user, {headers: head}).subscribe(
          data => {
               swal({
                 position: 'top-end',
@@ -72,10 +74,10 @@ export class RegisterComponent implements OnInit {
                     swal({
                         type: 'error',
                         title: 'Error!',
-                        // tslint:disable-next-line:max-line-length
-                        text: error.error.errors ? JSON.stringify(error.error.errors) + (error.error.global ?  JSON.stringify(error.error.global) : '' ) : ''
-                      });
 
+                        text:error.error.errors ? JSON.stringify(error.error.errors.email) +". "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" ) :""  
+                      })
+                   
                     this.loading = false;
                 }
                 );
