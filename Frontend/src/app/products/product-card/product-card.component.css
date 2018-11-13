@@ -5,15 +5,14 @@
     background-color: #fefefe
 }
 
-.pr-card {
-    /*background-color: lightsalmon;*/
+mat-card {
+    font-family: 'Open Sans', sans-serif;
     border-radius: 2px;
-    /*height: 164px;*/
 }
 
 mat-card-title {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: sans-serif;
 }
 
 mat-card > mat-card-subtitle {
@@ -22,4 +21,24 @@ mat-card > mat-card-subtitle {
 
 mat-card-content p {
     text-align: center;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.amount {
+    font-size: 20px;
+    text-align: center;
+}
+
+input {
+    padding-top: 5px;
+}
+
+button.get.mat-fab {
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.2);
+    font-size: 14px;
+}
+
+mat-card-actions.mat-card-actions {
+    margin: 0;
 }
