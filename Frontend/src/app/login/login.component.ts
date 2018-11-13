@@ -58,8 +58,8 @@ export class LoginComponent implements OnInit {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-        
-      return this.http.post(this.baseUrl+'/login', loginForm, {headers: headers, observe: 'response'})
+
+      return this.http.post(this.baseUrl + '/login', loginForm, {headers: headers, observe: 'response'})
         .subscribe(
             (data) => {
             swal({
@@ -72,10 +72,10 @@ export class LoginComponent implements OnInit {
             console.log(55);
             console.log(data);
             sessionStorage.setItem('id', data.headers['x-auth-token']);
-            sessionStorage.setItem('userId',response.data.user.id);
+            sessionStorage.setItem('userId', 'TODO:data.user.id');
             sessionStorage.setItem('email', this.f.username.value);
             console.log(this.f.username.value);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/user']);
         },
         error => {
             if (error.status === 401) {
