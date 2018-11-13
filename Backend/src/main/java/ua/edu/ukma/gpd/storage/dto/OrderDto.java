@@ -1,6 +1,7 @@
 package ua.edu.ukma.gpd.storage.dto;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 
 public class OrderDto {
 
@@ -13,6 +14,10 @@ public class OrderDto {
 
     @NotNull()
     private Long createdBy;
+
+    // name and amount of product
+    @NotNull()
+    private HashMap<Long, Integer> products;
 
     public String getAnnotation() {
         return annotation;
@@ -36,5 +41,13 @@ public class OrderDto {
 
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public HashMap<Long, Integer> getProducts() {
+        return products;
+    }
+
+    public void setProducts(HashMap<Long, Integer> products) {
+        this.products = products;
     }
 }

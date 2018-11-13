@@ -37,27 +37,32 @@ public class ProductDaoImpl implements ProductDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT,
-            		new String[] { "id" });
-            ps.setString (1, product.getName());
-            ps.setInt    (2, product.getAmount());
-            ps.setLong   (3, product.getIdCategory());
-            ps.setBoolean(4, product.isActive());
+                    new String[]{ "id" });
+            ps.setString(1, product.getName());
+            ps.setInt(2, product.getAmount());
+            ps.setLong(3, product.getCategoryId());
+            ps.setString(4, product.getDescription());
+            ps.setBoolean(5, product.getActive());
+            System.out.println(ps);
             return ps;
         }, keyHolder);
-        product.setId((Long) keyHolder.getKey());
-        return product.getId();
+        product.setProdId((Long) keyHolder.getKey());
+        return product.getProdId();
     }
 
     @Override
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
-                product.getName(), product.getAmount(), product.getIdCategory(), 
-                product.isActive(), product.getId()) > 0;
+                product.getName(), product.getAmount(), product.getCategoryId(),
+                product.getActive(), product.getProdId()) > 0;
+
     }
 
     @Override
     public boolean delete(Product product) {
-        return jdbcTemplate.update(ProductSql.DELETE, product.getId()) > 0;
+        return jdbcTemplate.update(ProductSql.DELETE,
+                product.getCategoryId(), product.getName(), product.getAmount(),
+                product.getDescription(), product.getActive()) > 0;
     }
 
     @Override

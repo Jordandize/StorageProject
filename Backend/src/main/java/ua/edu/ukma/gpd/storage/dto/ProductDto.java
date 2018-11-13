@@ -11,15 +11,17 @@ public class ProductDto {
     @Size(max = 64, message = "Name must not be more than 64 characters long")
     private String name;
 
-    @NotBlank(message = "Enter amount")
-    @Range(min = 1, message = "Please, enter amount of products, min 1")
+   // @NotBlank(message = "Enter amount")
+   // @Range(min = 1, message = "Please, enter amount of products, min 1")
     private Integer amount;
 
-    @NotBlank(message = "Annotation cannot be blank")
+    @NotBlank(message = "Description cannot be blank")
     @Size(max = 2000, message = "Not allowed more than 2000 characters")
-    private String annotation;
+    private String description;
 
-    @NotBlank(message = "must have activeness")
+    private Long categoryId;
+
+    //@NotBlank(message = "must have activeness")
     private Boolean isActive;
 
     public String getName() {
@@ -38,12 +40,12 @@ public class ProductDto {
         this.amount = amount;
     }
 
-    public String getAnnotation() {
-        return annotation;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAnnotation(String annotation) {
-        this.annotation = annotation;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getActive() {
@@ -52,5 +54,13 @@ public class ProductDto {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

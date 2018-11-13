@@ -6,11 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.entity.OrderProduct;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
+import ua.edu.ukma.gpd.storage.service.OrderProductService;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/orders")
@@ -18,6 +25,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderProductService opService;
 
     @GetMapping
     public List<Order> getAll(){
@@ -50,6 +60,11 @@ public class OrderController {
         try{
             Order order = buildOrder(form);
             id = orderService.add(order);
+            List<OrderProduct> products = buildProducts(form, id);
+            for(OrderProduct op : products){
+                opService.add(op);
+            }
+
             status = HttpStatus.OK;
         } catch (Exception e){
             e.printStackTrace();
@@ -57,6 +72,18 @@ public class OrderController {
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(id, status);
+    }
+
+    private List<OrderProduct> buildProducts(OrderDto form, Long id){
+        List<OrderProduct> products = new ArrayList<>();
+        for (Map.Entry<Long, Integer> entry : form.getProducts().entrySet()){
+            OrderProduct op = new OrderProduct();
+            op.setProductId(entry.getKey());
+            op.setOrderId(id);
+            op.setAmount(entry.getValue());
+            op.setAmountReturned(0);
+        }
+        return products;
     }
 
     // FOR EDITING ANOTHER CONTROLLER
