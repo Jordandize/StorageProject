@@ -8,7 +8,7 @@
     <!--Title-->
     <mat-card-title>
       <div fxLayout="row" fxLayoutAlign="start start" title="{{product.name}}">
-        <img mat-card-avatar src="{{product.imageIcon}}"
+        <img mat-card-avatar src="{{product.imageIcon | defaultImage:'http://i.piccy.info/i9/a9bb460a29be712a134aaa9518d524da/1542113823/152253/1281946/pr_card_stub_1_sm.png'}}"
           fxFlex="40px" fxFlexOffset="4px">
         <mat-card-title fxFill fxFlexAlign="center" fxFlexOffset="10px">
           {{product.name | strLimit:27}}
@@ -45,12 +45,12 @@
         </div>
       </div>
       <!--Image-->
-      <img fxFlex="225px" src="{{product.image}}"/>
+      <img fxFlex="225px" src="{{product.image | defaultImage:'http://i.piccy.info/i9/a9bb460a29be712a134aaa9518d524da/1542113823/152253/1281946/pr_card_stub_1_sm.png'}}"/>
     </mat-card-content>
 
     
     <!--Description-->
-    <mat-card-content fxFlexAlign="center center">
+    <mat-card-content *ngIf="product.description" fxFlexAlign="center center">
       <p>
         {{product.description | strLimit:70}}
       </p>

@@ -19,6 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { StrLimitPipe } from './products/str-limit.pipe';
+import { DefaultImagePipe } from './products/default-image.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { StrLimitPipe } from './products/str-limit.pipe';
     ProductsComponent,
     DashTestComponent,
     ProductCardComponent,
-    StrLimitPipe
+    StrLimitPipe,
+    DefaultImagePipe
   ],
   imports: [
     BrowserModule,
