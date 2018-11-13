@@ -1,15 +1,10 @@
 package ua.edu.ukma.gpd.storage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import ua.edu.ukma.gpd.storage.dto.ProductDto;
 import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.service.ProductService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,15 +15,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public List<Product> getProducts(){
-        List<Product> products;
-        try {
-            products = productService.findAll();
-        } catch (Exception e){
-            e.printStackTrace();
-            products = null;
-        }
-        return products;
+    public List<Product> getProducts() throws Exception{
+        return productService.getAll();
     }
 
     @GetMapping("/{id}")
@@ -41,9 +29,12 @@ public class ProductController {
             product = null;
         }
         return product;
-    }
 
-    @PostMapping
+    }
+    
+    
+
+    /*@PostMapping
     public ResponseEntity<Long> addProduct(@Valid @RequestBody ProductDto form) throws Exception{
         HttpStatus status;
         Long id;
@@ -68,5 +59,5 @@ public class ProductController {
         product.setDescription(form.getDescription());
         product.setActive(form.getActive());
         return product;
-    }
+    }*/
 }

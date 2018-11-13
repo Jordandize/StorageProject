@@ -1,6 +1,5 @@
 package ua.edu.ukma.gpd.storage.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 

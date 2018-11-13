@@ -10,5 +10,7 @@ public interface ProductService {
 
     Product getById(Long id) throws Exception;
 
-    List<Product> findAll() throws Exception;
+    Product getByName(String name) throws Exception;
+
+    List<Product> getAll() throws Exception;
 }

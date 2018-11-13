@@ -20,31 +20,33 @@ public class CategoryDaoImpl implements CategoryDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CategoryDaoImpl (DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
+    public CategoryDaoImpl (DataSource dataSource) 
+    	{ jdbcTemplate = new JdbcTemplate(dataSource); }
 
-    private RowMapper<Category> mapper = (resultSet, i) -> {
+    private RowMapper<Category> mapper = (rs, i) -> {
         Category category = new Category();
-        category.setId(resultSet.getInt("id"));
-        category.setName(resultSet.getString("name"));
+        category.setId  (rs.getLong  ("id"));
+        category.setName(rs.getString("name"));
         return category;
     };
 
     @Override
-    public Integer create(Category category) {
+    public Long create(Category category) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection ->{
+        jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(CategorySql.INSERT,
-                    new String[] {"id"});
+                    new String[] { "id" });
             ps.setString(1, category.getName());
             return ps;
-                }, keyHolder);
-        category.setId((Integer) keyHolder.getKey());
+        }, keyHolder);
+        category.setId((Long) keyHolder.getKey());
         return category.getId();
     }
 
     @Override
     public boolean update(Category category) {
-        return jdbcTemplate.update(CategorySql.UPDATE, category.getName()) > 0;
+        return jdbcTemplate.update(CategorySql.UPDATE, category.getName(), 
+        		category.getId()) > 0;
     }
 
     @Override
@@ -54,16 +56,18 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category findById(Long id) {
-        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_ID, new Object[] { id }, mapper);
+        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_ID, 
+        		new Object[] { id }, mapper);
+    }
+
+    @Override
+    public Category findByName(String name){
+        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_NAME, 
+        		new Object[] { name }, mapper);
     }
 
     @Override
     public List<Category> findAll() {
         return jdbcTemplate.query(CategorySql.FIND_ALL, mapper);
-    }
-
-    @Override
-    public Category findByName(String name){
-        return jdbcTemplate.queryForObject(CategorySql.FIND_BY_NAME, new Object[] {name}, mapper);
     }
 }

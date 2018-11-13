@@ -20,16 +20,15 @@ public class ProductDaoImpl implements ProductDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductDaoImpl (DataSource dataSource) { jdbcTemplate = new JdbcTemplate(dataSource);}
+    public ProductDaoImpl(DataSource dataSource)
+    	{ jdbcTemplate = new JdbcTemplate(dataSource); }
 
-    private RowMapper<Product> mapper = (resultSet, i) -> {
+    private RowMapper<Product> mapper = (rs, i) -> {
         Product product = new Product();
-        product.setProdId(resultSet.getLong("id"));
-        product.setName(resultSet.getString("name"));
-        product.setAmount(resultSet.getInt("amount"));
-        product.setCategoryId(resultSet.getLong("id_category"));
-        product.setDescription(resultSet.getString("description"));
-        product.setActive(resultSet.getBoolean("active"));
+        product.setIdCategory(rs.getLong   ("id_category"));
+        product.setName      (rs.getString ("name"));
+        product.setAmount    (rs.getInt    ("amount"));
+        product.setActive    (rs.getBoolean("active"));
         return product;
     };
 
@@ -54,8 +53,9 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
-                product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getDescription(), product.getActive()) > 0;
+                product.getName(), product.getAmount(), product.getCategoryId(),
+                product.getActive(), product.getProdId()) > 0;
+
     }
 
     @Override
@@ -67,16 +67,19 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product findById(Long id) {
-        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_ID, new Object[] { id }, mapper);
+        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_ID, 
+        		new Object[] { id }, mapper);
     }
 
     @Override
     public Product findByName(String name) {
-        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_NAME, new Object[] { name }, mapper);
+        return jdbcTemplate.queryForObject(ProductSql.FIND_BY_NAME, 
+        		new Object[] { name }, mapper);
     }
 
     @Override
     public List<Product> findAll() {
         return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
     }
+    
 }

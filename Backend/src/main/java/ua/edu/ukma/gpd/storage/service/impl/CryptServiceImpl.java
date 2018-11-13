@@ -6,6 +6,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import ua.edu.ukma.gpd.storage.service.CryptService;
@@ -18,9 +19,11 @@ import ua.edu.ukma.gpd.storage.service.CryptService;
 @Service
 public class CryptServiceImpl implements CryptService {
 	
-    private static final String KEY = "aKDCgUoSR4uandcf";
-    
-    private static final String VECTOR = "v3s0WN5Z3AdokwfN";
+	@Value("${crypt.key}")
+    private static String KEY;
+
+	@Value("${crypt.vector}")
+    private static String VECTOR;
 
 	@Override
 	public String encrypt(String value) {

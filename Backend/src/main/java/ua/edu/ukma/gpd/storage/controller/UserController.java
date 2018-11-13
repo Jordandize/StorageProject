@@ -3,7 +3,6 @@ package ua.edu.ukma.gpd.storage.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
 import ua.edu.ukma.gpd.storage.entity.User;
+import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
@@ -25,28 +25,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	@GetMapping
-	public List<User> getUsers() {
-		List<User> users;
-		try {
-			users = userService.getAll();	
-		} catch (Exception e) {
-			e.printStackTrace();
-			users = null;
-		}
-		return users;
+	public List<User> getUsers() throws Exception {
+		return userService.getAll();
 	}
 	
 	@GetMapping("/{id}")
-	public User getUserById(@PathVariable("id") Long id) {
-		User user;
-		try {
-			user = userService.getById(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			user = null;
-		}
-		return user;
+	public User getUserById(@PathVariable("id") Long id) throws Exception {
+		return userService.getById(id);
 	}
 	
 	@PostMapping
@@ -56,6 +45,7 @@ public class UserController {
 		try {
 			User user = buildUserFromDto(form);
 			id = userService.add(user);
+			emailService.sendGreeting(user.getEmail());
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			e.printStackTrace();

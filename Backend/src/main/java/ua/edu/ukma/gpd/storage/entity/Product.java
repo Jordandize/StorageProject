@@ -2,7 +2,7 @@ package ua.edu.ukma.gpd.storage.entity;
 
 public class Product {
 
-    private Long prodId;
+    private Long id;
 
     private Long categoryId;
 
@@ -15,18 +15,18 @@ public class Product {
     private Boolean isActive;
 
     public Long getProdId() {
-        return prodId;
+        return id;
     }
 
     public void setProdId(Long prodId) {
-        this.prodId = prodId;
+        this.id = id;
     }
 
     public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setIdCategory(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -65,7 +65,7 @@ public class Product {
     @Override
     public String toString() {
         return "ProductDao{" +
-                "prodId=" + prodId +
+                "prodId=" + id +
                 ", categoryId=" + categoryId +
                 ", name='" + name + '\'' +
                 ", amount=" + amount +

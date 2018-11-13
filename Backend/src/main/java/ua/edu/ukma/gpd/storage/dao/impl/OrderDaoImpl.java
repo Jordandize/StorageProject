@@ -8,8 +8,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
-import ua.edu.ukma.gpd.storage.entity.OrderStatus;
-import ua.edu.ukma.gpd.storage.entity.OrderType;
 import ua.edu.ukma.gpd.storage.sql.OrderSql;
 
 import javax.sql.DataSource;
