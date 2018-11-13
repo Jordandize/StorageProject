@@ -1,7 +1,5 @@
 package ua.edu.ukma.gpd.storage.entity;
 
-import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
-
 import java.sql.Timestamp;
 
 public class Order {

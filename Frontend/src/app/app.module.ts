@@ -10,6 +10,9 @@ import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
+import { HeaderComponent } from './header';
+import { SidebarComponent } from './sidebar';
+import { UserComponent } from './userPage';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { MatTabsModule } from '@angular/material';
 import {CustomMaterialModule} from "./material.module";
@@ -21,7 +24,10 @@ import {CustomMaterialModule} from "./material.module";
     LoginComponent,
     OrderComponent,
     HomeComponent,
-    CabinetComponent
+    CabinetComponent,
+    HeaderComponent,
+    SidebarComponent,
+    UserComponent
 
   ],
   imports: [
