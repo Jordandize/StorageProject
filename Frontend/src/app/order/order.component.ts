@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
+// import {validate} from "codelyzer/walkerFactory/walkerFn";
 import { baseUrl } from '../../varUrl';
 import { RequestOptions } from '@angular/http';
 
@@ -57,7 +57,7 @@ export class OrderComponent implements OnInit {
       }
     );
     //
-    //HERE receive JSON object asd fill "category" and "product" fields
+    // HERE receive JSON object asd fill "category" and "product" fields
     //
   }
 
@@ -65,24 +65,24 @@ export class OrderComponent implements OnInit {
   get f() { return this.orderForm.controls; }
 
   fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData:FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      let headers = new Headers();
-      /** In Angular 5, including the header Content-Type can invalidate your request */
-      headers.append('Content-Type', 'multipart/form-data');
-      headers.append('Accept', 'application/json');
-      let options = new RequestOptions({ headers: headers });
-      this.http.post(`${this.baseUrl}`, formData, options)
-        .map(res => res.json())
-        .catch(error => Observable.throw(error))
-        .subscribe(
-          data => console.log('success'),
-          error => console.log(error)
-        )
-    }
+    // let fileList: FileList = event.target.files;
+    // if(fileList.length > 0) {
+    //   let file: File = fileList[0];
+    //   let formData:FormData = new FormData();
+    //   formData.append('uploadFile', file, file.name);
+    //   let headers = new Headers();
+    //   /** In Angular 5, including the header Content-Type can invalidate your request */
+    //   headers.append('Content-Type', 'multipart/form-data');
+    //   headers.append('Accept', 'application/json');
+    //   let options = new RequestOptions({ headers: headers });
+    //   this.http.post(`${this.baseUrl}`, formData, options)
+    //     .map(res => res.json())
+    //     .catch(error => Observable.throw(error))
+    //     .subscribe(
+    //       data => console.log('success'),
+    //       error => console.log(error)
+    //     )
+    // }
   }
 
   onSubmit() {
