@@ -19,6 +19,8 @@ public class ProductDto {
     @Size(max = 2000, message = "Not allowed more than 2000 characters")
     private String description;
 
+    private Long categoryId;
+
     //@NotBlank(message = "must have activeness")
     private Boolean isActive;
 
@@ -52,5 +54,13 @@ public class ProductDto {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

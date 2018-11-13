@@ -19,16 +19,18 @@ public class ProductServiceImpl implements ProductService {
     public Long add(Product product) throws Exception{
         Long id = null;
         try{
+            System.out.println(product.getProdId());
             Product exists = getById(product.getProdId());
+            System.out.println(product.getProdId());
             if (exists == null){
                 System.out.println("creating");
                 id = productDao.create(product);
             }
         } catch (EmptyResultDataAccessException e){
-            return null;
+
         } catch (Exception e){
             System.out.println("here!");
-            throw new Exception("Exeption occured in ProductServiceImpl: operation add [" + product.getName() + "] failed.");
+                throw new Exception("Exeption occured in ProductServiceImpl: operation add [" + product.getName() + "] failed.", e);
         }
         return id;
     }

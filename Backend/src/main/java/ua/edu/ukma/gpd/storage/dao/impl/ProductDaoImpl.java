@@ -37,12 +37,14 @@ public class ProductDaoImpl implements ProductDao {
     public Long create(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT, new String[]{"id"});
+            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT,
+                    new String[]{ "id" });
             ps.setString(1, product.getName());
             ps.setInt(2, product.getAmount());
             ps.setLong(3, product.getCategoryId());
             ps.setString(4, product.getDescription());
             ps.setBoolean(5, product.getActive());
+            System.out.println(ps);
             return ps;
         }, keyHolder);
         product.setProdId((Long) keyHolder.getKey());

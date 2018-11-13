@@ -56,6 +56,7 @@ public class ProductController {
             id = (long) -1;
             status = HttpStatus.BAD_REQUEST;
         }
+        System.out.println(id);
         return new ResponseEntity<>(id, status);
     }
 
@@ -63,6 +64,7 @@ public class ProductController {
         Product product = new Product();
         product.setName(form.getName());
         product.setAmount(form.getAmount());
+        product.setCategoryId(form.getCategoryId());
         product.setDescription(form.getDescription());
         product.setActive(form.getActive());
         return product;
