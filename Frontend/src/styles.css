@@ -60,3 +60,9 @@ button:focus {
   color: red;
 }/* You can add global styles to this file, and also import other style files */
 
+.full {
+  height: 100vh;
+}
+mat-toolbar-row {
+  justify-content: space-between;
+}
