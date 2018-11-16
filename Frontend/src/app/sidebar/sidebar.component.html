@@ -2,7 +2,7 @@
              
                     <mat-sidenav #drawer mode="side" opened role="navigation" >
                       <mat-nav-list class="change">
-                        <a mat-list-item *ngFor="let user of users" routerLink='{{ user.url }}' >{{ user.username }}</a>
+                        <a mat-list-item *ngFor="let user of users" routerLink='{{ user.url }}'  (click)='all(user)' >{{ user.username }}</a>
                       </mat-nav-list>
                     </mat-sidenav>
            

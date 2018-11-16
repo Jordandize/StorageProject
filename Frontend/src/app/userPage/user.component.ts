@@ -56,7 +56,7 @@ export class UserComponent implements OnInit {
   
       public  users: [User,User,User] = [ 
       new User(1,'CreateOrder','/order'), 
-      new User(2,'List of Orders','/listOrders'), 
+      new User(2,'List of Orders','/list'), 
       new User(3,'List of Products','/listProducts'),
 ];
 

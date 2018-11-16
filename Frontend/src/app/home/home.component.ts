@@ -52,6 +52,21 @@ export class HomeComponent implements OnInit {
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+    /*
+    all(i:User):void{
+      if(i.id==1){
+        this.http.get(this.baseUrl+"/orders?userId="+this.id).subscribe(data => {
+          console.log("Element data 1");
+           orders=<Order[]>data;
+           console.log(orders);
+           
+            },   error => {
+              console.log(error);
+          }
+          );
+      }
+    }
+  */
 
   constructor(
     private http: HttpClient,
@@ -59,6 +74,7 @@ export class HomeComponent implements OnInit {
     private router: Router) {}
 
     ngOnInit() {
+      
        this.http.get(this.baseUrl+"/orders?userId="+this.id).subscribe(data => {
         console.log("Element data 1");
          orders=<Order[]>data;
