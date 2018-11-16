@@ -12,12 +12,13 @@ interface Alert2 {
     message: string;
   }
 
-  
+
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+
     baseUrl = baseUrl;
     
     constructor(
@@ -64,15 +65,16 @@ export class RegisterComponent implements OnInit {
                 title: 'You successfully registered!',
                 showConfirmButton: false,
                 timer: 1500
-              })
+              });
                     this.router.navigate(['/login']);
                 },
                 error => {
                     console.log(error);
-                  
+
                     swal({
                         type: 'error',
                         title: 'Error!',
+
                         text:error.error.errors ? JSON.stringify(error.error.errors.email) +". "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" ) :""  
                       })
                    

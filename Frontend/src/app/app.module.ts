@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule }    from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,8 +15,14 @@ import { HeaderComponent } from './header';
 import { SidebarComponent } from './sidebar';
 import { UserComponent } from './userPage';
 import { CabinetComponent } from './cabinet/cabinet.component';
-import { MatTabsModule } from '@angular/material';
-import {CustomMaterialModule} from "./material.module";
+import { CustomMaterialModule } from './material.module';
+import { ProductsComponent } from './products/products.component';
+import { DashTestComponent } from './dash-test/dash-test.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProductCardComponent } from './products/product-card/product-card.component';
+import { StrLimitPipe } from './products/str-limit.pipe';
+import { DefaultImagePipe } from './products/default-image.pipe';
 
 @NgModule({
   declarations: [
@@ -25,19 +32,31 @@ import {CustomMaterialModule} from "./material.module";
     OrderComponent,
     HomeComponent,
     CabinetComponent,
+    ProductsComponent,
+    DashTestComponent,
+    ProductCardComponent,
+    StrLimitPipe,
+    DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
     UserComponent
-
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MatTabsModule,
     CustomMaterialModule,
-    routing
+    routing,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

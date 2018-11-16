@@ -19,6 +19,9 @@ public class ProductSql {
 
     public static final String FIND_BY_NAME =
             "SELECT * FROM products WHERE name = ?";
+    
+    public static final String FIND_BY_CATEGORY =
+    		"SELECT * FROM products WHERE id_category = ?";
 
     public static final String FIND_ALL =
             "SELECT * FROM products";

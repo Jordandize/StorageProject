@@ -1,0 +1,62 @@
+<div class="card-container"
+  fxLayout="row"
+  fxLayoutAlign="center center">
+
+  <!--Product card-->
+  <mat-card *ngIf="product" fxFlex="400px">
+
+    <!--Title-->
+    <mat-card-title>
+      <div fxLayout="row" fxLayoutAlign="start start" title="{{product.name}}">
+        <img mat-card-avatar src="{{product.imageIcon | defaultImage:'http://i.piccy.info/i9/a9bb460a29be712a134aaa9518d524da/1542113823/152253/1281946/pr_card_stub_1_sm.png'}}"
+          fxFlex="40px" fxFlexOffset="4px">
+        <mat-card-title fxFill fxFlexAlign="center" fxFlexOffset="10px">
+          {{product.name | strLimit:27}}
+        </mat-card-title>
+      </div>
+      <div>
+        <mat-card-subtitle fxFlexOffset="55px" [style.marginTop.px]="2">
+          <div>{{product.category}}</div>
+        </mat-card-subtitle>
+      </div>
+    </mat-card-title>
+
+
+    <!--Content-->
+    <mat-card-content fxLayout="row">
+      <!--Buttons-->
+      <div fxFlex fxLayoutAlign="start center">
+        <div fxFill fxLayout="column-reverse">
+          <mat-card-actions fxLayout="raw" fxLayoutAlign="center center">
+            <button mat-icon-button color="primary" (click)="decrease()">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <!--Input-->
+            <mat-form-field fxFlex="50px">
+                <input class="amount" [(ngModel)]="amount" (blur)="amountInput()" matInput value="0" length="5">
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="increase()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-card-actions>
+          <button fxFlexAlign="center" class="get" color="primary" mat-fab>
+            Get
+          </button>
+        </div>
+      </div>
+      <!--Image-->
+      <img fxFlex="225px" src="{{product.image | defaultImage:'http://i.piccy.info/i9/a9bb460a29be712a134aaa9518d524da/1542113823/152253/1281946/pr_card_stub_1_sm.png'}}"/>
+    </mat-card-content>
+
+    
+    <!--Description-->
+    <mat-card-content *ngIf="product.description" fxFlexAlign="center center">
+      <p>
+        {{product.description | strLimit:70}}
+      </p>
+    </mat-card-content>
+
+  </mat-card>
+  <!--End product card-->
+
+</div>

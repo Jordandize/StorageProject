@@ -1,5 +1,13 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 .content{
   margin-top: 40px;
+}
+
+html, body { 
+  height:100%;
+  margin: 0;
+  font-family: Roboto, sans-serif;
 }
 
 h1{
@@ -41,8 +49,20 @@ td {
   opacity:1;
 }
 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+button:focus {
+  outline: none;
+}
 
-.delete{
+.delete {
   color: red;
 }/* You can add global styles to this file, and also import other style files */
+
+.full {
+  height: 100vh;
+}
+mat-toolbar-row {
+  justify-content: space-between;
+}

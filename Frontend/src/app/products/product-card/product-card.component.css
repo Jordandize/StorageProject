@@ -1,0 +1,44 @@
+.card-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #fefefe
+}
+
+mat-card {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 2px;
+}
+
+mat-card-title {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+mat-card > mat-card-subtitle {
+    margin-bottom: 6px;
+}
+
+mat-card-content p {
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.amount {
+    font-size: 20px;
+    text-align: center;
+}
+
+input {
+    padding-top: 5px;
+}
+
+button.get.mat-fab {
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.2);
+    font-size: 14px;
+}
+
+mat-card-actions.mat-card-actions {
+    margin: 0;
+}
