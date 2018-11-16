@@ -74,7 +74,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findOrdersForUser(Long userId) {
-        return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, mapper);
+        return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, new Object[]{userId}, mapper);
     }
 
 
