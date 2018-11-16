@@ -11,7 +11,6 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   loading = false;
   submitted = false;
-  baseUrl = baseUrl;
   returnUrl: string;
   baseUrl: string;
 
