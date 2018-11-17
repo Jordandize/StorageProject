@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     private router: Router) {}
 
     ngOnInit() {
-       this.http.get(this.baseUrl+"api/orders?userId="+this.id).subscribe(data => {
+       this.http.get(this.baseUrl+"/api/orders?userId="+this.id).subscribe(data => {
         console.log("Element data 1");
          orders=<Order[]>data;
          console.log(orders);
