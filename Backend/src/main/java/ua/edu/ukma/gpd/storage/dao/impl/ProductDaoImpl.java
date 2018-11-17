@@ -26,10 +26,16 @@ public class ProductDaoImpl implements ProductDao {
 
     private RowMapper<Product> mapper = (rs, i) -> {
         Product product = new Product();
-        product.setIdCategory(rs.getLong   ("id_category"));
-        product.setName      (rs.getString ("name"));
-        product.setAmount    (rs.getInt    ("amount"));
-        product.setActive    (rs.getBoolean("active"));
+        
+        product.setId         (rs.getLong   ("id"));
+        product.setName       (rs.getString ("name"));
+        product.setAmount     (rs.getInt    ("amount"));
+        product.setActive     (rs.getBoolean("active"));
+        product.setDescription(rs.getString ("description"));
+        product.setImage      (rs.getString ("image"));
+        product.setIcon       (rs.getString ("icon"));
+        product.setCategoryId (rs.getLong   ("id_category"));
+        
         return product;
     };
 
@@ -37,33 +43,34 @@ public class ProductDaoImpl implements ProductDao {
     public Long create(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT,
-                    new String[]{ "id" });
-            ps.setString(1, product.getName());
-            ps.setInt(2, product.getAmount());
-            ps.setLong(3, product.getCategoryId());
-            ps.setString(4, product.getDescription());
-            ps.setBoolean(5, product.getActive());
-            System.out.println(ps);
+            PreparedStatement ps = connection.prepareStatement(ProductSql.INSERT, 
+            		new String[]{ "id" });
+            
+            ps.setString (1, product.getName());
+            ps.setInt    (2, product.getAmount());
+            ps.setBoolean(3, product.isActive());
+            ps.setString (4, product.getDescription());
+            ps.setString (5, product.getImage());
+            ps.setString (6, product.getIcon());
+            ps.setLong   (7, product.getCategoryId());
+            
             return ps;
         }, keyHolder);
-        product.setProdId((Long) keyHolder.getKey());
-        return product.getProdId();
+        product.setId((Long) keyHolder.getKey());
+        return product.getId();
     }
 
     @Override
     public boolean update(Product product) {
         return jdbcTemplate.update(ProductSql.UPDATE,
-                product.getName(), product.getAmount(), product.getCategoryId(),
-                product.getActive(), product.getProdId()) > 0;
-
+                product.getName(), product.getAmount(), product.isActive(),
+                product.getDescription(), product.getImage(), product.getIcon(),
+                product.getCategoryId()) > 0;
     }
 
     @Override
     public boolean delete(Product product) {
-        return jdbcTemplate.update(ProductSql.DELETE,
-                product.getCategoryId(), product.getName(), product.getAmount(),
-                product.getDescription(), product.getActive()) > 0;
+        return jdbcTemplate.update(ProductSql.DELETE, product.getId()) > 0;
     }
 
     @Override
@@ -78,15 +85,15 @@ public class ProductDaoImpl implements ProductDao {
         		new Object[] { name }, mapper);
     }
 
-    @Override
-    public List<Product> findAll() {
-        return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
-    }
-
 	@Override
 	public List<Product> findByCategory(Category category) {
 		return jdbcTemplate.query(ProductSql.FIND_BY_CATEGORY,
 				new Object[] { category.getId() }, mapper);
 	}
+
+    @Override
+    public List<Product> findAll() {
+        return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
+    }
     
 }
