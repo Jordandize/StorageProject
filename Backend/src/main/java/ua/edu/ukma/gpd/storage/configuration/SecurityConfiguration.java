@@ -56,8 +56,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-        	.addFilterAfter(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
+        http
+        	.csrf().disable()
+        	.addFilterAfter(tokenAuthenticationFilter("/api2/**"), UsernamePasswordAuthenticationFilter.class)
     		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
@@ -65,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
+        	.antMatchers("/api/foo").anonymous()
         	.antMatchers("/api/foos").authenticated()
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
         	.antMatchers("/login").anonymous()
