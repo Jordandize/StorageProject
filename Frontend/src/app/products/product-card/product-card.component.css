@@ -68,6 +68,7 @@ mat-card-content p.hover-tip {
     padding: 1px 8px;
     text-align: center;
     font-size: 13px;
+    width: 100%;
 }
 
 mat-card-subtitle.category-label, mat-card-subtitle.id-label{
@@ -101,7 +102,7 @@ mat-card-subtitle.category-label, mat-card-subtitle.id-label{
 }
 
 mat-card-title.hover-name {
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     font-weight: 600;
     margin-top: -13px;
@@ -114,4 +115,10 @@ div.hover-buttons {
 
 mat-card-content.hover-description {
     margin-bottom: 5px;
+}
+
+div.hover-part {
+    width: 100%;
+    position: absolute;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }
