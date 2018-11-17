@@ -25,6 +25,7 @@ export class ProductCardComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    // If No Product Injected Take From Static Collection
     if (this.product == null) {
       this.productService.getProducts()
         .subscribe(products => {

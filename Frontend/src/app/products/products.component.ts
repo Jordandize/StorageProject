@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
-import { PRODUCTS } from './PRODUCTS';
+import { Category } from './category';
 
 @Component({
   selector: 'app-products',
@@ -12,6 +12,11 @@ import { PRODUCTS } from './PRODUCTS';
 export class ProductsComponent implements OnInit {
 
   products: Product[];
+  categories: Category[];
+
+  selectedCategoryId: number;
+
+  count = 4;
 
   constructor(private productService: ProductService) { }
 
@@ -19,16 +24,25 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts()
       .subscribe(products => {
         this.products = products;
-        console.log(products);
-        // this.products = PRODUCTS;
-      });
-    this.productService.getProductsByCategory(1)
-      .subscribe(products => {
-        console.log(products);
       });
     this.productService.getCategories()
       .subscribe(categories => {
-        console.log(categories);
+        this.categories = categories;
       });
   }
+
+  categoryChanged() {
+    if (this.selectedCategoryId == null) {
+      this.productService.getProducts()
+        .subscribe(products => {
+          this.products = products;
+        });
+    } else {
+      this.productService.getProductsByCategory(this.selectedCategoryId)
+        .subscribe(products => {
+          this.products = products;
+        });
+    }
+  }
+
 }
