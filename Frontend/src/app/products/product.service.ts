@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ProductService implements OnInit {
 
-  private productsUrl = baseUrl + '/products';
+  private productsUrl = baseUrl + 'api/products';
   private productsByCategoryParam = 'category=';
   private categoriesUrl = baseUrl + '/categories';
 
