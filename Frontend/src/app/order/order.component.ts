@@ -11,6 +11,7 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   loading = false;
   submitted = false;
+  baseUrl = baseUrl;
   returnUrl: string;
   baseUrl: string;
 
@@ -44,13 +45,13 @@ export class OrderComponent implements OnInit {
       //
     });
     const head = new HttpHeaders({'Content-Type': 'application/json'});
-    let categories$ =  this.http.get('http://localhost:4200/order', {headers: head}).subscribe(
+    let categories$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
       data => {},
       error => {
         this.loading = false;
       }
     );
-    let products$ =  this.http.get('http://localhost:4200/order', {headers: head}).subscribe(
+    let products$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
       data => {},
       error => {
         this.loading = false;
@@ -111,7 +112,7 @@ export class OrderComponent implements OnInit {
       'qnt': this.f.qnt.value,
       'phone': this.f.phone.value
     };
-    return this.http.post('http://localhost:4200/order', order, {headers: head}).subscribe(
+    return this.http.post(this.baseUrl+'/order', order, {headers: head}).subscribe(
       data => {
         this.router.navigate(['/home']);
       },
