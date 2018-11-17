@@ -32,6 +32,12 @@ export class ProductCardComponent implements OnInit {
           this.product = PRODUCTS[1];
         });
     }
+    if (this.product.category == null) {
+      this.productService.getCategories()
+        .subscribe(categories => {
+          this.product.category = categories.find(c => c.id === this.product.categoryId).name;
+        });
+    }
   }
 
   decrease() {
