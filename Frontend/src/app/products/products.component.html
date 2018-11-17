@@ -1,17 +1,6 @@
-<div class="pg-container" fxLayout="row">
-  <div class="col-left" fxFlex="250px"></div>
-  <div class="col-center" fxFlex fxFill>
-    <div
-      class="ps-container"
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutAlign="start start"
-      fxLayoutGap="0.5%"
-      fxLayoutGap.xs="0.1%">
-    
-      <div class="product" fxFlex="50%">1</div>
-      <div class="product" fxFlex="50%">1</div>
-  
-    </div>
-  </div>
+<div fxFlex fxLayoutGap="20px">
+  <app-product-card *ngFor="let product of products"
+    [product]="product"
+    fxFlex>
+  </app-product-card>
 </div>
