@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
+import { baseUrl } from '../../varUrl';
 import { Product } from './product';
 import { Category } from './category';
 import { Observable, of } from 'rxjs';
@@ -10,9 +11,9 @@ import { Observable, of } from 'rxjs';
 })
 export class ProductService implements OnInit {
 
-  private productsUrl = 'https://storage-pro.herokuapp.com/products';
+  private productsUrl = baseUrl + '/products';
   private productsByCategoryParam = 'category=';
-  private categoriesUrl = 'https://storage-pro.herokuapp.com/categories';
+  private categoriesUrl = baseUrl + '/categories';
 
   constructor(private http: HttpClient) { }
 

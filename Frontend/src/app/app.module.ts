@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,7 +57,8 @@ import { DefaultImagePipe } from './products/default-image.pipe';
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
