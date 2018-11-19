@@ -2,17 +2,17 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
+// import {validate} from "codelyzer/walkerFactory/walkerFn";
 import { baseUrl } from '../../varUrl';
+import { RequestOptions } from '@angular/http';
 
 @Component({templateUrl: 'order.component.html'})
 export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   loading = false;
   submitted = false;
-  baseUrl = baseUrl;
   returnUrl: string;
-
+  baseUrl: string;
 
 
 
@@ -25,6 +25,7 @@ export class OrderComponent implements OnInit {
     // private alertService: AlertService
   ) {}
   ngOnInit() {
+    this.baseUrl = baseUrl;
     this.orderForm = this.formBuilder.group({
       ordStatus: ['', Validators.required],
       ordType: ['', Validators.required],
@@ -56,7 +57,7 @@ export class OrderComponent implements OnInit {
       }
     );
     //
-    //HERE receive JSON object asd fill "category" and "product" fields
+    // HERE receive JSON object asd fill "category" and "product" fields
     //
   }
 
@@ -74,7 +75,7 @@ export class OrderComponent implements OnInit {
     //   headers.append('Content-Type', 'multipart/form-data');
     //   headers.append('Accept', 'application/json');
     //   let options = new RequestOptions({ headers: headers });
-    //   this.http.post(`${this.apiEndPoint}`, formData, options)
+    //   this.http.post(`${this.baseUrl}`, formData, options)
     //     .map(res => res.json())
     //     .catch(error => Observable.throw(error))
     //     .subscribe(

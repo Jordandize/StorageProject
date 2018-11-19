@@ -60,4 +60,5 @@ public class CategoryServiceImpl implements CategoryService {
             throw new Exception("CategoryServiceImpl: Get all categories operation failed", e);
         }
     }
+    
 }

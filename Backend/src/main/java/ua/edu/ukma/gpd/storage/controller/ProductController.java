@@ -2,21 +2,39 @@ package ua.edu.ukma.gpd.storage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.entity.Product;
+import ua.edu.ukma.gpd.storage.service.CategoryService;
 import ua.edu.ukma.gpd.storage.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("api/products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
+    
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
-    public List<Product> getProducts() throws Exception{
-        return productService.getAll();
+    public List<Product> getProducts(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	if(categoryId == null) {
+    		return productService.getAll();
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
     }
 
     @GetMapping("/{id}")
@@ -31,8 +49,6 @@ public class ProductController {
         return product;
 
     }
-    
-    
 
     /*@PostMapping
     public ResponseEntity<Long> addProduct(@Valid @RequestBody ProductDto form) throws Exception{

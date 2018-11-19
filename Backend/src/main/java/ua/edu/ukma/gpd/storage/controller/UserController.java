@@ -19,7 +19,7 @@ import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 public class UserController {
 	
 	@Autowired

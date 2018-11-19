@@ -1,5 +1,6 @@
 package ua.edu.ukma.gpd.storage.service;
 
+import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.entity.Product;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface ProductService {
     Product getByName(String name) throws Exception;
 
     List<Product> getAll() throws Exception;
+    
+    List<Product> getByCategory(Category category) throws Exception;
+    
 }

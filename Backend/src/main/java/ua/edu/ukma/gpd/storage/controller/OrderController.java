@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("api/orders")
 public class OrderController {
 
     @Autowired
@@ -41,16 +41,14 @@ public class OrderController {
         return orders;
     }
 
-    @GetMapping("/{id_user}")
-    public List<Order> findOrdersForUser(@RequestParam(required = true) Long userId){
-        List<Order> orders = null;
-        try {
-            orders = orderService.findOrdersForUser(userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            orders = null;
-        }
-        return orders;
+    @GetMapping("/{user}")
+    public List<Order> getOrdersForUser(@PathVariable(value = "user") Long userId) throws Exception{
+//        System.out.println("Get!");
+//        if (userId != null) {
+            return orderService.findOrdersForUser(userId);
+//        } else {
+//            return orderService.findAll();
+//        }
     }
 
     @PostMapping
