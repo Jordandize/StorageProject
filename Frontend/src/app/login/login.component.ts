@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpBackend } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
-import  axios from 'axios';
 import { baseUrl } from '../../varUrl';
 
 // import { AlertService, AuthenticationService } from '../_services';
@@ -56,43 +54,44 @@ export class LoginComponent implements OnInit {
 
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-        const data = {
+        const loginForm = {
             'email': this.f.username.value,
             'password': this.f.password.value
         };
-        //return this.http.post('http://localhost:4200/login', data, {headers: headers});
 
-        
-      return axios.post(this.baseUrl+"/login", data, {headers: headers}).then((response) =>{
-            
+      return this.http.post(this.baseUrl + '/login', loginForm, {headers: headers, observe: 'response'})
+        .subscribe(
+            (data) => {
             swal({
                 position: 'top-end',
                 type: 'success',
                 title: 'You successfully sign in!',
                 showConfirmButton: false,
                 timer: 1500
-              })
+            });
+            console.log(55);
+            console.log(data);
+           
+            sessionStorage.setItem('id', data.headers['x-auth-token']);
+        //    console.log(data.headers['x-auth-token']);
+            console.log("Id"+data.body['user'].id);
+            sessionStorage.setItem('userId', data.body['user'].id);
             
-              console.log(  response.data.user.id);
-              console.log(response.headers['x-auth-token']);
-              sessionStorage.setItem('id',response.headers['x-auth-token']);
-              sessionStorage.setItem('userId',response.data.user.id);
-              sessionStorage.setItem('email',this.f.username.value);
-              console.log(this.f.username.value);
-          this.router.navigate(['/user']);
-        })
-        .catch((error) => {
-            if(error.status==401){
-            swal({
-                type: 'error',
-                title: 'Error!',
-                text:"Такого користувача не існує" 
-              })
+            sessionStorage.setItem('email', this.f.username.value);
+            console.log(this.f.username.value);
+            this.router.navigate(['/user']);
+        },
+        error => {
+            if (error.status === 401) {
+                swal({
+                    type: 'error',
+                    title: 'Error!',
+                    text: 'Invalid email or password doesn\'t match'
+                });
+            } else {
+            console.log(error);
             }
-          this.loading = false;
-        }
-      );
-
-
+            this.loading = false;
+        });
     }
 }
