@@ -4,6 +4,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 // import {validate} from "codelyzer/walkerFactory/walkerFn";
 import { baseUrl } from '../../varUrl';
+import { RequestOptions } from '@angular/http';
+import {OrderLine} from "./orderLine";
+import {ORDER_LINES} from "./ORDER_LINES";
+=======
 
 import { Order } from '../order';
 import { ORDERS } from './ORDERS';
@@ -16,8 +20,9 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
   baseUrl: string;
+  newLine: OrderLine;
+  orderLines: OrderLine[];
 
 
 
@@ -31,6 +36,8 @@ export class OrderComponent implements OnInit {
     // private alertService: AlertService
   ) {}
   ngOnInit() {
+    this.orderLines = ORDER_LINES;
+console.log(this.orderLines);
     this.baseUrl = baseUrl;
     this.orderForm = this.formBuilder.group({
       ordStatus: ['', Validators.required],
@@ -43,7 +50,7 @@ export class OrderComponent implements OnInit {
       comment: [''],
       isArchived: ['', Validators.required],
 
-      //Array here in the future
+      // Array here in the future
           category:['', Validators.required],
           product:['', Validators.required],
           qnt:['', Validators.required],
@@ -51,47 +58,26 @@ export class OrderComponent implements OnInit {
       //
     });
     const head = new HttpHeaders({'Content-Type': 'application/json'});
-    let categories$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
+
+    this.http.get(this.baseUrl+'/', {headers: head}).subscribe(
       data => {},
       error => {
         this.loading = false;
       }
     );
-    let products$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
-      data => {},
-      error => {
-        this.loading = false;
-      }
-    );
-    //
-    // HERE receive JSON object asd fill "category" and "product" fields
-    //
-    console.log("here");
-    this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
+
+//     //
+//     // HERE receive JSON object asd fill "category" and "product" fields
+//     //
+//     console.log("here");
+//     this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
+
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.orderForm.controls; }
 
   fileChange(event) {
-    // let fileList: FileList = event.target.files;
-    // if(fileList.length > 0) {
-    //   let file: File = fileList[0];
-    //   let formData:FormData = new FormData();
-    //   formData.append('uploadFile', file, file.name);
-    //   let headers = new Headers();
-    //   /** In Angular 5, including the header Content-Type can invalidate your request */
-    //   headers.append('Content-Type', 'multipart/form-data');
-    //   headers.append('Accept', 'application/json');
-    //   let options = new RequestOptions({ headers: headers });
-    //   this.http.post(`${this.baseUrl}`, formData, options)
-    //     .map(res => res.json())
-    //     .catch(error => Observable.throw(error))
-    //     .subscribe(
-    //       data => console.log('success'),
-    //       error => console.log(error)
-    //     )
-    // }
   }
 
   onSubmit() {
@@ -130,6 +116,21 @@ export class OrderComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+
+  clickToAdd(orderLine: OrderLine){
+    var line = this.orderLines.length;
+    //тут треба заповнити line даними
+    this.orderLines.push(line);
+  }
+
+  clickToRemove(orderLine: OrderLine){
+    // console.log(orderLine);
+    let index = this.orderLines.indexOf(orderLine);
+    if(index > -1){
+      this.orderLines.splice(index,1);
+    }
   }
 
 }
