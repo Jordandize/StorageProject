@@ -5,6 +5,7 @@ import { LoginComponent } from './login';
 import { OrderComponent } from './order';
 import { HomeComponent } from './home';
 import { UserComponent } from './userPage';
+import { OneOrderComponent } from './oneOrder';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent
+  }
+  ,
+  {
+    path: 'oneOrder/:id',
+    component: OneOrderComponent
   }
   //{
   //  path: 'user',

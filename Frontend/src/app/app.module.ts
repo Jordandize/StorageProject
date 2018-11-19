@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { HomeComponent } from './home';
 import { HeaderComponent } from './header';
 import { SidebarComponent } from './sidebar';
 import { UserComponent } from './userPage';
+import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { MatTabsModule } from '@angular/material';
 import {CustomMaterialModule} from "./material.module";
@@ -27,7 +29,8 @@ import {CustomMaterialModule} from "./material.module";
     CabinetComponent,
     HeaderComponent,
     SidebarComponent,
-    UserComponent
+    UserComponent,
+    OneOrderComponent
 
   ],
   imports: [
@@ -37,6 +40,7 @@ import {CustomMaterialModule} from "./material.module";
     HttpClientModule,
     MatTabsModule,
     CustomMaterialModule,
+    FlexLayoutModule,
     routing
   ],
   providers: [],

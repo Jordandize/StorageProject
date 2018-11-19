@@ -4,69 +4,73 @@ public class Product {
 
     private Long id;
 
-    private Long idCategory;
+    private Long categoryId;
 
     private String name;
 
     private Integer amount;
 
-    private boolean active;
+    private String description;
 
-	public Long getId() {
-		return id;
-	}
+    private Boolean isActive;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getProdId() {
+        return id;
+    }
 
-	public Long getIdCategory() {
-		return idCategory;
-	}
+    public void setProdId(Long prodId) {
+        this.id = id;
+    }
 
-	public void setIdCategory(Long idCategory) {
-		this.idCategory = idCategory;
-	}
+    public Long getCategoryId() {
+        return categoryId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setIdCategory(Long categoryId) {
+        this.categoryId = categoryId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Integer getAmount() {
-		return amount;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
+    public Integer getAmount() {
+        return amount;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Product [id=");
-		builder.append(id);
-		builder.append(", idCategory=");
-		builder.append(idCategory);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", amount=");
-		builder.append(amount);
-		builder.append(", active=");
-		builder.append(active);
-		builder.append("]");
-		return builder.toString();
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDao{" +
+                "prodId=" + id +
+                ", categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", annotation='" + description + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

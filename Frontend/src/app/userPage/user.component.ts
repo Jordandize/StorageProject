@@ -11,22 +11,17 @@ import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { HttpHeaders } from '@angular/common/http';
 
 
-export class User {
+export class Tab {
   id: number;
-  username: string;
+  name: string;
   url:string;
-  constructor(public id2:number, public username2:string, public url2:string) {
+  constructor(public id2:number, public name2:string, public url2:string) {
     this.id = id2;
-    this.username=username2;
+    this.name=name2;
     this.url = url2;
  }
 }
-export class Current {
-  email: string;
-  constructor(public email2:string) {
-    this.email = email2;
- }
-}
+
 export interface Order {
   annotation: string;
 archived: boolean;
@@ -44,7 +39,6 @@ const head = new HttpHeaders({'Content-Type': 'application/json'});
 @Component({ templateUrl: 'user.component.html'})
 export class UserComponent implements OnInit {
   
-    currentUser: User;
     
     public session = sessionStorage.getItem('email');
  
@@ -54,16 +48,14 @@ export class UserComponent implements OnInit {
   
   
   
-      public  users: [User,User,User] = [ 
-      new User(1,'CreateOrder','/order'), 
-      new User(2,'List of Orders','/list'), 
-      new User(3,'List of Products','/listProducts'),
+      public  tabs: [Tab,Tab,Tab] = [ 
+      new Tab(1,'CreateOrder','/order'), 
+      new Tab(2,'List of Orders','/list'), 
+      new Tab(3,'List of Products','/listProducts'),
 ];
 
   constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private router: Router) {}
+    private http: HttpClient) {}
 
     ngOnInit() {
       console.log(sessionStorage.getItem('email'));
