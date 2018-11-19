@@ -8,38 +8,24 @@ import {MatTableDataSource} from '@angular/material';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 
-export class User {
+export class Tab {
   id: number;
-  username: string;
+  name: string;
   url:string;
-  constructor(public id2:number, public username2:string, public url2:string) {
+  constructor(public id2:number, public name2:string, public url2:string) {
     this.id = id2;
-    this.username=username2;
+    this.name=name2;
     this.url = url2;
  }
 }
-export class Current {
-  email: string;
-  constructor(public email2:string) {
-    this.email = email2;
- }
-}
-export interface Order {
-  orderId: number;
-  status: string;
-  comment: string;
-}
-
 @Component({ selector: 'app-sidebar',templateUrl: 'sidebar.component.html'})
 export class SidebarComponent implements OnInit {
 
-  @Input() public  users:User[];
+  @Input() public  tabs:Tab[];
     
 
   constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private router: Router) {}
+    private http: HttpClient) {}
 
     ngOnInit() {
     }

@@ -110,12 +110,12 @@
           <input type="number" ng-model="product.id" class="form-control bfh-number" placeholder="1" min="1">
         </th>
         <th>
-
+<!--
           <select id="categories">
-            <!--<option *ngFor="let eachCat of categories">
+            <option *ngFor="let eachCat of categories">
               {{eachCat}}
-            </option>-->
-          </select>
+            </option>
+          </select>-->
         </th>
         <th>
           <select id="products">
@@ -123,13 +123,13 @@
               {{eachProd}}
             </option>-->
           </select>
-        </th>
+       </th>
 
         <td>
           <input type="number" id="qnt" ng-model="product.qnt" class="form-control bfh-number" placeholder="1" min="1">
         </td>
-        <button ng-click="clickToClone('mainDiv', 'cloneDiv')">➕</button>
-        <button ng-click="clickToDelete('mainDiv', 'cloneDiv')">❌</button>
+      <!-- <button ng-click="clickToClone('mainDiv', 'cloneDiv')">➕</button>--> 
+       <button ng-click="clickToDelete('mainDiv', 'cloneDiv')">❌</button>
       </tr>
       <tr id="cloneDiv">
       </tr>

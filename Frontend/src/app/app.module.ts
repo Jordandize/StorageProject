@@ -15,6 +15,7 @@ import { HomeComponent } from './home';
 import { HeaderComponent } from './header';
 import { SidebarComponent } from './sidebar';
 import { UserComponent } from './userPage';
+import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
 import { ProductsComponent } from './products/products.component';
@@ -24,6 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { DefaultImagePipe } from './products/default-image.pipe';
     DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
-    UserComponent
+    UserComponent,
+    OneOrderComponent
+
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,7 @@ import { DefaultImagePipe } from './products/default-image.pipe';
     HttpClientModule,
     MatTabsModule,
     CustomMaterialModule,
+    FlexLayoutModule,
     routing,
     MatGridListModule,
     MatCardModule,
