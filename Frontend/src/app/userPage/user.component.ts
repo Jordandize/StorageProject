@@ -58,6 +58,7 @@ export class UserComponent implements OnInit {
     private http: HttpClient) {}
 
     ngOnInit() {
+      
       console.log(sessionStorage.getItem('email'));
     }
 }

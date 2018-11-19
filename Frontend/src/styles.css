@@ -4,11 +4,7 @@
   margin-top: 40px;
 }
 
-html, body { 
-  height:100%;
-  margin: 0;
-  font-family: Roboto, sans-serif;
-}
+
 
 h1{
   text-align: center;
@@ -43,6 +39,8 @@ h1{
 .fix{
   padding:2%;
 }
+.grow { transition: all transform .2s ease-in-out; }
+.grow:hover { transform: scale(1.5);z-index:1000; }
 .card-deck-container {
   width: 100%;
   max-width: 1200px;
@@ -107,9 +105,3 @@ button:focus {
   color: red;
 }/* You can add global styles to this file, and also import other style files */
 
-.full {
-  height: 100vh;
-}
-mat-toolbar-row {
-  justify-content: space-between;
-}

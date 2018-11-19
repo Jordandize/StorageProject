@@ -1,5 +1,6 @@
-﻿import { Component, OnInit,Input } from '@angular/core';
+﻿import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -8,6 +9,7 @@ import {MatTableDataSource} from '@angular/material';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { baseUrl } from '../../varUrl';
 import { ActivatedRoute } from '@angular/router';
+import {MatPaginator} from '@angular/material';
 
 export interface Order {
   annotation: string;
@@ -37,7 +39,10 @@ export class OneOrderComponent implements OnInit {
   public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
   public orderId;
-  public order: Order =  {
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  public order2: Order =  {
     "id" : 1,
     "parentId" : 1,
     "orderType" : 1,
@@ -49,7 +54,7 @@ export class OneOrderComponent implements OnInit {
     "assignedTo" : 3,
     "archived" : false
   }
-  public product: Product[] =[{
+  public product2: Product[] =[{
     "id" : 2,
     "categoryId" : 1,
     "name" : "Saw circular Daewoo DAS 1500-190",
@@ -67,16 +72,54 @@ export class OneOrderComponent implements OnInit {
   "image" : "https://source.unsplash.com/random/800x600",
   "icon" : null,
   "active" : true
+},{
+  "id" : 2,
+  "categoryId" : 1,
+  "name" : "Saw circular Daewoo DAS 1500-190",
+  "amount" : 2,
+  "description" : null,
+  "image" : "https://source.unsplash.com/random/800x600",
+  "icon" : null,
+  "active" : true
+},{
+"id" : 2,
+"categoryId" : 1,
+"name" : "Saw circular Daewoo DAS 1500-190",
+"amount" : 2,
+"description" : null,
+"image" : "https://source.unsplash.com/random/800x600",
+"icon" : null,
+"active" : true
 }]
 
+public product: Product[];
+public order: Order;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router) {}
 
     async ngOnInit() {
-      await this.route.params.subscribe(params => { this.orderId = params['id']; });
+      await this.route.params.subscribe(params => { this.orderId = params['id'];
+    });
+    await  this.http.get(this.baseUrl+"/api/order?userId="+this.id).subscribe(data => {
 
+    this.order2=<Order>data;
+  
+        },   error => {
+          this.order=this.order2;
+          console.log(error);
+      }
+      );
+      await  this.http.get(this.baseUrl+"/api/productForOrder?userId="+this.id).subscribe(data => {
+          this.product=<Product[]>data;
+
+            
+            },   error => {
+              this.product=this.product2;
+              console.log(error);
+          }
+          );
     }
 
    

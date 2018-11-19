@@ -26,6 +26,7 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,

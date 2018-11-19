@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   @Input() public session = sessionStorage.getItem('email');
 
     myFunc():void{
-      sessionStorage.removeItem('id');
+  //    sessionStorage.removeItem('id');
       console.log("Works");
     }
   
