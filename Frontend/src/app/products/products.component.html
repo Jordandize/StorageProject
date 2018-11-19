@@ -1,17 +1,18 @@
-<div class="pg-container" fxLayout="row">
-  <div class="col-left" fxFlex="250px"></div>
-  <div class="col-center" fxFlex fxFill>
-    <div
-      class="ps-container"
-      fxLayout="row"
-      fxLayout.xs="column"
-      fxLayoutAlign="start start"
-      fxLayoutGap="0.5%"
-      fxLayoutGap.xs="0.1%">
-    
-      <div class="product" fxFlex="50%">1</div>
-      <div class="product" fxFlex="50%">1</div>
-  
-    </div>
+
+<!--Category Filter-->
+<div fxLoyout="row">
+  <mat-form-field fxFlex="200px" fxFlexOffset="30px">
+    <mat-select [(value)]="selectedCategoryId" placeholder="Specify category" (selectionChange)="categoryChanged()">
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!--Products List-->
+<div fxLayout="row wrap" fxLayoutAlign="start">
+  <div *ngFor="let product of products"  fxFlex="0 1 calc(20%)" fxLayoutAlign="center center">
+      <app-product-card [product]="product">
+      </app-product-card>
   </div>
 </div>

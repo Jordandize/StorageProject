@@ -19,7 +19,7 @@ import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 public class UserController {
 	
 	@Autowired
@@ -36,6 +36,17 @@ public class UserController {
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable("id") Long id) throws Exception {
 		return userService.getById(id);
+	}
+
+	@GetMapping("/keeperActive={active}")
+	public List<User> getActiveKeepers(@PathVariable("active") Boolean active) throws Exception{
+		List<User> activeKeepers;
+		if (active) {
+			activeKeepers = userService.getActiveKeepers();
+			return activeKeepers;
+		} else {
+			throw new Exception("No active keepers");
+		}
 	}
 	
 	@PostMapping

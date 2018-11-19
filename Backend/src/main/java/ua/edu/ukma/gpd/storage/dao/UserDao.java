@@ -18,4 +18,6 @@ public interface UserDao {
 	
 	List<User> findAll();
 
+	List<User> findActiveKeepers();
+
 }

@@ -8,15 +8,23 @@
 mat-card {
     font-family: 'Open Sans', sans-serif;
     border-radius: 2px;
+    padding: 0;
 }
 
 mat-card-title {
     margin: 0;
-    font-family: sans-serif;
 }
 
-mat-card > mat-card-subtitle {
-    margin-bottom: 6px;
+mat-card > mat-card-title > mat-card-subtitle {
+    margin: 0;
+    font-size: 10px;
+    text-align: end;
+    color: #8e8e8e;
+    padding-right: 5px;
+}
+
+mat-card-content {
+    margin-bottom: 0px;
 }
 
 mat-card-content p {
@@ -41,4 +49,78 @@ button.get.mat-fab {
 
 mat-card-actions.mat-card-actions {
     margin: 0;
+}
+
+mat-card-content p.hover-tip {
+    font-size: 11px;
+    text-align: center;
+    color: #3e3e3e;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container mat-card-title {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.82);
+    color: rgb(250, 250, 250);
+    padding: 1px 8px;
+    text-align: center;
+    font-size: 13px;
+    width: 100%;
+}
+
+mat-card-subtitle.category-label, mat-card-subtitle.id-label{
+    margin: 0;
+}
+
+.category-label {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.82);
+    color: rgb(250, 250, 250);
+    padding: 0 5px;
+    right: 0;
+    bottom: 0;
+    font-size: 11px;
+}
+
+.id-label {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.72);
+    color: rgb(250, 250, 250);
+    padding: 0px 8px;
+    left: 0;
+    top: 0;
+    font-size: 11px;
+}
+
+.icon-label {
+    position: absolute;
+    left: 7px;
+    bottom: 5px;
+}
+
+mat-card-title.hover-name {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: -13px;
+    margin-bottom: 5px;
+}
+
+div.hover-buttons {
+    margin-top: -5px;
+}
+
+mat-card-content.hover-description {
+    margin-bottom: 5px;
+}
+
+div.hover-part {
+    background-color: white;
+    z-index: 500;
+    width: 100%;
+    position: absolute;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { PRODUCTS } from '../PRODUCTS';
 
 @Component({
   selector: 'app-product-card',
@@ -10,7 +11,9 @@ import { ProductService } from '../product.service';
 })
 export class ProductCardComponent implements OnInit {
 
-  product: Product;
+  @Input() product: Product;
+
+  isHovered = false;
 
   limits: any = {
     bot: 0,
@@ -22,10 +25,20 @@ export class ProductCardComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.productService.getProducts()
-      .subscribe(products => {
-        this.product = products[0];
-      });
+    // If No Product Injected Take From Static Collection
+    if (this.product == null) {
+      this.productService.getProducts()
+        .subscribe(products => {
+          // this.product = products[0];
+          this.product = PRODUCTS[1];
+        });
+    }
+    if (this.product.category == null) {
+      this.productService.getCategories()
+        .subscribe(categories => {
+          this.product.category = categories.find(c => c.id === this.product.categoryId).name;
+        });
+    }
   }
 
   decrease() {
@@ -43,6 +56,14 @@ export class ProductCardComponent implements OnInit {
       this.amount = this.amount < this.limits.bot ?  this.limits.bot :
         this.amount < this.limits.top ? +this.amount : this.limits.top;
     }
+  }
+
+  onMouseEnter() {
+    this.isHovered = true;
+  }
+
+  onMouseLeave() {
+    this.isHovered = false;
   }
 
 }

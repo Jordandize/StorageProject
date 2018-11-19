@@ -7,6 +7,12 @@ import { baseUrl } from '../../varUrl';
 import { RequestOptions } from '@angular/http';
 import {OrderLine} from "./orderLine";
 import {ORDER_LINES} from "./ORDER_LINES";
+=======
+
+import { Order } from '../order';
+import { ORDERS } from './ORDERS';
+import { OrderService } from '../order.service';
+
 
 
 @Component({templateUrl: 'order.component.html'})
@@ -24,7 +30,8 @@ export class OrderComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router, 
+    private orderService: OrderService
     // private authenticationService: AuthenticationService,
     // private alertService: AlertService
   ) {}
@@ -47,6 +54,7 @@ console.log(this.orderLines);
           category:['', Validators.required],
           product:['', Validators.required],
           qnt:['', Validators.required],
+
       //
     });
     const head = new HttpHeaders({'Content-Type': 'application/json'});
@@ -57,6 +65,13 @@ console.log(this.orderLines);
         this.loading = false;
       }
     );
+
+//     //
+//     // HERE receive JSON object asd fill "category" and "product" fields
+//     //
+//     console.log("here");
+//     this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
+
   }
 
   // convenience getter for easy access to form fields
@@ -91,6 +106,8 @@ console.log(this.orderLines);
       'qnt': this.f.qnt.value,
       'phone': this.f.phone.value
     };
+
+
     return this.http.post(this.baseUrl+'/order', order, {headers: head}).subscribe(
       data => {
         this.router.navigate(['/home']);
