@@ -14,5 +14,7 @@ public interface UserService {
 	User getByEmail(String email) throws Exception;
 
 	List<User> getAll() throws Exception;
+
+	List<User> getActiveKeepers() throws Exception;
 	
 }

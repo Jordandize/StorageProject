@@ -1,3 +1,4 @@
+
 ﻿import { Component, OnInit,Input, ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
 import {HttpClient} from "@angular/common/http";
@@ -21,12 +22,17 @@ orderStatus: number;
 orderType: number;
 parentId: number;
 }
+
 var angular: any;
 @Component({ selector: 'app-userpage',templateUrl: 'home.component.html'})
+
 export class HomeComponent implements OnInit {
+
+  private orders: Order[] = null;
  @Input() public displayedColumns: string[];
   public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
+
   public order: Order[] = [ {
     "id" : 1,
     "parentId" : 1,
@@ -64,6 +70,7 @@ export class HomeComponent implements OnInit {
   }]
   @ViewChild(MatPaginator) paginator: MatPaginator;
      public  dataSource2 : Order[] ;
+
       public  dataSource ;
   
     applyFilter(filterValue: string) {
@@ -80,6 +87,7 @@ export class HomeComponent implements OnInit {
         console.log("Element data 1");
 
 
+
         if(data!=null){
         this.dataSource2=<Order[]>data;
         }
@@ -89,6 +97,7 @@ export class HomeComponent implements OnInit {
         
         this.dataSource = new MatTableDataSource(this.dataSource2);
         this.dataSource.paginator = this.paginator;
+
          
           },   error => {
             console.log(error);
@@ -96,7 +105,9 @@ export class HomeComponent implements OnInit {
         );
          
          
+
         
+
         console.log( "Check");
       console.log( this.dataSource2);
     

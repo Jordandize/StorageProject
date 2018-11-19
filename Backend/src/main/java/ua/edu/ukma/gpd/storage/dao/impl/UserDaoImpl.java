@@ -93,4 +93,9 @@ public class UserDaoImpl implements UserDao {
 		return jdbcTemplate.query(UserSql.FIND_ALL, mapper);
 	}
 
+
+	@Override
+	public List<User> findActiveKeepers(){
+		return jdbcTemplate.query(UserSql.FIND_ACTIVE_KEEPERS, mapper);
+	}
 }

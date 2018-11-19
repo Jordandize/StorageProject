@@ -4,7 +4,12 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 // import {validate} from "codelyzer/walkerFactory/walkerFn";
 import { baseUrl } from '../../varUrl';
-import { RequestOptions } from '@angular/http';
+
+import { Order } from '../order';
+import { ORDERS } from './ORDERS';
+import { OrderService } from '../order.service';
+
+
 
 @Component({templateUrl: 'order.component.html'})
 export class OrderComponent implements OnInit {
@@ -20,7 +25,8 @@ export class OrderComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router, 
+    private orderService: OrderService
     // private authenticationService: AuthenticationService,
     // private alertService: AlertService
   ) {}
@@ -41,6 +47,7 @@ export class OrderComponent implements OnInit {
           category:['', Validators.required],
           product:['', Validators.required],
           qnt:['', Validators.required],
+
       //
     });
     const head = new HttpHeaders({'Content-Type': 'application/json'});
@@ -59,6 +66,8 @@ export class OrderComponent implements OnInit {
     //
     // HERE receive JSON object asd fill "category" and "product" fields
     //
+    console.log("here");
+    this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
   }
 
   // convenience getter for easy access to form fields
@@ -111,6 +120,8 @@ export class OrderComponent implements OnInit {
       'qnt': this.f.qnt.value,
       'phone': this.f.phone.value
     };
+
+
     return this.http.post(this.baseUrl+'/order', order, {headers: head}).subscribe(
       data => {
         this.router.navigate(['/home']);
