@@ -83,4 +83,13 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public List<User> getActiveKeepers() throws Exception {
+		try{
+			return userDao.findActiveKeepers();
+		} catch (Exception e){
+			throw new Exception("UserServiceImpl: getActiveKeepers operation failed", e);
+		}
+	}
+
 }

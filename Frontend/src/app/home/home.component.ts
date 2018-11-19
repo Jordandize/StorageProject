@@ -1,4 +1,4 @@
-﻿import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { first } from 'rxjs/operators';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
@@ -37,16 +37,18 @@ orderStatus: number;
 orderType: number;
 parentId: number;
 }
-var orders: Order[] = null;
+
 @Component({ selector: 'app-home',templateUrl: 'home.component.html'})
 export class HomeComponent implements OnInit {
+
+  private orders: Order[] = null;
  @Input() public displayedColumns: string[];
  // @Input() public  dataSource2;
   public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
     
      
-     public  dataSource2 : Order[] =orders;
+     public  dataSource2 : Order[] = this.orders;
       public  dataSource ;
   
     applyFilter(filterValue: string) {
@@ -61,8 +63,8 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
        this.http.get(this.baseUrl+"/orders?userId="+this.id).subscribe(data => {
         console.log("Element data 1");
-         orders=<Order[]>data;
-         console.log(orders);
+         this.orders=<Order[]>data;
+         console.log(this.orders);
          
           },   error => {
             console.log(error);
@@ -70,7 +72,7 @@ export class HomeComponent implements OnInit {
         );
          
          
-        this.dataSource2=orders;
+        this.dataSource2=this.orders;
         this.dataSource = new MatTableDataSource(this.dataSource2);
         console.log( "Check");
       console.log( this.dataSource2);

@@ -8,7 +8,7 @@ import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
-import { OrderComponent } from './order';
+import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home';
 import { HeaderComponent } from './header';
 import { SidebarComponent } from './sidebar';
