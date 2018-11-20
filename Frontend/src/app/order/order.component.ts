@@ -118,7 +118,7 @@ console.log(this.orderLines);
   }
 
 
-  clickToAdd(orderLine: OrderLine){
+  clickToAdd(/*orderLine: OrderLine*/) {
     var line = this.orderLines.length;
     //тут треба заповнити line даними
     this.orderLines.push();
