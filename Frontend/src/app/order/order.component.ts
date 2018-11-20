@@ -121,7 +121,7 @@ console.log(this.orderLines);
   clickToAdd(orderLine: OrderLine){
     var line = this.orderLines.length;
     //тут треба заповнити line даними
-    this.orderLines.push();
+    this.orderLines.push(ORDER_LINES[0]);
   }
 
   clickToRemove(orderLine: OrderLine){
