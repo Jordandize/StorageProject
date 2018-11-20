@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
             });
             console.log(55);
             console.log(data);
+            console.log(data.headers['x-auth-token']);
             sessionStorage.setItem('id', data.headers['x-auth-token']);
             sessionStorage.setItem('userId', 'TODO:data.user.id');
             sessionStorage.setItem('email', this.f.username.value);
