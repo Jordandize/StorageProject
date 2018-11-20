@@ -102,7 +102,7 @@ public order: Order;
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
-    await  this.http.get(this.baseUrl+"/api/order?userId="+this.id).subscribe(data => {
+    await  this.http.get(this.baseUrl+"/api/orders/"+this.id).subscribe(data => {
 
     this.order2=<Order>data;
   
@@ -111,7 +111,7 @@ public order: Order;
           console.log(error);
       }
       );
-      await  this.http.get(this.baseUrl+"/api/productForOrder?userId="+this.id).subscribe(data => {
+      await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
           this.product=<Product[]>data;
 
             
