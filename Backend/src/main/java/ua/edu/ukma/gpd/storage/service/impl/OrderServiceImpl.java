@@ -69,4 +69,16 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
+
+    public Order assignKeeperToOrder(Long userId, Long orderId) throws Exception{
+        Order order = null;
+        try{
+            order = orderDao.assignKeeperToOrder(userId, orderId);
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            throw new Exception("Exception occured in OrderServiceImpl: operation assignKeeperToOrder [" +  userId + ", " + orderId + "] failed", e);
+        }
+        return order;
+    }
 }

@@ -14,4 +14,6 @@ public interface OrderDao {
 
     List<Order> findOrdersForUser(Long userId);
 
+    Order assignKeeperToOrder(Long userId, Long orderId);
+
 }
