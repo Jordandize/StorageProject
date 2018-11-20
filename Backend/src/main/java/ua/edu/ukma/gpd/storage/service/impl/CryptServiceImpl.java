@@ -20,10 +20,10 @@ import ua.edu.ukma.gpd.storage.service.CryptService;
 public class CryptServiceImpl implements CryptService {
 	
 	@Value("${crypt.key}")
-    private static String KEY;
-
+    private String KEY;
+	
 	@Value("${crypt.vector}")
-    private static String VECTOR;
+    private String VECTOR;
 
 	@Override
 	public String encrypt(String value) {
