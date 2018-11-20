@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
     async ngOnInit() {
     //  console.log(this.id);
     console.log( "It s me"+ sessionStorage.getItem('userId'));
-     await  this.http.get(this.baseUrl+"/api/orders?userId="+this.id).subscribe(data => {
+     await  this.http.get(this.baseUrl + "/api/orders?user="+this.id).subscribe(data => {
         console.log("Element data 1");
 
 

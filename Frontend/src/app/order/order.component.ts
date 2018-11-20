@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { baseUrl } from '../../varUrl';
 import { RequestOptions } from '@angular/http';
 import {OrderLine} from "./orderLine";
-import {ORDER_LINES} from "./ORDER_LINES";
+import {ORDER_LINES} from './ORDER_LINES';
 
 import { Order } from '../order';
 import { ORDERS } from './ORDERS';
