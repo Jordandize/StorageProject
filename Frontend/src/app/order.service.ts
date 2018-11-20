@@ -5,7 +5,7 @@ import { baseUrl } from '../varUrl';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Order } from './order';
-import { User } from './userPage/user.component';
+//import { User } from './userPage/user.component';
 //import { ORDERS } from './order/ORDERS';
 
 @Injectable({
