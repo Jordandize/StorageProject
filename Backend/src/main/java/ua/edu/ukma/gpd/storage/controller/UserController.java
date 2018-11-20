@@ -48,7 +48,7 @@ public class UserController {
 			throw new Exception("No active keepers");
 		}
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Long> addUser(@Valid @RequestBody SignupFormDto form) throws Exception {
 		HttpStatus status;
