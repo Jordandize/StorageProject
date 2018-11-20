@@ -41,8 +41,8 @@ public class OrderController {
         return orders;
     }
 
-    @GetMapping("/{user}")
-    public List<Order> getOrdersForUser(@PathVariable(value = "user") Long userId) throws Exception{
+    @GetMapping("/{userId}")
+    public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception{
 //        System.out.println("Get!");
 //        if (userId != null) {
             return orderService.findOrdersForUser(userId);
@@ -51,7 +51,8 @@ public class OrderController {
 //        }
     }
 
-    
+//    @PostMapping("")
+//    public ResponseEntity<Long> assignKeeperToUser()
 
     @PostMapping
     public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception{
