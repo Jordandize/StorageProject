@@ -1,4 +1,4 @@
-export class OrderLine{
+export class OrderLine {
   prodId: number;
   category: string;
   prodName: string;

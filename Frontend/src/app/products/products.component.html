@@ -12,7 +12,7 @@
   <!--Products List-->
   <div fxLayout="row wrap" fxLayoutAlign="start">
     <div *ngFor="let product of products"  fxFlex="0 1 calc(20%)" fxLayoutAlign="center center">
-        <app-product-card [product]="product">
+        <app-product-card [product]="product" [amount]="inOrderAmount(product)">
         </app-product-card>
     </div>
   </div>

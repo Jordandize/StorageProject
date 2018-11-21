@@ -25,6 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
+import { SessionViewerComponent } from './session-viewer/session-viewer.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { DefaultImagePipe } from './products/default-image.pipe';
     HeaderComponent,
     SidebarComponent,
     UserComponent,
-    OneOrderComponent
+    OneOrderComponent,
+    SessionViewerComponent
 
   ],
   imports: [
