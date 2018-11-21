@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { PRODUCTS } from '../PRODUCTS';
+import { SessionService } from 'src/app/session.service';
 
 @Component({
   selector: 'app-product-card',
@@ -12,6 +13,7 @@ import { PRODUCTS } from '../PRODUCTS';
 export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
+  @Input() amount = 0;
 
   isHovered = false;
 
@@ -20,9 +22,9 @@ export class ProductCardComponent implements OnInit {
     top: 9999
   };
 
-  amount = 0;
-
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     // If No Product Injected Take From Static Collection
@@ -64,6 +66,15 @@ export class ProductCardComponent implements OnInit {
 
   onMouseLeave() {
     this.isHovered = false;
+  }
+
+  get() {
+    if (this.amount !== 0) {
+      this.sessionService.setOrderLine({id: this.product.id, amount: this.amount,
+        product: this.product.name, category: this.product.category});
+    } else if (this.amount === 0) {
+      this.sessionService.removeOrderLine(this.product.id);
+    }
   }
 
 }

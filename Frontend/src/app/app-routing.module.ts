@@ -10,6 +10,7 @@ import { DashTestComponent } from './dash-test/dash-test.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { UserComponent } from './userPage';
 import { OneOrderComponent } from './oneOrder';
+import { SessionViewerComponent } from './session-viewer/session-viewer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'dashtest', component: DashTestComponent },
   { path: 'pr-card', component: ProductCardComponent },
-  {path: 'oneOrder/:id',component: OneOrderComponent}
+  { path: 'oneOrder/:id', component: OneOrderComponent },
+  { path: 'session', component: SessionViewerComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);
