@@ -50,8 +50,7 @@ public class OrderServiceImpl implements OrderService {
         try{
             orders = orderDao.findAll();
         } catch (EmptyResultDataAccessException e){
-            e.printStackTrace();
-            orders = null;
+
         } catch (Exception e){
             throw new Exception("Exception occured in OrderServiceImpl: operation findAll failed");
         }

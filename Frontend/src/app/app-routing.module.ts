@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
-import { OrderComponent } from './order';
+import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home';
 import { CabinetComponent } from './cabinet';
 import { ProductsComponent } from './products/products.component';
 import { DashTestComponent } from './dash-test/dash-test.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { UserComponent } from './userPage';
+import { OneOrderComponent } from './oneOrder';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'dashtest', component: DashTestComponent },
-  { path: 'pr-card', component: ProductCardComponent }
+  { path: 'pr-card', component: ProductCardComponent },
+  {path: 'oneOrder/:id',component: OneOrderComponent}
 ];
 
 export const routing = RouterModule.forRoot(routes);

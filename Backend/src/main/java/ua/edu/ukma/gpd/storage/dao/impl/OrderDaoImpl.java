@@ -28,7 +28,7 @@ public class OrderDaoImpl implements OrderDao {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
-        order.setOrderStatus(resultSet.getInt("id_order_status"));
+        order.setOrderStatus(resultSet.getInt("order_status"));
         order.setOrderType(resultSet.getInt("id_order_type"));
         order.setCreationDateTime(resultSet.getTimestamp("created"));
         order.setModifiedDateTime(resultSet.getTimestamp("changed"));
@@ -74,7 +74,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findOrdersForUser(Long userId) {
-        return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, mapper);
+        return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, new Object[]{userId}, mapper);
     }
 
 

@@ -1,4 +1,4 @@
-/*@import '~@angular/material/theming';
+@import '~@angular/material/theming';
 @include mat-core();
 
 $custom-primary: mat-palette($mat-deep-purple);
@@ -8,7 +8,7 @@ $custom-theme: mat-dark-theme($custom-primary, $custom-accent);
 
 
 
-@include angular-material-theme($custom-theme);*/
+@include angular-material-theme($custom-theme);
 
 //@import '~@angular/material/theming';
 //@include mat-core();

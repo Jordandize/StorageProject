@@ -71,9 +71,12 @@ export class LoginComponent implements OnInit {
             });
             console.log(55);
             console.log(data);
-            console.log(data.headers['x-auth-token']);
+           
             sessionStorage.setItem('id', data.headers['x-auth-token']);
-            sessionStorage.setItem('userId', 'TODO:data.user.id');
+        //    console.log(data.headers['x-auth-token']);
+            console.log("Id"+data.body['user'].id);
+            sessionStorage.setItem('userId', data.body['user'].id);
+            
             sessionStorage.setItem('email', this.f.username.value);
             console.log(this.f.username.value);
             this.router.navigate(['/user']);

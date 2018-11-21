@@ -37,7 +37,18 @@ public class UserController {
 	public User getUserById(@PathVariable("id") Long id) throws Exception {
 		return userService.getById(id);
 	}
-	
+
+	@GetMapping("/keeperActive={active}")
+	public List<User> getActiveKeepers(@PathVariable("active") Boolean active) throws Exception{
+		List<User> activeKeepers;
+		if (active) {
+			activeKeepers = userService.getActiveKeepers();
+			return activeKeepers;
+		} else {
+			throw new Exception("No active keepers");
+		}
+	}
+
 	@PostMapping
 	public ResponseEntity<Long> addUser(@Valid @RequestBody SignupFormDto form) throws Exception {
 		HttpStatus status;

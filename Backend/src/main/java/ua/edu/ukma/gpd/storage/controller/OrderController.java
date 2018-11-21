@@ -41,17 +41,18 @@ public class OrderController {
         return orders;
     }
 
-    @GetMapping("/{id_user}")
-    public List<Order> findOrdersForUser(@RequestParam(required = true) Long userId){
-        List<Order> orders = null;
-        try {
-            orders = orderService.findOrdersForUser(userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            orders = null;
-        }
-        return orders;
+    @GetMapping("/{userId}")
+    public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception{
+//        System.out.println("Get!");
+//        if (userId != null) {
+            return orderService.findOrdersForUser(userId);
+//        } else {
+//            return orderService.findAll();
+//        }
     }
+
+//    @PostMapping("")
+//    public ResponseEntity<Long> assignKeeperToUser()
 
     @PostMapping
     public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception{
