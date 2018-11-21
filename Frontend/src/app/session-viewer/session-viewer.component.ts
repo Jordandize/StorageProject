@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding} from '@angular/core';
 
-import { OrderLine } from '../data/orderLine';
+import { OrderLine } from '../data/OrderLine';
 import { SessionService } from '../session.service';
 
 @Component({
