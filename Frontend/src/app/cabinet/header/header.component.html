@@ -4,6 +4,6 @@
         <img class="avatar" src="{{avatar | defaultImage:'https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png'}}"/>
         <button fxFlexOffset="10px" mat-stroked-button>{{email}}</button>
       </mat-card-header>
-    <button mat-stroked-button (click)="logout()">Logout</button>
+    <button mat-stroked-button [routerLink]="['/login']" (click)="logout()">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>

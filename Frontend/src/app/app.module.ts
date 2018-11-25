@@ -15,7 +15,6 @@ import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home';
 import { HeaderComponent } from './cabinet/header/header.component';
 import { SidebarComponent } from './cabinet/sidebar/sidebar.component';
-import { UserComponent } from './userPage';
 import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
@@ -27,6 +26,7 @@ import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
 import { SessionViewerComponent } from './session-viewer/session-viewer.component';
 import { PreviousRouteService } from './service-previousUrl/previous-route.service';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -43,9 +43,9 @@ import { PreviousRouteService } from './service-previousUrl/previous-route.servi
     DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
-    UserComponent,
     OneOrderComponent,
-    SessionViewerComponent
+    SessionViewerComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
