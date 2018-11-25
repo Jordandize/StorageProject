@@ -4,15 +4,11 @@
   margin-top: 40px;
 }
 
-
-
-h1{
+h1 {
   text-align: center;
   color: #81cbf0;
 }
-.example-container{
-  height:93%;
-}
+
 .full {
   height: 100vh;
 }
@@ -54,9 +50,7 @@ h1{
 .card-item {
   padding: 3px 3px 3px 3px;
 }
- mat-toolbar-row {
-  justify-content: space-between;
-}
+
 html, body {height:100%;margin: 0;
   font-family: Roboto, sans-serif; }
 

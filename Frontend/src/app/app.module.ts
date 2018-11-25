@@ -6,20 +6,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
+import { CabinetRoutingModule } from './cabinet/cabinet-routing.module';
 import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
 import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home';
-import { HeaderComponent } from './header';
-import { SidebarComponent } from './sidebar';
+import { HeaderComponent } from './cabinet/header/header.component';
+import { SidebarComponent } from './cabinet/sidebar/sidebar.component';
 import { UserComponent } from './userPage';
 import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
 import { ProductsComponent } from './products/products.component';
-import { DashTestComponent } from './dash-test/dash-test.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
@@ -37,7 +37,6 @@ import { SessionViewerComponent } from './session-viewer/session-viewer.componen
     HomeComponent,
     CabinetComponent,
     ProductsComponent,
-    DashTestComponent,
     ProductCardComponent,
     StrLimitPipe,
     DefaultImagePipe,
@@ -46,7 +45,6 @@ import { SessionViewerComponent } from './session-viewer/session-viewer.componen
     UserComponent,
     OneOrderComponent,
     SessionViewerComponent
-
   ],
   imports: [
     BrowserModule,
@@ -57,6 +55,7 @@ import { SessionViewerComponent } from './session-viewer/session-viewer.componen
     MatTabsModule,
     CustomMaterialModule,
     FlexLayoutModule,
+    CabinetRoutingModule,
     routing,
     MatGridListModule,
     MatCardModule,
