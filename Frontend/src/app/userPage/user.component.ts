@@ -40,19 +40,12 @@ const head = new HttpHeaders({'Content-Type': 'application/json'});
 export class UserComponent implements OnInit {
   
     
-    public session = sessionStorage.getItem('email');
- 
-     
      public displayedColumns: string[] = ['id', 'creationDateTime', 'annotation'];
      
   
   
   
-      public  tabs: [Tab,Tab,Tab] = [ 
-      new Tab(1,'CreateOrder','/order'), 
-      new Tab(2,'List of Orders','/list'), 
-      new Tab(3,'List of Products','/listProducts'),
-];
+    
 
   constructor(
     private http: HttpClient) {}

@@ -13,7 +13,10 @@ import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 @Component({ selector: 'app-header',templateUrl: 'header.component.html'})
 export class HeaderComponent implements OnInit {
-  @Input() public session = sessionStorage.getItem('email');
+  
+  public session = sessionStorage.getItem('email');
+ 
+   
 
     myFunc():void{
   //    sessionStorage.removeItem('id');

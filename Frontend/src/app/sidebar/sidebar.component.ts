@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableDataSource} from '@angular/material';
 import "@angular/material/prebuilt-themes/indigo-pink.css";
+import { PreviousRouteService } from '../service-previousUrl/previous-route.service';
+import { baseUrl } from '../../varUrl';
 
 
 export class Tab {
@@ -18,15 +20,28 @@ export class Tab {
     this.url = url2;
  }
 }
-@Component({ selector: 'app-sidebar',templateUrl: 'sidebar.component.html'})
+@Component({ selector: 'app-sidebar',templateUrl: 'sidebar.component.html',styleUrls: ['./sidebar.component.css']})
 export class SidebarComponent implements OnInit {
-
-  @Input() public  tabs:Tab[];
-    
+  baseUrl = baseUrl;
+  public  tabs : Tab[] ;
+  public role = sessionStorage.getItem('role');
+myFunc():void{
+  console.log(this.previousRouteService.getPreviousUrl());
+  this.router.navigate(['/'+this.previousRouteService.getPreviousUrl()]); 
+    }
 
   constructor(
-    private http: HttpClient) {}
+    private previousRouteService: PreviousRouteService,
+    private http: HttpClient, private router: Router) {}
 
-    ngOnInit() {
+    async ngOnInit() {
+      await  this.http.get(this.baseUrl+"/api/tabs").subscribe(data => {
+
+        this.tabs=<Tab[]> data;
+      
+            },   error => {
+              console.log(error);
+          }
+          );
     }
 }
