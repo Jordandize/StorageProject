@@ -26,6 +26,7 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
 import { SessionViewerComponent } from './session-viewer/session-viewer.component';
+import { PreviousRouteService } from './service-previousUrl/previous-route.service';
 
 
 @NgModule({
@@ -67,7 +68,7 @@ import { SessionViewerComponent } from './session-viewer/session-viewer.componen
     FlexLayoutModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [ PreviousRouteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

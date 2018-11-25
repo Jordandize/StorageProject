@@ -3,7 +3,9 @@
                     <mat-sidenav #drawer mode="side" opened role="navigation" >
                       <mat-nav-list class="change">
                         <a mat-list-item *ngFor="let tab of tabs" routerLink='{{ tab.url }}'  (click)='all(tab)' >{{ tab.name }}</a>
+                      
                       </mat-nav-list>
+                      <a mat-fab class="previousPage" color="primary" (click)="myFunc()" >Back</a>
                     </mat-sidenav>
            
              

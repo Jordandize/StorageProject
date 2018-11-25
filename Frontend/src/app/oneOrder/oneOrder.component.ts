@@ -91,7 +91,8 @@ export class OneOrderComponent implements OnInit {
 "icon" : null,
 "active" : true
 }]
-
+public  dataSource ;
+obs: Observable<any>;
 public product: Product[];
 public order: Order;
   constructor(
@@ -113,10 +114,12 @@ public order: Order;
       );
       await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
           this.product=<Product[]>data;
-
             
             },   error => {
               this.product=this.product2;
+              this.dataSource = new MatTableDataSource<Product>(this.product);
+              this.obs = this.dataSource.connect();
+              this.dataSource.paginator = this.paginator;
               console.log(error);
           }
           );
