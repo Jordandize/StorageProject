@@ -14,6 +14,8 @@ public interface OrderService {
 
     List<Order> findOrdersForUser(Long userId) throws Exception;
 
+    List<Order> findUnassignedOrders() throws Exception;
+
     Order assignKeeperToOrder(Long userId, Long orderId) throws Exception;
 
 }

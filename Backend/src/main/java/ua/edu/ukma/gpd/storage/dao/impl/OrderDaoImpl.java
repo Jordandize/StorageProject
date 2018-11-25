@@ -79,6 +79,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> findUnassignedOrders(){
+        return jdbcTemplate.query(OrderSql.FIND_UNNASIGNED_ORDERS, mapper);
+    }
+
+    @Override
     public Order assignKeeperToOrder(Long userId, Long orderId) {
         Order order = null;
         try {
@@ -92,4 +97,5 @@ public class OrderDaoImpl implements OrderDao {
         }
         return order;
     }
+
 }

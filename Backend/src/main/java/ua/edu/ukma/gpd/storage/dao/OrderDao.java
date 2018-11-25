@@ -16,4 +16,6 @@ public interface OrderDao {
 
     Order assignKeeperToOrder(Long userId, Long orderId);
 
+    List<Order> findUnassignedOrders();
+
 }

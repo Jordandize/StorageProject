@@ -20,4 +20,9 @@ public class OrderSql {
                     "SET id_keeper = ? " +
                     "WHERE id = ?";
 
+    public static final String FIND_UNNASIGNED_ORDERS =
+            "SELECT * \n" +
+                    "FROM orders\n" +
+                    "WHERE id_keeper is null\n";
+
 }
