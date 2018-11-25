@@ -33,41 +33,7 @@ export class HomeComponent implements OnInit {
   public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
 
-  public order: Order[] = [ {
-    "id" : 1,
-    "parentId" : 1,
-    "orderType" : 1,
-    "orderStatus" : 1,
-    "creationDateTime" : "2018-02-11T06:35:00.000+0000",
-    "modifiedDateTime" : "2018-02-11T06:35:00.000+0000",
-    "annotation" : "nothing",
-    "createdBy" : 2,
-    "assignedTo" : 3,
-    "archived" : false
-  },{
-    "id" : 1,
-    "parentId" : 1,
-    "orderType" : 1,
-    "orderStatus" : 1,
-    "creationDateTime" : "2018-02-11T06:35:00.000+0000",
-    "modifiedDateTime" : "2018-02-11T06:35:00.000+0000",
-    "annotation" : "nothing",
-    "createdBy" : 2,
-    "assignedTo" : 3,
-    "archived" : false
-  },
-  {
-    "id" : 1,
-    "parentId" : 1,
-    "orderType" : 1,
-    "orderStatus" : 1,
-    "creationDateTime" : "2018-02-11T06:35:00.000+0000",
-    "modifiedDateTime" : "2018-02-11T06:35:00.000+0000",
-    "annotation" : "nothing",
-    "createdBy" : 2,
-    "assignedTo" : 3,
-    "archived" : false
-  }]
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
      public  dataSource2 : Order[] ;
 
@@ -81,19 +47,12 @@ export class HomeComponent implements OnInit {
     private http: HttpClient) {}
 
     async ngOnInit() {
-    //  console.log(this.id);
-    console.log( "It s me"+ sessionStorage.getItem('userId'));
      await  this.http.get(this.baseUrl + "/api/orders?user="+this.id).subscribe(data => {
-        console.log("Element data 1");
-
-
 
         if(data!=null){
         this.dataSource2=<Order[]>data;
         }
-        else{
-        this.dataSource2=this.order;
-        }
+      
         
         this.dataSource = new MatTableDataSource(this.dataSource2);
         this.dataSource.paginator = this.paginator;
@@ -103,16 +62,6 @@ export class HomeComponent implements OnInit {
             console.log(error);
         }
         );
-         
-         
-
-        
-
-        console.log( "Check");
-      console.log( this.dataSource2);
-    
- 
-
     }
 
    
