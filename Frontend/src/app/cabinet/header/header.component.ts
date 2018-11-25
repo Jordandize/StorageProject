@@ -9,6 +9,8 @@ export class HeaderComponent implements OnInit {
 
   email = '675kostya@gmail.com';
 
+  avatar: string;
+
   constructor() { }
 
   ngOnInit() {

@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('role', data.body['roles']);
             sessionStorage.setItem('email', this.f.username.value);
             console.log(this.f.username.value);
-            this.router.navigate(['/user']);
+            this.router.navigate(['/cabinet']);
         },
         error => {
             if (error.status === 401) {
