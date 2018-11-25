@@ -5,6 +5,8 @@ import { SessionViewerComponent } from '../session-viewer/session-viewer.compone
 import { CabinetComponent } from './cabinet.component';
 import { ProductsComponent } from '../products/products.component';
 import { OrderComponent } from '../order/order.component';
+import { OrdersComponent } from '../orders/orders.component';
+import { OneOrderComponent } from '../oneOrder';
 
 const cabinetRoutes: Routes = [
   {
@@ -26,7 +28,11 @@ const cabinetRoutes: Routes = [
       },
       {
         path: 'orders',
-        component: ProductsComponent
+        component: OrdersComponent
+      },
+      {
+        path: 'orders/:id',
+        component: OneOrderComponent
       },
       {
         path: 'session',
