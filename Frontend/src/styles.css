@@ -19,6 +19,7 @@ h1 {
 
 .order {
   margin: 25px;  
+  min-width:365px;
 }
 
 html, body {height:100%;margin: 0;
