@@ -1,39 +1,34 @@
-
-import { Component, OnInit,Input, ViewChild } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {HttpClient} from "@angular/common/http";
-import {FormBuilder} from "@angular/forms";
-import {Router} from "@angular/router";
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatTableDataSource,MatPaginator} from '@angular/material';
-import "@angular/material/prebuilt-themes/indigo-pink.css";
+
 import { baseUrl } from '../../varUrl';
 
-
-export interface Order {
+export class Order {
   annotation: string;
-archived: boolean;
-assignedTo: number;
-createdBy: number;
-creationDateTime: string;
-id: number;
-modifiedDateTime: string;
-orderStatus: number;
-orderType: number;
-parentId: number;
+  archived: boolean;
+  assignedTo: number;
+  createdBy: number;
+  creationDateTime: string;
+  id: number;
+  modifiedDateTime: string;
+  orderStatus: number;
+  orderType: number;
+  parentId: number;
 }
 
-var angular: any;
-@Component({ selector: 'app-userpage',templateUrl: 'home.component.html'})
+@Component({
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
+})
+export class OrdersComponent implements OnInit {
 
-export class HomeComponent implements OnInit {
-
+  displayedColumns = ['id', 'creationDateTime', 'annotation'];
   private orders: Order[] = null;
- @Input() public displayedColumns: string[];
   public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
 
-  
   @ViewChild(MatPaginator) paginator: MatPaginator;
      public  dataSource2 : Order[] ;
 
@@ -65,4 +60,5 @@ export class HomeComponent implements OnInit {
     }
 
    
+
 }

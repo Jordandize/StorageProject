@@ -2,7 +2,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: #fefefe
+    /*background-color: #fefefe*/
 }
 
 mat-card {
@@ -19,7 +19,7 @@ mat-card > mat-card-title > mat-card-subtitle {
     margin: 0;
     font-size: 10px;
     text-align: end;
-    color: #8e8e8e;
+    /*color: #8e8e8e;*/
     padding-right: 5px;
 }
 
@@ -87,8 +87,8 @@ mat-card-subtitle.category-label, mat-card-subtitle.id-label{
 
 .id-label {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.72);
-    color: rgb(250, 250, 250);
+    /*background-color: rgba(0, 0, 0, 0.72);*/
+    /*color: rgb(250, 250, 250);*/
     padding: 0px 8px;
     left: 0;
     top: 0;
@@ -109,7 +109,7 @@ mat-card-title.hover-name {
     margin-bottom: 5px;
 }
 
-div.hover-buttons {
+mat-card.hover-buttons {
     margin-top: -5px;
 }
 
@@ -117,8 +117,8 @@ mat-card-content.hover-description {
     margin-bottom: 5px;
 }
 
-div.hover-part {
-    background-color: white;
+.hover-part {
+    background-color: #2b2b2b;
     z-index: 500;
     width: 100%;
     position: absolute;

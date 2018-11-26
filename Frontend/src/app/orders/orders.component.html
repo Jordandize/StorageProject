@@ -1,0 +1,28 @@
+<div class="orders-container">
+<mat-form-field style="width:30%;  margin-left:25px; margin-right:100px;">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<div class="table-container">
+<table mat-table [dataSource]="dataSource"  class="mat-elevation-z8 orders">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Order </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="creationDateTime">
+    <th mat-header-cell *matHeaderCellDef> Created </th>
+    <td mat-cell *matCellDef="let element"> {{element.creationDateTime| date: 'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="annotation">
+    <th mat-header-cell *matHeaderCellDef> Comment </th>
+    <td mat-cell *matCellDef="let element"> {{element.annotation}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"   [routerLink]="[ '/oneOrder',row.id]" style="cursor:pointer;"></tr> 
+</table>
+
+<mat-paginator  class="orders" [pageSizeOptions]="[2, 5, 10]" showFirstLastButtons></mat-paginator>
+</div>
+</div>

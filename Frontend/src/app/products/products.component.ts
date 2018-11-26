@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from './product.service';
 import { Category } from './category';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,9 @@ export class ProductsComponent implements OnInit {
 
   count = 4;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private sessionService: SessionService) { }
 
   ngOnInit() {
     this.productService.getProducts()
@@ -43,6 +46,11 @@ export class ProductsComponent implements OnInit {
           this.products = products;
         });
     }
+  }
+
+  inOrderAmount(product: Product): number {
+    const orderLine = this.sessionService.getOrderLine(product.id);
+    return orderLine != null ? orderLine.amount : 0;
   }
 
 }

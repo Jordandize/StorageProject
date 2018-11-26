@@ -5,7 +5,7 @@ export const ORDER_LINES: OrderLine[] = [
     category: "Instruments",
     prodName: "Gasoline Gas Generator Forte FG LPG 6500E",
     amount: 1
-  },
+  }
   // {
   //   prodId: 2,
   //   category: "Instruments",

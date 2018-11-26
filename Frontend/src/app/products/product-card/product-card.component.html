@@ -73,7 +73,7 @@
     </mat-card-content> -->
 
     <!--Hover part-->
-    <div fxLayout="column" *ngIf="isHovered" class="hover-part">
+    <mat-card fxLayout="column" *ngIf="isHovered" class="hover-part">
 
       <!--Buttons-->
       <div fxLayou fxLayoutAlign="start center" class="hover-buttons">
@@ -89,7 +89,7 @@
             <mat-icon>add</mat-icon>
           </button>
         </mat-card-actions>
-        <button fxFlex="60px" fxFlexAlign="center" fxFlexOffset="15px" class="get" color="primary" mat-fab>
+        <button fxFlex="60px" fxFlexAlign="center" fxFlexOffset="15px" class="get" color="primary" mat-fab (click)="get()">
           Get
         </button>
       </div>
@@ -105,7 +105,7 @@
           {{product.description}}
         </p>
       </mat-card-content>
-    </div>
+    </mat-card>
 
   </mat-card>
   <!--End product card-->

@@ -135,9 +135,6 @@ console.log(this.orderLines);
       }
     );
   }
-
-
-
 }
 
 
