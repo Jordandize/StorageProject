@@ -114,7 +114,9 @@ public order: Order;
       );
       await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
           this.product=<Product[]>data;
-            
+          this.dataSource = new MatTableDataSource<Product>(this.product);
+          this.obs = this.dataSource.connect();
+          this.dataSource.paginator = this.paginator;
             },   error => {
               this.product=this.product2;
               this.dataSource = new MatTableDataSource<Product>(this.product);
