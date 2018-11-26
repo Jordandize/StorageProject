@@ -71,7 +71,7 @@
         </mat-card-actions>
       </th>
 
-      <button style="height:300%;width:50%;margin: 30%" (click)="clickToRemove(orderLine2)">❌</button>
+      <button style="height:300%;width:50%;margin: 30%" (click)="clickToRemove(null)">❌</button>
     </tr>
     </thead>
     <tbody>
@@ -85,7 +85,7 @@
   <table>
     <tr>
       <th width="80%">
-        <button style="background-color: forestgreen" (click)="clickToAdd(orderLine2)">Add Product</button>
+        <button style="background-color: forestgreen" (click)="clickToAdd(null)">Add Product</button>
       </th>
       <th width="20%">
         <a href ng:click="AjouterArticle()" class="btn btn-primary">Send<i class="fa fa-plus"></i></a>
