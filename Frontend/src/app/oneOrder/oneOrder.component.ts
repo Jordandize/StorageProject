@@ -41,7 +41,55 @@ export class OneOrderComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  
+  public order2: Order =  {
+    "id" : 1,
+    "parentId" : 1,
+    "orderType" : 1,
+    "orderStatus" : 1,
+    "creationDateTime" : "2018-02-11T06:35:00.000+0000",
+    "modifiedDateTime" : "2018-02-11T06:35:00.000+0000",
+    "annotation" : "nothing",
+    "createdBy" : 2,
+    "assignedTo" : 3,
+    "archived" : false
+  }
+  public product2: Product[] =[{
+    "id" : 2,
+    "categoryId" : 1,
+    "name" : "Saw circular Daewoo DAS 1500-190",
+    "amount" : 2,
+    "description" : null,
+    "image" : "https://source.unsplash.com/random/800x600",
+    "icon" : null,
+    "active" : true
+  },{
+  "id" : 2,
+  "categoryId" : 1,
+  "name" : "Saw circular Daewoo DAS 1500-190",
+  "amount" : 2,
+  "description" : null,
+  "image" : "https://source.unsplash.com/random/800x600",
+  "icon" : null,
+  "active" : true
+},{
+  "id" : 2,
+  "categoryId" : 1,
+  "name" : "Saw circular Daewoo DAS 1500-190",
+  "amount" : 2,
+  "description" : null,
+  "image" : "https://source.unsplash.com/random/800x600",
+  "icon" : null,
+  "active" : true
+},{
+"id" : 2,
+"categoryId" : 1,
+"name" : "Saw circular Daewoo DAS 1500-190",
+"amount" : 2,
+"description" : null,
+"image" : "https://source.unsplash.com/random/800x600",
+"icon" : null,
+"active" : true
+}];
   
 public  dataSource ;
 obs: Observable<any>;
