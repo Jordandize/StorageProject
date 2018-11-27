@@ -62,6 +62,11 @@ public class OrderController {
 //            return orderService.findAll();
 //        }
     }
+    
+    @GetMapping("/oneOrder/{orderId}")
+    public Order getOrderById(@PathVariable(value = "orderId") Long orderId) throws Exception{
+            return orderService.findById(orderId);
+    }
 
     @PostMapping("/{id_order}/assignKeeper/{id_user}")
     public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user) throws Exception{
