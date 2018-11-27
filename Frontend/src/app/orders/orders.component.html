@@ -33,7 +33,9 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"   [routerLink]="[ '/oneOrder',row.id]" style="cursor:pointer;"></tr>
+
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"   [routerLink]="[ '/cabinet/orders',row.id]" style="cursor:pointer;"></tr> 
+
 </table>
 
 

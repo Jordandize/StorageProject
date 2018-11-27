@@ -5,6 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { baseUrl } from '../../varUrl';
+import { SessionService } from '../session.service';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     baseUrl = baseUrl;
 
     constructor(
+        private session: SessionService,
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -73,7 +75,10 @@ export class LoginComponent implements OnInit {
             console.log(data);
            
             sessionStorage.setItem('id', data.headers['x-auth-token']);
-            console.log(data.headers['x-auth-token']);
+           
+            
+            this.session.login(data.body['user'],data.body['roles'], data.headers['x-auth-token']);
+           
             console.log("Id"+data.body['user'].id);
             sessionStorage.setItem('userId', data.body['user'].id);
             sessionStorage.setItem('role', data.body['roles']);
