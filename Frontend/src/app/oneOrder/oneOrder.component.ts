@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import { first } from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -91,7 +91,8 @@ export class OneOrderComponent implements OnInit {
 "icon" : null,
 "active" : true
 }]
-
+public  dataSource ;
+obs: Observable<any>;
 public product: Product[];
 public order: Order;
   constructor(
@@ -102,7 +103,7 @@ public order: Order;
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
-    await  this.http.get(this.baseUrl+"/api/order?userId="+this.id).subscribe(data => {
+    await  this.http.get(this.baseUrl+"/api/oneOrder/"+this.id).subscribe(data => {
 
     this.order2=<Order>data;
   
@@ -111,12 +112,16 @@ public order: Order;
           console.log(error);
       }
       );
-      await  this.http.get(this.baseUrl+"/api/productForOrder?userId="+this.id).subscribe(data => {
+      await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
           this.product=<Product[]>data;
-
-            
+          this.dataSource = new MatTableDataSource<Product>(this.product);
+          this.obs = this.dataSource.connect();
+          this.dataSource.paginator = this.paginator;
             },   error => {
               this.product=this.product2;
+              this.dataSource = new MatTableDataSource<Product>(this.product);
+              this.obs = this.dataSource.connect();
+              this.dataSource.paginator = this.paginator;
               console.log(error);
           }
           );

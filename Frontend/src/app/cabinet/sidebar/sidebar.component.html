@@ -1,0 +1,18 @@
+<mat-sidenav-container>
+
+    <mat-sidenav mode="side" opened>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let tab of tabs">
+          <a matLine [routerLink]="[tab.url]">{{tab.name}}</a>
+          <button mat-icon-button>
+            <mat-icon>{{tab.icon}}</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

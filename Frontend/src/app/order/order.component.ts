@@ -2,22 +2,34 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-// import {validate} from "codelyzer/walkerFactory/walkerFn";
-import { baseUrl } from '../../varUrl';
+import {OrderLine} from "./orderLine";
+import {ORDER_LINES} from "./ORDER_LINES";
 
-import { Order } from '../order';
-import { ORDERS } from './ORDERS';
+import { Product } from '../products/product';
+import { ProductService } from '../products/product.service';
+import { Category } from '../products/category';
 import { OrderService } from '../order.service';
+import swal from "sweetalert2";
 
 
 
-@Component({templateUrl: 'order.component.html'})
+@Component({templateUrl: 'order.component.html',
+  styleUrls: ['./order.component.css']})
 export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
   baseUrl: string;
+  newLine: OrderLine;
+  orderLines: OrderLine[];
+  selectedCategoryId: number;
+  categories: Category[];
+  products: Product[];
+  amount = 1;
+  limits: any = {
+    bot: 1,
+    top: 9999
+  };
 
 
 
@@ -25,119 +37,105 @@ export class OrderComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router, 
-    private orderService: OrderService
-    // private authenticationService: AuthenticationService,
-    // private alertService: AlertService
+    private router: Router,
+    private orderService: OrderService,
+    private productService: ProductService
   ) {}
   ngOnInit() {
-    this.baseUrl = baseUrl;
-    this.orderForm = this.formBuilder.group({
-      ordStatus: ['', Validators.required],
-      ordType: ['', Validators.required],
-      parentId: ['', Validators.required],
-      createdDate: ['', Validators.required],
-      modifiedDate: ['', Validators.required],
-      crBy: ['', Validators.required],
-      assTo: ['', Validators.required],
-      comment: [''],
-      isArchived: ['', Validators.required],
+    this.orderLines = ORDER_LINES;
+console.log(this.orderLines);
 
-      //Array here in the future
-          category:['', Validators.required],
-          product:['', Validators.required],
-          qnt:['', Validators.required],
+    this.productService.getCategories()
+      .subscribe(categories => {
+        this.categories = categories;
+      });
 
-      //
-    });
-    const head = new HttpHeaders({'Content-Type': 'application/json'});
-    let categories$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
-      data => {},
-      error => {
-        this.loading = false;
-      }
-    );
-    let products$ =  this.http.get(this.baseUrl+'/order', {headers: head}).subscribe(
-      data => {},
-      error => {
-        this.loading = false;
-      }
-    );
-    //
-    // HERE receive JSON object asd fill "category" and "product" fields
-    //
-    console.log("here");
-    this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
 
-    console.log("get user orders");
-    this.orderService.getUserOrders(2);
-
-    console.log("assign");
-    this.orderService.assignKeeperToOrder(2, 3).subscribe(data=> console.log(data));
   }
-
-  // convenience getter for easy access to form fields
   get f() { return this.orderForm.controls; }
 
   fileChange(event) {
-    // let fileList: FileList = event.target.files;
-    // if(fileList.length > 0) {
-    //   let file: File = fileList[0];
-    //   let formData:FormData = new FormData();
-    //   formData.append('uploadFile', file, file.name);
-    //   let headers = new Headers();
-    //   /** In Angular 5, including the header Content-Type can invalidate your request */
-    //   headers.append('Content-Type', 'multipart/form-data');
-    //   headers.append('Accept', 'application/json');
-    //   let options = new RequestOptions({ headers: headers });
-    //   this.http.post(`${this.baseUrl}`, formData, options)
-    //     .map(res => res.json())
-    //     .catch(error => Observable.throw(error))
-    //     .subscribe(
-    //       data => console.log('success'),
-    //       error => console.log(error)
-    //     )
-    // }
+  }
+
+  decrease() {
+    this.amount = this.amount > this.limits.bot ? this.amount - 1 : this.limits.bot;
+  }
+
+  increase() {
+    this.amount = this.amount < this.limits.top ? this.amount + 1 : this.limits.top;
+  }
+
+  amountInput() {
+    if (Number.isNaN(+this.amount)) {
+      this.amount = this.limits.bot;
+    } else {
+      this.amount = this.amount < this.limits.bot ?  this.limits.bot :
+        this.amount < this.limits.top ? +this.amount : this.limits.top;
+    }
+  }
+
+  categoryChanged(){
+
+    this.productService.getProductsByCategory(this.selectedCategoryId)
+      .subscribe(products => {
+        this.products = products;
+      });
+  }
+
+
+  clickToAdd(orderLine: OrderLine){
+    var line = this.orderLines.length;
+    this.orderLines.push({prodId: 1, prodName: 'name', category: 'cat', amount: 1});
+  }
+
+  clickToRemove(orderLine: OrderLine){
+    // console.log(orderLine);
+    let index = this.orderLines.indexOf(orderLine);
+    if(index > -1){
+      this.orderLines.splice(index,1);
+    }
   }
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.orderForm.invalid) {
       return;
     }
-
     this.loading = true;
     const head = new HttpHeaders({'Content-Type': 'application/json'});
 
     const order = {
-      'ordStatus': this.f.ordStatus.value,
-      'ordType': this.f.ordType.value,
-      'parentId': this.f.parentId.value,
-      'createdDate': this.f.createdDate.value,
-      'modifiedDate': this.f.modifiedDate.value,
-      'crBy': this.f.crBy.value,
-      'assTo': this.f.assTo.value,
       'comment': this.f.comment.value,
-      'isArchived': this.f.isArchived.value,
-      'category': this.f.category.value,
+      'attach': this.f.attach.value,
+      'catecory': this.f.category.value,
       'product': this.f.product.value,
-      'qnt': this.f.qnt.value,
-      'phone': this.f.phone.value
+      'amount': this.f.amount.value
     };
-
-
-    return this.http.post(this.baseUrl+'/order', order, {headers: head}).subscribe(
+    return this.http.post(this.baseUrl + '/api/orders', order, {headers: head}).subscribe(
       data => {
-        this.router.navigate(['/home']);
+        swal({
+          position: 'top-end',
+          type: 'success',
+          title: 'Your order has been saved!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigate(['/register']);
       },
       error => {
+        console.log(error);
+
+        swal({
+          type: 'error',
+          title: 'Error!',
+
+         });
+
         this.loading = false;
       }
     );
   }
-
 }
 
 

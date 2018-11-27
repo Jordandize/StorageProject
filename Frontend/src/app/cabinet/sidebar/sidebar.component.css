@@ -1,0 +1,22 @@
+mat-sidenav-container {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+@media (max-width: 599px) {
+    mat-sidenav-container {
+        top: 54px;
+    }
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+.qwe {
+    height: 2000px;
+}

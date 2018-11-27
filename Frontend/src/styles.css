@@ -4,15 +4,11 @@
   margin-top: 40px;
 }
 
-
-
-h1{
+h1 {
   text-align: center;
   color: #81cbf0;
 }
-.example-container{
-  height:93%;
-}
+
 .full {
   height: 100vh;
 }
@@ -20,22 +16,26 @@ h1{
   background-image: url('https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png');
   background-size: cover;
 }
-.order{
-  margin-top:1%;
-  max-width: 700px;
-  display: block;
-  margin-left:auto;
-  margin-right:auto;  
+
+.order {
+  margin: 25px;  
+  min-width:365px;
 }
+
+html, body {height:100%;margin: 0;
+  font-family: Roboto, sans-serif; }
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th{
+  background-color: #81cbf0;
+  color: #ffffff;
+}
+
 .example-header-image2 {
   padding:10%;
   background-size: cover;
 }
-.orders{
-  width:80%;
-  margin-left:180px;
-  margin-right:100px;
-}
+
 .fix{
   padding:2%;
 }
@@ -43,7 +43,7 @@ h1{
 .grow:hover { transform: scale(1.5);z-index:1000; }
 .card-deck-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   position: relative;
   border-radius: 2px;
   padding: 10px 10px 30px;
@@ -54,20 +54,9 @@ h1{
 .card-item {
   padding: 3px 3px 3px 3px;
 }
- mat-toolbar-row {
-  justify-content: space-between;
-}
-html, body {height:100%;margin: 0;
-  font-family: Roboto, sans-serif; }
-
-.table-hover > tbody > tr:hover > td,
-.table-hover > tbody > tr:hover > th{
-  background-color: #81cbf0;
-  color: #ffffff;
-}
 
 th {
-  text-align: center;
+  text-align: center !important;
 }
 
 td {
@@ -94,8 +83,11 @@ td {
   opacity:1;
 }
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 button:focus {
   outline: none;
@@ -104,4 +96,3 @@ button:focus {
 .delete {
   color: red;
 }/* You can add global styles to this file, and also import other style files */
-
