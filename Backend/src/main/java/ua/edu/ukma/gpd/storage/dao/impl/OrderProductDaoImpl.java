@@ -21,10 +21,10 @@ public class OrderProductDaoImpl implements OrderProductDao {
 
     private RowMapper<OrderProduct> mapper = (resultSet, i) -> {
         OrderProduct orderProduct = new OrderProduct();
-        orderProduct.setProductId(resultSet.getLong("productId"));
-        orderProduct.setOrderId(resultSet.getLong("orderId"));
+        orderProduct.setProductId(resultSet.getLong("id_product"));
+        orderProduct.setOrderId(resultSet.getLong("id_order"));
         orderProduct.setAmount(resultSet.getInt("amount"));
-        orderProduct.setAmountReturned(resultSet.getInt("amountReturned"));
+        orderProduct.setAmountReturned(resultSet.getInt("amount_returned"));
         return orderProduct;
     };
 
@@ -49,6 +49,10 @@ public class OrderProductDaoImpl implements OrderProductDao {
     @Override
     public OrderProduct findById(Long orderId, Long productId){
         return jdbcTemplate.queryForObject(OrderProductSql.FIND_BY_ID, new Object[] {orderId, productId}, mapper);
+    }
+    @Override
+    public  List< OrderProduct>  findByOrder(Long orderId){
+        return jdbcTemplate.query(OrderProductSql.FIND_BY_ORDER, new Object[] {orderId}, mapper);
     }
 
     @Override

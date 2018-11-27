@@ -50,7 +50,11 @@ public class OrderController {
 //            return orderService.findAll();
 //        }
     }
-
+    
+    @GetMapping("/oneOrder/{orderId}")
+    public Order getOrderById(@PathVariable(value = "orderId") Long orderId) throws Exception{
+            return orderService.findById(orderId);
+    }
 //    @PostMapping("")
 //    public ResponseEntity<Long> assignKeeperToUser()
 

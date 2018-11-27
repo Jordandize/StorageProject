@@ -36,61 +36,13 @@ export interface Product {
 @Component({templateUrl: 'oneOrder.component.html'})
 export class OneOrderComponent implements OnInit {
  @Input() public displayedColumns: string[];
-  public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
   public orderId;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  public order2: Order =  {
-    "id" : 1,
-    "parentId" : 1,
-    "orderType" : 1,
-    "orderStatus" : 1,
-    "creationDateTime" : "2018-02-11T06:35:00.000+0000",
-    "modifiedDateTime" : "2018-02-11T06:35:00.000+0000",
-    "annotation" : "nothing",
-    "createdBy" : 2,
-    "assignedTo" : 3,
-    "archived" : false
-  }
-  public product2: Product[] =[{
-    "id" : 2,
-    "categoryId" : 1,
-    "name" : "Saw circular Daewoo DAS 1500-190",
-    "amount" : 2,
-    "description" : null,
-    "image" : "https://source.unsplash.com/random/800x600",
-    "icon" : null,
-    "active" : true
-  },{
-  "id" : 2,
-  "categoryId" : 1,
-  "name" : "Saw circular Daewoo DAS 1500-190",
-  "amount" : 2,
-  "description" : null,
-  "image" : "https://source.unsplash.com/random/800x600",
-  "icon" : null,
-  "active" : true
-},{
-  "id" : 2,
-  "categoryId" : 1,
-  "name" : "Saw circular Daewoo DAS 1500-190",
-  "amount" : 2,
-  "description" : null,
-  "image" : "https://source.unsplash.com/random/800x600",
-  "icon" : null,
-  "active" : true
-},{
-"id" : 2,
-"categoryId" : 1,
-"name" : "Saw circular Daewoo DAS 1500-190",
-"amount" : 2,
-"description" : null,
-"image" : "https://source.unsplash.com/random/800x600",
-"icon" : null,
-"active" : true
-}]
+  
+  
 public  dataSource ;
 obs: Observable<any>;
 public product: Product[];
@@ -103,27 +55,20 @@ public order: Order;
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
-    await  this.http.get(this.baseUrl+"/api/oneOrder/"+this.id).subscribe(data => {
-
-    this.order2=<Order>data;
-  
+    await  this.http.get(this.baseUrl+"/api/orders/oneOrder/"+this.orderId).subscribe(data => {
+    this.order=<Order>data;
         },   error => {
-          this.order=this.order2;
           console.log(error);
       }
       );
-      await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
+      await  this.http.get(this.baseUrl+"/api/orders_products/products/"+this.orderId).subscribe(data => {
           this.product=<Product[]>data;
           this.dataSource = new MatTableDataSource<Product>(this.product);
           this.obs = this.dataSource.connect();
           this.dataSource.paginator = this.paginator;
             },   error => {
-              this.product=this.product2;
-              this.dataSource = new MatTableDataSource<Product>(this.product);
-              this.obs = this.dataSource.connect();
-              this.dataSource.paginator = this.paginator;
               console.log(error);
-          }
+            }
           );
     }
 
