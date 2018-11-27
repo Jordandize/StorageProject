@@ -68,6 +68,12 @@ export class OrderComponent implements OnInit {
     //
     console.log("here");
     this.orderService.createOrder(ORDERS[0]).subscribe(data=> console.log(data));
+
+    console.log("get user orders");
+    this.orderService.getUserOrders(2);
+
+    console.log("assign");
+    this.orderService.assignKeeperToOrder(2, 3).subscribe(data=> console.log(data));
   }
 
   // convenience getter for easy access to form fields
