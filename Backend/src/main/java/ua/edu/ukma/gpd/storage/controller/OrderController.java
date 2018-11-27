@@ -41,6 +41,18 @@ public class OrderController {
         return orders;
     }
 
+    @GetMapping("/id_keeper=null")
+    public List<Order> getUnasgnedOrders(){
+        List<Order> orders = null;
+        try{
+            orders = orderService.findUnassignedOrders();
+        } catch (Exception e){
+            e.printStackTrace();
+            orders = null;
+        }
+        return orders;
+    }
+
     @GetMapping("/{userId}")
     public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception{
 //        System.out.println("Get!");
@@ -51,8 +63,22 @@ public class OrderController {
 //        }
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<Long> assignKeeperToUser()
+    @PostMapping("/{id_order}/assignKeeper/{id_user}")
+    public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user) throws Exception{
+        Order order;
+        HttpStatus status;
+        try{
+            order = orderService.assignKeeperToOrder(id_user, id_order);
+            // change later to order = ORDER_STATUS.PROCESSING
+            order.setOrderStatus(2);
+            status = HttpStatus.OK;
+        } catch (Exception e){
+            order = null;
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(order, status);
+
+    }
 
     @PostMapping
     public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception{
