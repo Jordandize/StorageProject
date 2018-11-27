@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import { baseUrl } from '../../varUrl';
 import { OrderService } from '../order.service';
 import { UserService} from "../../user.service";
+import { SessionService } from '../session.service';
 
 
 export class Order {
@@ -29,7 +30,7 @@ export class OrdersComponent implements OnInit {
 
   displayedColumns = ['id', 'creationDateTime', 'annotation'];
   private orders: Order[] = null;
-  public id = sessionStorage.getItem('userId');
+  public id = this.sessionService.getUser().id;
   baseUrl = baseUrl;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,6 +44,7 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
+    private sessionService: SessionService,
     private http: HttpClient) {}
 
   openDialog(){
