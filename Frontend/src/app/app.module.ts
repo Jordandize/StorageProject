@@ -24,13 +24,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
-<<<<<<< HEAD
-import { UserManagementComponent } from './user-management/user-management.component';
-=======
 import { SessionViewerComponent } from './session-viewer/session-viewer.component';
 import { PreviousRouteService } from './service-previousUrl/previous-route.service';
 import { OrdersComponent } from './orders/orders.component';
->>>>>>> master
+import { UserManagementComponent } from './user-management/user-management.component';
 
 
 @NgModule({
@@ -47,16 +44,12 @@ import { OrdersComponent } from './orders/orders.component';
     DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
-<<<<<<< HEAD
-    UserComponent,
+ //   UserComponent,
     OneOrderComponent,
-    UserManagementComponent
-
-=======
+    UserManagementComponent,
     OneOrderComponent,
     SessionViewerComponent,
     OrdersComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,
