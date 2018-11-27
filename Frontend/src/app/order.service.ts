@@ -51,6 +51,15 @@ export class OrderService {
       );
   }
 
+
+   assignKeeperToOrder(id_user: number, id_order: number): Observable<Order>{
+     const url = `${this.baseUrl}/${id_order}/assignKeeper/${id_user}`;
+     return this.http.post<Order>(url, {id_order, id_user})
+     .pipe(
+       catchError(this.handleError<Order>(`assign order id={id_order} to keeper id={id_keeper} failed`))
+       );
+   }
+  // }
   // getUserOrders(id: number): Observable<Order[]>{
   //   return this.http.get<Order[]>(this.baseUrl+'/orders/{id}').pipe(
   //     catchError(this.handleError<Order[]>('get orders for user {id}')));

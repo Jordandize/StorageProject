@@ -69,4 +69,28 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
+
+    public List<Order> findUnassignedOrders() throws Exception{
+        List<Order> orders = null;
+        try{
+            orders = orderDao.findUnassignedOrders();
+        } catch (EmptyResultDataAccessException e){
+
+        } catch (Exception e){
+            throw new Exception("Exeption occured in OrderServiceImpl: operation findUnassignedOrders failed.", e);
+        }
+        return orders;
+    }
+
+    public Order assignKeeperToOrder(Long userId, Long orderId) throws Exception{
+        Order order = null;
+        try{
+            order = orderDao.assignKeeperToOrder(userId, orderId);
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            throw new Exception("Exception occured in OrderServiceImpl: operation assignKeeperToOrder [" +  userId + ", " + orderId + "] failed", e);
+        }
+        return order;
+    }
 }

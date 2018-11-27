@@ -8,6 +8,7 @@ import { OrderComponent } from '../order/order.component';
 import { OrdersComponent } from '../orders/orders.component';
 import { OneOrderComponent } from '../oneOrder';
 import { CreateOrderComponent } from '../create-order/create-order.component';
+import { UserManagementComponent } from '../user-management/user-management.component';
 
 const cabinetRoutes: Routes = [
   {
@@ -26,6 +27,14 @@ const cabinetRoutes: Routes = [
       {
         path: 'create-order',
         component: CreateOrderComponent
+      },
+      {
+        path: 'user-management',
+        component: UserManagementComponent
+      },
+      {
+        path: 'order',
+        component: OrderComponent
       },
       {
         path: 'orders',

@@ -17,5 +17,7 @@ public interface OrderProductDao {
     OrderProduct findProductAmount(Integer amount);
 
     OrderProduct findById(Long orderId, Long productId);
+    
+    List< OrderProduct> findByOrder(Long orderId);
 
 }

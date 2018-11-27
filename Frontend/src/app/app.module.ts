@@ -28,6 +28,7 @@ import { SessionViewerComponent } from './session-viewer/session-viewer.componen
 import { PreviousRouteService } from './service-previousUrl/previous-route.service';
 import { OrdersComponent } from './orders/orders.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 
 @NgModule({
@@ -44,6 +45,9 @@ import { CreateOrderComponent } from './create-order/create-order.component';
     DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
+ //   UserComponent,
+    OneOrderComponent,
+    UserManagementComponent,
     OneOrderComponent,
     SessionViewerComponent,
     OrdersComponent,

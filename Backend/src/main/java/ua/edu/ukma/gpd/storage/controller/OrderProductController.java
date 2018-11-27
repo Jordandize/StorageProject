@@ -7,9 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderProductDto;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
+import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.service.OrderProductService;
+import ua.edu.ukma.gpd.storage.service.ProductService;
 
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +23,9 @@ public class OrderProductController {
 
     @Autowired
     private OrderProductService opService;
+    
+    @Autowired
+    private ProductService prService;
 
     @GetMapping
     public List<OrderProduct> getOrdersProducts(){
@@ -31,6 +38,17 @@ public class OrderProductController {
         }
         return orderProductList;
     }
+    @GetMapping("/products/{orderId}")
+  public  List< Product>  getProductByOrder(@PathVariable(value = "orderId") Long orderId)throws Exception{
+    List< OrderProduct>  orderProduct;
+    List< Product>  products=new ArrayList<Product>();
+    orderProduct = opService.findByOrder(orderId);
+    for(int i=0;i<orderProduct.size();i++) {
+       products.add(prService.getById(orderProduct.get(i).getProductId()));
+      products.get(i).setAmount(orderProduct.get(i).getAmount());
+    }
+      return  products;
+ }
 
 //    @GetMapping("/{orderId, productId}")
 //    public OrderProduct getProductById(Long orderId, Long productId){

@@ -3,6 +3,9 @@ import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
+import { OrderService } from '../order.service';
+import { UserService} from "../../user.service";
+
 
 export class Order {
   annotation: string;
@@ -39,10 +42,27 @@ export class OrdersComponent implements OnInit {
     }
 
   constructor(
+    private orderService: OrderService,
     private http: HttpClient) {}
+
+  openDialog(){
+
+    alert("Select Storekeeper")
+  }
+
+  rejectOrder(){
+      //this.OrderService.setStatus("declined");
+    alert("Are you sure?");
+  }
 
     async ngOnInit() {
      await  this.http.get(this.baseUrl + '/api/orders/' + this.id).subscribe(data => {
+
+      // this.this.UserService.getActiveKeepers();
+      //   .subscribe(storekeepers => {
+      //     this.storekeepers = storekeepers;
+      //   });
+      //   }
 
         if (data != null) {
         this.dataSource2 = <Order[]>data;
@@ -58,7 +78,6 @@ export class OrdersComponent implements OnInit {
         }
         );
     }
-
 
 
 }
