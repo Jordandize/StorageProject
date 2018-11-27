@@ -90,7 +90,7 @@ export class OneOrderComponent implements OnInit {
 "image" : "https://source.unsplash.com/random/800x600",
 "icon" : null,
 "active" : true
-}]
+}];
 public  dataSource ;
 obs: Observable<any>;
 public product: Product[];
