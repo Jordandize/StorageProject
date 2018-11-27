@@ -14,67 +14,84 @@ export class SessionService {
   orderLinesChange$ = this.orderLinesChangeSource.asObservable();
 
   orderLinesKey = 'OrderLines';
- private user: User;
- private roles: string[];
- private authToken: string;
- private isLogined: boolean;
-  constructor() { }
+  userKey = 'User';
 
-  // emit event
-  orderLinesChange() {
-    this.orderLinesChangeSource.next();
+  private user: User;
+  private roles: string[];
+  private authToken: string;
+
+  constructor() {
+    this.initialize();
   }
+
+  private initialize() {
+    this.user = this.getUser();
+  }
+
   getUser(): User {
+    if (this.user == null) {
+      this.user = this.getFromCache(this.userKey);
+    }
     return  this.user;
   }
 
   setUser(user: User) {
-    this.user=user;
+    this.saveInCache(this.userKey, user);
+    this.user = user;
   }
-  getRoles():string[] {
+
+  getRoles(): string[] {
     return  this.roles;
   }
 
   setRoles(roles: string[]) {
-    this.roles=roles;
+    this.roles = roles;
   }
-  getAuth():string {
+
+  getAuth(): string {
     return  this.authToken;
   }
 
   setAuth(authToken: string) {
-    this.authToken=authToken;
-  }
-  getLogin():boolean {
-    return  this.isLogined;
+    this.authToken = authToken;
   }
 
-  setLogin(isLogined: boolean) {
-    this.isLogined=isLogined;
+  isLogined(): boolean {
+    return  this.getUser() != null;
   }
 
-  login(user: User, roles: string[], authToken: string): void{
+  login(user: User, roles: string[], authToken: string): void {
     this.setUser(user);
     this.setRoles(roles);
     this.setAuth(authToken);
   }
-  logout(): void{
+
+  logout(): void {
     this.setUser(null);
     this.setRoles(null);
     this.setAuth(null);
   }
-  isUser(): boolean{
-  return  this.roles.some(s => s.includes("USER"));
+
+  isUser(): boolean {
+  return  this.roles.some(s => s.includes('USER'));
   }
-  isKeeper(): boolean{
-    return  this.roles.some(s => s.includes("KEEPER"));
+
+  isKeeper(): boolean {
+    return  this.roles.some(s => s.includes('KEEPER'));
   }
-  isAdmin(): boolean{
-    return  this.roles.some(s => s.includes("ADMIN"));
+
+  isAdmin(): boolean {
+    return  this.roles.some(s => s.includes('ADMIN'));
   }
-  saveInCache(key: string, value: string): void{
-    sessionStorage.setItem(key, value);
+
+  saveInCache(key: string, value: any): void {
+    localStorage.setItem(key, JSON.stringify(value));
   }
+
+  getFromCache(key: string): any {
+    return JSON.parse(localStorage.getItem(key));
+  }
+
   getOrderLines(): OrderLine[] {
     let orderLines = JSON.parse(localStorage.getItem(this.orderLinesKey));
     if (orderLines == null) {
@@ -88,7 +105,6 @@ export class SessionService {
     const cachedOrderLine = this.getOrderLine(orderLine.id);
     const orderLines = this.getOrderLines();
     if (cachedOrderLine == null) {
-      console.log(orderLine);
       orderLines.push(orderLine);
     } else {
       orderLines.forEach(elem => {
@@ -117,6 +133,11 @@ export class SessionService {
   deleteOrderLines() {
     localStorage.setItem(this.orderLinesKey, JSON.stringify([]));
     this.orderLinesChange();
+  }
+
+  // emit event
+  orderLinesChange() {
+    this.orderLinesChangeSource.next();
   }
 
 }

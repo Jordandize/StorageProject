@@ -7,6 +7,7 @@ import { ProductsComponent } from '../products/products.component';
 import { OrderComponent } from '../order/order.component';
 import { OrdersComponent } from '../orders/orders.component';
 import { OneOrderComponent } from '../oneOrder';
+import { CreateOrderComponent } from '../create-order/create-order.component';
 
 const cabinetRoutes: Routes = [
   {
@@ -23,8 +24,8 @@ const cabinetRoutes: Routes = [
         component: ProductsComponent
       },
       {
-        path: 'order',
-        component: OrderComponent
+        path: 'create-order',
+        component: CreateOrderComponent
       },
       {
         path: 'orders',

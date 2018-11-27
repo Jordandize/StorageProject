@@ -31,10 +31,16 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  createOrder(order: Order): Observable<number> {
+    const head = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<number>(this.baseUrl + '/api/orders', this.ORDERS[0], {headers: head}).pipe(
+      catchError(this.handleError<number>('create order')));
+  }
 
-  createOrder(order: Order): Observable<number>{
-  	return this.http.post<number>(this.baseUrl+'/orders', this.ORDERS[0]).pipe(
-  		catchError(this.handleError<number>('create order')));
+  createOrderAny(order: any): Observable<number> {
+    const head = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<number>(this.baseUrl + '/api/orders', order, {headers: head}).pipe(
+      catchError(this.handleError<number>('create order')));
   }
 
   getUserOrders(id: number): Observable<Order>{

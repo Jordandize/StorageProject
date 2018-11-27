@@ -27,6 +27,7 @@ import { DefaultImagePipe } from './products/default-image.pipe';
 import { SessionViewerComponent } from './session-viewer/session-viewer.component';
 import { PreviousRouteService } from './service-previousUrl/previous-route.service';
 import { OrdersComponent } from './orders/orders.component';
+import { CreateOrderComponent } from './create-order/create-order.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { OrdersComponent } from './orders/orders.component';
     SidebarComponent,
     OneOrderComponent,
     SessionViewerComponent,
-    OrdersComponent
+    OrdersComponent,
+    CreateOrderComponent
   ],
   imports: [
     BrowserModule,

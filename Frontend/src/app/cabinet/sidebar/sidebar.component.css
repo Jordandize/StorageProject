@@ -17,6 +17,6 @@ mat-sidenav {
     width: 200px;
 }
 
-.qwe {
-    height: 2000px;
+mat-sidenav-content {
+    padding: 25px 15px;
 }

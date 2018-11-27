@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
   selectedCategoryId: number;
 
-  count = 4;
+  count = 0;
 
   constructor(
     private productService: ProductService,
@@ -32,6 +32,10 @@ export class ProductsComponent implements OnInit {
       .subscribe(categories => {
         this.categories = categories;
       });
+    this.count = this.sessionService.getOrderLines().length;
+    this.sessionService.orderLinesChange$.subscribe(() => {
+      this.count = this.sessionService.getOrderLines().length;
+    });
   }
 
   categoryChanged() {

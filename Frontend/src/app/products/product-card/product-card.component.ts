@@ -71,7 +71,8 @@ export class ProductCardComponent implements OnInit {
   get() {
     if (this.amount !== 0) {
       this.sessionService.setOrderLine({id: this.product.id, amount: this.amount,
-        product: this.product.name, category: this.product.category});
+        product: this.product.name, category: this.product.category,
+        position: this.sessionService.getOrderLines().length + 1 });
     } else if (this.amount === 0) {
       this.sessionService.removeOrderLine(this.product.id);
     }
