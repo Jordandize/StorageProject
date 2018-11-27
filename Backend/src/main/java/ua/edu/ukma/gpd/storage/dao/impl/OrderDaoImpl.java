@@ -1,6 +1,7 @@
 package ua.edu.ukma.gpd.storage.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -77,5 +78,24 @@ public class OrderDaoImpl implements OrderDao {
         return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_USER, new Object[]{userId}, mapper);
     }
 
+    @Override
+    public List<Order> findUnassignedOrders(){
+        return jdbcTemplate.query(OrderSql.FIND_UNNASIGNED_ORDERS, mapper);
+    }
+
+    @Override
+    public Order assignKeeperToOrder(Long userId, Long orderId) {
+        Order order = null;
+        try {
+            jdbcTemplate.update(OrderSql.ASSIGN_KEEPER_TO_ORDER, userId, orderId);
+            order = findById(orderId);
+        } catch (EmptyResultDataAccessException e){
+
+        }catch (Exception e){
+            System.out.println("exeption occured here");
+            e.printStackTrace();
+        }
+        return order;
+    }
 
 }
