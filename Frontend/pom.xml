@@ -29,16 +29,16 @@
         </configuration>
         <executions>
           <execution>
-            <id>install node and yarn</id>
+            <id>install node and npm</id>
             <goals>
-              <goal>install-node-and-yarn</goal>
+              <goal>install-node-and-npm</goal>
             </goals>
             <phase>generate-resources</phase>
           </execution>
           <execution>
-            <id>node install</id>
+            <id>npm install</id>
             <goals>
-              <goal>node</goal>
+              <goal>npm</goal>
             </goals>
             <configuration>
               <arguments>install</arguments>
@@ -54,9 +54,9 @@
             </configuration>
           </execution>-->
           <execution>
-            <id>node build</id>
+            <id>npm build</id>
             <goals>
-              <goal>node</goal>
+              <goal>npm</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
