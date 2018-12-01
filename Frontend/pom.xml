@@ -36,9 +36,9 @@
             <phase>generate-resources</phase>
           </execution>
           <execution>
-            <id>node install</id>
+            <id>yarn install</id>
             <goals>
-              <goal>node</goal>
+              <goal>yarn</goal>
             </goals>
             <configuration>
               <arguments>install</arguments>
@@ -54,9 +54,9 @@
             </configuration>
           </execution>-->
           <execution>
-            <id>node build</id>
+            <id>yarn build</id>
             <goals>
-              <goal>node</goal>
+              <goal>yarn</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
