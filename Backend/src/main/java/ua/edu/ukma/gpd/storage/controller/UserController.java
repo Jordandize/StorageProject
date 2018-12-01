@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
@@ -19,7 +18,6 @@ import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
-@RequestMapping("api/users")
 public class UserController {
 	
 	@Autowired
@@ -33,12 +31,12 @@ public class UserController {
 		return userService.getAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("api/users/{id}")
 	public User getUserById(@PathVariable("id") Long id) throws Exception {
 		return userService.getById(id);
 	}
 
-	@GetMapping("/keeperActive={active}")
+	@GetMapping("api/users/keeperActive={active}")
 	public List<User> getActiveKeepers(@PathVariable("active") Boolean active) throws Exception{
 		List<User> activeKeepers;
 		if (active) {
@@ -49,7 +47,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping
+	@PostMapping("users")
 	public ResponseEntity<Long> addUser(@Valid @RequestBody SignupFormDto form) throws Exception {
 		HttpStatus status;
 		Long id;

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../session.service';
 import { OrderLine } from '../data/OrderLine';
 import { OrderService } from '../order.service';
-import { baseUrl } from '../../varUrl';
-import { HttpClient } from '@angular/common/http';
 
 class Order {
   comment: string;
@@ -16,18 +14,14 @@ class Order {
 })
 export class CreateOrderComponent implements OnInit {
 
-  baseUrl: string;
-
   order: Order = new Order();
   orderLines: OrderLine[];
 
   constructor(
     private sessionService: SessionService,
-    private orderService: OrderService,
-    private http: HttpClient) { }
+    private orderService: OrderService) { }
 
   ngOnInit() {
-    this.baseUrl = baseUrl;
     this.orderLines = this.sessionService.getOrderLines();
     this.sessionService.orderLinesChange$.subscribe(() => {
       this.orderLines = this.sessionService.getOrderLines();
@@ -45,7 +39,7 @@ export class CreateOrderComponent implements OnInit {
       products: new Object()
     };
     this.orderLines.forEach(line => {
-      order.products[line.id] = line.id;
+      order.products[line.id] = line.amount;
     });
     this.orderService.createOrderAny(order).subscribe(resp => {
       this.order.comment = '';

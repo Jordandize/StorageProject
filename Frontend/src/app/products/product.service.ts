@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { baseUrl } from '../../varUrl';
 import { Product } from './product';
 import { Category } from './category';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpService } from '../http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,23 @@ export class ProductService implements OnInit {
   private productsByCategoryParam = 'category=';
   private categoriesUrl = baseUrl + '/api/categories';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private httpService: HttpService) { }
 
   ngOnInit() { }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl);
+    return this.httpService.get<Product[]>(this.productsUrl);
   }
 
   getProductsByCategory(categoryId: number): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl + '?'
+    return this.httpService.get<Product[]>(this.productsUrl + '?'
       + this.productsByCategoryParam + categoryId);
   }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoriesUrl);
+    return this.httpService.get<Category[]>(this.categoriesUrl);
   }
 
 }

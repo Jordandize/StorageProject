@@ -1,0 +1,10 @@
+<div fxLayout="row" class="queue-container">
+  <div *ngFor="let column of columns" fxFlex>
+    <mat-card>
+      <mat-card-title matBadge="3" matBadgeColor="warn" matBadgePosition="above after">{{column}}</mat-card-title>
+      <mat-card-content>
+        <app-queue-elem></app-queue-elem>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -46,12 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(userDetailsService)
-    		.passwordEncoder(encoder)
-    		.and()
-    		.inMemoryAuthentication()
-    		.withUser("admin").password(encoder.encode("adminPass")).roles("ADMIN")
-    		.and()
-    		.withUser("user").password(encoder.encode("userPass")).roles("USER)");
+    		.passwordEncoder(encoder);
     }
 
     @Override
@@ -59,19 +54,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
         	.csrf().disable()
         	.exceptionHandling()
-        	//.authenticationEntryPoint(authEntryPoint)
+        	.authenticationEntryPoint(authEntryPoint)
         	.and()
-        	//.addFilterBefore(tokenAuthenticationFilter("/api2/**"), UsernamePasswordAuthenticationFilter.class)
-    		//.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-        	//.and()
+        	.addFilterBefore(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
+    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
-        	.antMatchers("/api2/forAll").permitAll()
-        	.antMatchers("/api2/forAnon").anonymous()
-        	.antMatchers("/api2/forLogined").authenticated()
-        	.antMatchers("/api2/forUserRole").hasRole("USER_ROLE")
-        	.antMatchers("/api2/forAdminRole").hasRole("ADMIN_ROLE")
+        	.antMatchers("/api/forAll").permitAll()
+        	.antMatchers("/api/forAnon").anonymous()
+        	.antMatchers("/api/forLogined").authenticated()
+        	.antMatchers("/api/forUserRole").hasRole("USER_ROLE")
+        	.antMatchers("/api/forAdminRole").hasRole("ADMIN_ROLE")
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
         	.antMatchers("/login").anonymous()
         	.and().cors();

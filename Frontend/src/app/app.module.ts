@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,
+  MatBadgeModule, MatExpansionModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
 import { CabinetRoutingModule } from './cabinet/cabinet-routing.module';
@@ -29,6 +30,8 @@ import { PreviousRouteService } from './service-previousUrl/previous-route.servi
 import { OrdersComponent } from './orders/orders.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { OrderQueueComponent } from './keeper/order-queue/order-queue.component';
+import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.component';
 
 
 @NgModule({
@@ -51,7 +54,9 @@ import { UserManagementComponent } from './user-management/user-management.compo
     OneOrderComponent,
     SessionViewerComponent,
     OrdersComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    OrderQueueComponent,
+    QueueElemComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +74,11 @@ import { UserManagementComponent } from './user-management/user-management.compo
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatBadgeModule,
     LayoutModule,
     FlexLayoutModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
   providers: [ PreviousRouteService],
   bootstrap: [AppComponent]
