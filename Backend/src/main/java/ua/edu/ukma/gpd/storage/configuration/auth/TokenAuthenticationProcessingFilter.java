@@ -7,9 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -27,11 +25,8 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 
 	public TokenAuthenticationProcessingFilter(String defaultFilterProcessesUrl) {
 		super(defaultFilterProcessesUrl);
-		setAuthenticationSuccessHandler((request, response, authentication) -> {
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-
-			System.out.println("sscc2");
-		}
+		setAuthenticationSuccessHandler((request, response, authentication) ->
+			SecurityContextHolder.getContext().setAuthentication(authentication)
 		);
 	}
 
@@ -43,10 +38,8 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 		if(userAuth == null) {
 			//throw new AuthenticationServiceException(
 				//	"TokenAuthenticationProcessingFilter: Authentication for token [" + token + "] failed");
-			System.out.println("Anonimous?2");
-			throw new AuthenticationCredentialsNotFoundException("hz");
-		} else {
-			System.out.println("Not anonimous!");
+			throw new AuthenticationCredentialsNotFoundException(
+					"TokenAuthenticationProcessingFilter: Authentication for token [" + token + "] failed");
 		}
 		return userAuth;
 	}
@@ -54,7 +47,6 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authentication) throws IOException, ServletException {
-		System.out.println("sscc");
 		super.successfulAuthentication(request, response, chain, authentication);
 		chain.doFilter(request, response);
 	}
@@ -63,14 +55,11 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
 		super.unsuccessfulAuthentication(request, response, failed);
-		System.out.println("unss");
 		//response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 	}
 	
 
 	private Authentication tokenToAuth(String encodedToken) {
-		
-		
 		Token token;
 		Authentication auth;
 		try {
@@ -80,12 +69,9 @@ public class TokenAuthenticationProcessingFilter extends AbstractAuthenticationP
 				auth = this.getAuthenticationManager().authenticate(
 						new UsernamePasswordAuthenticationToken(token.getEmail(), token.getPassword()));
 			} else {
-				token = new Token(null, null);
 				auth = null;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			token = new Token(null, null);
 			auth = null;
 		}
 		return auth;

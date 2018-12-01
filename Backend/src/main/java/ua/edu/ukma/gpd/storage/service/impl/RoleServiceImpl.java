@@ -16,7 +16,6 @@ import ua.edu.ukma.gpd.storage.service.RoleService;
 @Service
 public class RoleServiceImpl implements RoleService {
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private RoleDao roleDao;
 	

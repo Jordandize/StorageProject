@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
 import { OrderService } from '../order.service';
-import { UserService} from "../../user.service";
 import { SessionService } from '../session.service';
 
 
@@ -44,8 +43,8 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private sessionService: SessionService,
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private sessionService: SessionService) {}
 
   openDialog(){
 
@@ -80,6 +79,5 @@ export class OrdersComponent implements OnInit {
         }
         );
     }
-
 
 }

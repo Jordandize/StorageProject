@@ -15,6 +15,8 @@ export class SessionService {
 
   orderLinesKey = 'OrderLines';
   userKey = 'User';
+  rolesKey = 'Roles';
+  authTokenKey = 'AuthToken';
 
   private user: User;
   private roles: string[];
@@ -41,18 +43,26 @@ export class SessionService {
   }
 
   getRoles(): string[] {
-    return  this.roles;
+    if (this.roles == null) {
+      this.roles = this.getFromCache(this.rolesKey);
+    }
+    return this.roles;
   }
 
   setRoles(roles: string[]) {
+    this.saveInCache(this.rolesKey, roles);
     this.roles = roles;
   }
 
   getAuth(): string {
+    if (this.authToken == null) {
+      this.authToken = this.getFromCache(this.authTokenKey);
+    }
     return  this.authToken;
   }
 
   setAuth(authToken: string) {
+    this.saveInCache(this.authTokenKey, authToken);
     this.authToken = authToken;
   }
 
@@ -73,7 +83,7 @@ export class SessionService {
   }
 
   isUser(): boolean {
-  return  this.roles.some(s => s.includes('USER'));
+    return  this.roles.some(s => s.includes('USER'));
   }
 
   isKeeper(): boolean {

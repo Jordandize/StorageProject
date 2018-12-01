@@ -9,6 +9,7 @@ import { OrdersComponent } from '../orders/orders.component';
 import { OneOrderComponent } from '../oneOrder';
 import { CreateOrderComponent } from '../create-order/create-order.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
+import { OrderQueueComponent } from '../keeper/order-queue/order-queue.component';
 
 const cabinetRoutes: Routes = [
   {
@@ -47,6 +48,10 @@ const cabinetRoutes: Routes = [
       {
         path: 'session',
         component: SessionViewerComponent
+      },
+      {
+        path: 'queue',
+        component: OrderQueueComponent
       }
     ]
   }
