@@ -36,12 +36,12 @@
             <phase>generate-resources</phase>
           </execution>
           <execution>
-            <id>yarn install</id>
+            <id>node install</id>
             <goals>
-              <goal>yarn</goal>
+              <goal>node</goal>
             </goals>
             <configuration>
-              <arguments>install --ignore-engines</arguments>
+              <arguments>install</arguments>
             </configuration>
           </execution>
           <!--<execution>
@@ -54,9 +54,9 @@
             </configuration>
           </execution>-->
           <execution>
-            <id>yarn build</id>
+            <id>node build</id>
             <goals>
-              <goal>yarn</goal>
+              <goal>node</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
