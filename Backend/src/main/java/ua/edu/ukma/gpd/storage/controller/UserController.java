@@ -26,7 +26,7 @@ public class UserController {
 	@Autowired
 	private EmailService emailService;
 	
-	@GetMapping
+	@GetMapping("api/users")
 	public List<User> getUsers() throws Exception {
 		return userService.getAll();
 	}
