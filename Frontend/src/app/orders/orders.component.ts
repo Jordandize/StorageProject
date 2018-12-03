@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import { baseUrl } from '../../varUrl';
 import { OrderService } from '../order.service';
 import { SessionService } from '../session.service';
+import { HttpService } from '../http.service';
 
 
 export class Order {
@@ -44,6 +45,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private http: HttpClient,
+    private httpService: HttpService,
     private sessionService: SessionService) {}
 
   openDialog(){
@@ -57,7 +59,7 @@ export class OrdersComponent implements OnInit {
   }
 
     async ngOnInit() {
-     await  this.http.get(this.baseUrl + '/api/orders/' + this.id).subscribe(data => {
+     await  this.httpService.get(this.baseUrl + '/api/orders/' + this.id).subscribe(data => {
 
       // this.this.UserService.getActiveKeepers();
       //   .subscribe(storekeepers => {

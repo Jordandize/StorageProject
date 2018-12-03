@@ -10,6 +10,7 @@ import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { baseUrl } from '../../varUrl';
 import { ActivatedRoute } from '@angular/router';
 import {MatPaginator} from '@angular/material';
+import { HttpService } from '../http.service';
 
 export interface Order {
   annotation: string;
@@ -98,18 +99,19 @@ public order: Order;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
+    private httpService: HttpService,
     private router: Router) {}
 
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
-    await  this.http.get(this.baseUrl+"/api/orders/oneOrder/"+this.orderId).subscribe(data => {
+    await  this.httpService.get(this.baseUrl+"/api/orders/oneOrder/"+this.orderId).subscribe(data => {
     this.order=<Order>data;
         },   error => {
           console.log(error);
       }
       );
-      await  this.http.get(this.baseUrl+"/api/orders_products/products/"+this.orderId).subscribe(data => {
+      await  this.httpService.get(this.baseUrl+"/api/orders_products/products/"+this.orderId).subscribe(data => {
           this.product=<Product[]>data;
           this.dataSource = new MatTableDataSource<Product>(this.product);
           this.obs = this.dataSource.connect();
