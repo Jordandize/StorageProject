@@ -2,6 +2,7 @@ package ua.edu.ukma.gpd.storage.sql;
 
 public class OrderStatusSql {
 
+	/* unused code
     public static final String INSERT =
             "INSERT INTO order_statuses (name) VALUES (?)";
     
@@ -26,5 +27,6 @@ public class OrderStatusSql {
 	
 	public static final String FIND_BY_NAME =
 			"SELECT * FROM order_statuses WHERE name = ?";
+			*/
 	
 }

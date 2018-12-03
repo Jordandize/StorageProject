@@ -64,38 +64,37 @@ public class OrderController {
     }
 
     @PostMapping("/{id_order}/assignKeeper/{id_user}")
-    public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user) throws Exception{
+    public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user){
         Order order;
         HttpStatus status;
         try{
             order = orderService.assignKeeperToOrder(id_user, id_order);
-            // change later to order = ORDER_STATUS.PROCESSING
-            order.setOrderStatus(2);
+            order.setOrderStatus(OrderStatus.PROCESSING.name());
             status = HttpStatus.OK;
         } catch (Exception e){
             order = null;
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(order, status);
-
     }
 
     @PostMapping
     public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception{
-        HttpStatus status;
+        HttpStatus status = null;
         Long id;
         try{
             Order order = buildOrder(form);
             id = orderService.add(order);
             System.out.println("opopopopopopopopopopopopopopopopopop");
             List<OrderProduct> products = buildProducts(form, id);
-            for(OrderProduct op : products){
-                System.out.println(op);
-                System.out.println("this is op");
-                opService.add(op);
+            if (!products.isEmpty()) {
+                for (OrderProduct op : products) {
+                    System.out.println(op);
+                    System.out.println("this is op");
+                    opService.add(op);
+                }
+                status = HttpStatus.OK;
             }
-
-            status = HttpStatus.OK;
         } catch (Exception e){
             e.printStackTrace();
             id =(long) -1;
@@ -122,14 +121,14 @@ public class OrderController {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Order order = new Order();
         order.setParentId((long)2);
-        order.setOrderStatus(1);
+        order.setOrderStatus(OrderStatus.OPENED.name());
         order.setOrderType(form.getOrderType());
         order.setCreationDateTime(timestamp);
         order.setModifiedDateTime(timestamp);
         order.setAnnotation(form.getAnnotation());
         order.setArchived(false);
         order.setCreatedBy(form.getCreatedBy());
-        order.setAssignedTo((long)1);
+       // order.setAssignedTo(null);
         System.out.println(order);
         return order;
     }

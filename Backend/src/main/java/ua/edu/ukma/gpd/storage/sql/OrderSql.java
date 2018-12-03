@@ -2,9 +2,10 @@ package ua.edu.ukma.gpd.storage.sql;
 
 public class OrderSql {
 
+    //deleted id_keeper insertion
     public static final String INSERT =
-            "INSERT INTO orders (id_parent, order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String FIND_ALL =
             "SELECT * FROM orders";
@@ -20,7 +21,7 @@ public class OrderSql {
                     "SET id_keeper = ? " +
                     "WHERE id = ?";
 
-    public static final String FIND_UNNASIGNED_ORDERS =
+    public static final String FIND_UNASIGNED_ORDERS =
             "SELECT * \n" +
                     "FROM orders\n" +
                     "WHERE id_keeper is null\n";
