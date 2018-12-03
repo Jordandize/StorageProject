@@ -53,7 +53,6 @@ public class OrderDaoImpl implements OrderDao {
             ps.setString(6, order.getAnnotation());
             ps.setBoolean(7, order.getArchived());
             ps.setLong(8, order.getCreatedBy());
-           // ps.setString(9, null);
             System.out.println(ps);
             return ps;
         }, keyHolder);

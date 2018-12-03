@@ -21,11 +21,9 @@ public class OrderServiceImpl implements OrderService {
         try{
            Order exists = findById(order.getId());
            if(exists == null){
-               System.out.println("this order not found in base, so it is creating...");
                id = orderDao.create(order);
            }
         } catch (Exception e){
-            System.out.println("exactly");
             e.printStackTrace();
         }
         return id;

@@ -9,6 +9,7 @@ import ua.edu.ukma.gpd.storage.entity.OrderProduct;
 import ua.edu.ukma.gpd.storage.sql.OrderProductSql;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -31,11 +32,14 @@ public class OrderProductDaoImpl implements OrderProductDao {
     // FIX this method
     @Override
     public OrderProduct create(OrderProduct orderProduct) {
-         jdbcTemplate.update(OrderProductSql.INSERT, orderProduct.getOrderId(), orderProduct.getProductId(),
-                orderProduct.getAmount(), orderProduct.getAmountReturned());
-        System.out.println("ssssssssssssuqqa");
-        System.out.println(jdbcTemplate.update(OrderProductSql.INSERT, orderProduct.getOrderId(), orderProduct.getProductId(),
-                orderProduct.getAmount(), orderProduct.getAmountReturned()));
+         jdbcTemplate.update(connection -> {
+             PreparedStatement ps = connection.prepareStatement(OrderProductSql.INSERT);
+             ps.setLong(1, orderProduct.getOrderId());
+             ps.setLong(2, orderProduct.getProductId());
+             ps.setInt(3, orderProduct.getAmount());
+             ps.setInt(4, orderProduct.getAmountReturned());
+             return ps;
+         });
          return orderProduct;
     }
 
