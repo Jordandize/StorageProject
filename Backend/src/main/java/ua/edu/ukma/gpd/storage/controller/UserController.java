@@ -6,12 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
 import ua.edu.ukma.gpd.storage.entity.User;
@@ -28,22 +23,22 @@ public class UserController {
 	@Autowired
 	private EmailService emailService;
 	
-	@GetMapping
-	public List<User> getUsers() throws Exception {
-		return userService.getAll();
-	}
+//	@GetMapping
+//	public List<User> getUsers() throws Exception {
+//		return userService.getAll();
+//	}
 	
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable("id") Long id) throws Exception {
 		return userService.getById(id);
 	}
 
-	@GetMapping("/keeperActive={active}")
-	public List<User> getActiveKeepers(@PathVariable("active") Boolean active) throws Exception{
-		List<User> activeKeepers;
-		if (active) {
-			activeKeepers = userService.getActiveKeepers();
-			return activeKeepers;
+	@GetMapping("/role={user}/active={activeness}")
+	public List<User> getActiveKeepers(@PathVariable("user") String user, @PathVariable("activeness") boolean activeness) throws Exception{
+		List<User> users;
+		if (user.equals("keeper") && activeness){
+			users = userService.getActiveKeepers();
+			return users;
 		} else {
 			throw new Exception("No active keepers");
 		}
