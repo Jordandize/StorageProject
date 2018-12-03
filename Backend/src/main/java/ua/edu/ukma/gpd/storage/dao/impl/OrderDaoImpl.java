@@ -44,7 +44,6 @@ public class OrderDaoImpl implements OrderDao {
     public Long create(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            System.out.println("here");
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
             ps.setLong(1, order.getParentId());
             ps.setInt(2, order.getOrderType());

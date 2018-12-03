@@ -32,4 +32,6 @@
       (click)="expandedElement = element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+  <mat-paginator  class="orders" [pageSizeOptions]="[2, 5, 10]" showFirstLastButtons></mat-paginator>
 </table>

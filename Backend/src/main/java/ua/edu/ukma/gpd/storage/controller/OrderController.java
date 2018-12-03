@@ -87,8 +87,11 @@ public class OrderController {
         try{
             Order order = buildOrder(form);
             id = orderService.add(order);
+            System.out.println("opopopopopopopopopopopopopopopopopop");
             List<OrderProduct> products = buildProducts(form, id);
             for(OrderProduct op : products){
+                System.out.println(op);
+                System.out.println("this is op");
                 opService.add(op);
             }
 
