@@ -23,31 +23,34 @@ public class TabsDaoImpl implements TabsDao {
 	@Override
 	public List<TabSidebar> findUserTabs() {
 		   List<TabSidebar> tabs= new ArrayList();
-		   tabs.add(new TabSidebar(1,"CreateOrder","/order"));
-		   tabs.add(new TabSidebar(2,"List of Orders","/list"));
-		   tabs.add(new TabSidebar(3,"List of Products","/products"));
+		   tabs.add(new TabSidebar("Products","products", "ballot"));
+		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
+		   tabs.add(new TabSidebar("Orders","orders", "sort"));
+		   tabs.add(new TabSidebar("Session","session", "data_usage"));
+		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
 	        return tabs;
 	 }
 
     @Override
     public List<TabSidebar> findAdminTabs() {
     	 List<TabSidebar> tabs= new ArrayList();
-		   tabs.add(new TabSidebar(1,"CreateOrder","/order"));
-		   tabs.add(new TabSidebar(2,"List of Orders","/list"));
-		   tabs.add(new TabSidebar(3,"List of Products","/products"));
-		   tabs.add(new TabSidebar(4,"Something1","/something"));
-		   tabs.add(new TabSidebar(5,"Something2","/something2"));
+    	 tabs.add(new TabSidebar("Products","products", "ballot"));
+		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
+		   tabs.add(new TabSidebar("Orders","orders", "sort"));
+		   tabs.add(new TabSidebar("Session","session", "data_usage"));
+		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
+		   tabs.add(new TabSidebar("Product CRUD","productsOperations", "view_module"));
 	        return tabs;
     }
 
     @Override
     public List<TabSidebar> findKeeperTabs() {
     	 List<TabSidebar> tabs= new ArrayList();
-		   tabs.add(new TabSidebar(1,"CreateOrder","/order"));
-		   tabs.add(new TabSidebar(2,"List of Orders","/list"));
-		   tabs.add(new TabSidebar(3,"List of Products","/products"));
-		   tabs.add(new TabSidebar(4,"Something1","/something"));
-		  
+    	 tabs.add(new TabSidebar("Products","products", "ballot"));
+		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
+		   tabs.add(new TabSidebar("Orders","orders", "sort"));
+		   tabs.add(new TabSidebar("Session","session", "data_usage"));
+		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
 	        return tabs;
     }
 

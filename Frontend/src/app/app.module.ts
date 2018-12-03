@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,
+import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,MatRadioModule,
   MatBadgeModule, MatExpansionModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -20,9 +20,11 @@ import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
 import { ProductsComponent } from './products/products.component';
+import { ProductsOpComponent,DialogOverviewExampleDialog } from './productsCRUD/products.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
+import { ProductCardOpComponent } from './productsCRUD/product-card/product-card.component';
 import { StrLimitPipe } from './products/str-limit.pipe';
 import { DefaultImagePipe } from './products/default-image.pipe';
 import { SessionViewerComponent } from './session-viewer/session-viewer.component';
@@ -43,6 +45,8 @@ import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.c
     HomeComponent,
     CabinetComponent,
     ProductsComponent,
+    ProductsOpComponent,
+    ProductCardOpComponent,
     ProductCardComponent,
     StrLimitPipe,
     DefaultImagePipe,
@@ -55,7 +59,9 @@ import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.c
     SessionViewerComponent,
     OrdersComponent,
     CreateOrderComponent,
+    DialogOverviewExampleDialog,
     OrderQueueComponent,
+   
     QueueElemComponent
   ],
   imports: [
@@ -78,8 +84,10 @@ import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.c
     LayoutModule,
     FlexLayoutModule,
     MatSelectModule,
+    MatRadioModule,
     MatExpansionModule
   ],
+  entryComponents: [DialogOverviewExampleDialog ],
   providers: [ PreviousRouteService],
   bootstrap: [AppComponent]
 })

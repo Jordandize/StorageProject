@@ -30,6 +30,28 @@ public class ProductServiceImpl implements ProductService {
         	throw new Exception("Exeption occured in ProductServiceImpl: operation add [" + product + "] failed.", e);
         }
     }
+    
+    @Override
+    public boolean update(Product product) throws Exception {
+    	 try {
+             return productDao.update(product);
+         } catch (EmptyResultDataAccessException e){
+             return false;
+        } catch (Exception e) {
+        	throw new Exception("Exeption occured in ProductServiceImpl: operation update [" + product + "] failed.", e);
+        }
+    }
+    @Override
+    public boolean delete(Product product) throws Exception {
+    	 try {
+             return productDao.delete(product);
+         } catch (EmptyResultDataAccessException e){
+             return false;
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	throw new Exception("Exeption occured in ProductServiceImpl: operation delete [" + product + "] failed.", e);
+        }
+    }
 
     @Override
     public Product getById(Long id) throws Exception {

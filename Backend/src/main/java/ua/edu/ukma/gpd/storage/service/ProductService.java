@@ -8,6 +8,10 @@ import java.util.List;
 public interface ProductService {
 
     Long add(Product product) throws Exception;
+    
+    boolean update(Product product) throws Exception;
+    
+    boolean delete(Product product) throws Exception;
 
     Product getById(Long id) throws Exception;
 
