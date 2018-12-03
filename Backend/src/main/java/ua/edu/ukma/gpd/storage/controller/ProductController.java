@@ -78,7 +78,7 @@ public class ProductController {
         HttpStatus status;
         boolean b;
         try{
-            Product product = buildProductFromDto(form);
+        	Product product = buildProductFromDto(form);
             product.setId(id);
             b = productService.update(product);
             status = HttpStatus.OK;
@@ -91,12 +91,11 @@ public class ProductController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteProduct(@Valid @RequestBody ProductDto form,@PathVariable("id") Long id) throws Exception{
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id) throws Exception{
         HttpStatus status;
         boolean b;
         try{
-            Product product = buildProductFromDto(form);
-            product.setId(id);
+        	 Product   product = productService.getById(id);
             b = productService.delete(product);
             status = HttpStatus.OK;
         } catch (Exception e){

@@ -84,8 +84,8 @@
 
       <!--Description-->
       <mat-card-content class="hover-description" fxFlex fxFlexAlign="center center">
-        <button mat-raised-button color="primary">Update</button>
-        <button mat-raised-button color="warn" style="float:right;">Delete</button>
+        <button mat-raised-button color="primary" (click)="openDialog2()">Update</button>
+        <button mat-raised-button color="warn" style="float:right; " (click)="delete(product.id)">Delete</button>
       </mat-card-content>
     </mat-card>
 

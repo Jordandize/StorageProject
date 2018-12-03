@@ -4,6 +4,13 @@ import { Product } from '../../products/product';
 import { ProductService } from '../../products/product.service';
 import { PRODUCTS } from '../../products/PRODUCTS';
 import { SessionService } from 'src/app/session.service';
+import { baseUrl } from '../../../varUrl';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import swal from 'sweetalert2';
+import { HttpService } from '../../http.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DialogOverviewExampleDialog } from '../products.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-product-card2',
@@ -14,7 +21,7 @@ export class ProductCardOpComponent implements OnInit {
 
   @Input() product: Product;
   @Input() amount = 0;
-
+  baseUrl = baseUrl;
   isHovered = false;
 
   limits: any = {
@@ -24,8 +31,22 @@ export class ProductCardOpComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private sessionService: SessionService) { }
-
+    private sessionService: SessionService, 
+      private httpService: HttpService,
+    private router: Router,
+    public dialog: MatDialog) { }
+    openDialog2(): void {
+      console.log(this.product);
+      const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+        width: '80%',
+        data: {product:this.product,id:this.product.id}
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        
+      });
+    }
   ngOnInit() {
     // If No Product Injected Take From Static Collection
     if (this.product == null) {
@@ -33,6 +54,7 @@ export class ProductCardOpComponent implements OnInit {
         .subscribe(products => {
           // this.product = products[0];
           this.product = PRODUCTS[1];
+        
         });
     }
     if (this.product.category == null) {
@@ -42,6 +64,29 @@ export class ProductCardOpComponent implements OnInit {
         });
     }
   }
+  delete( productId:number): void {
+    console.log("KEK"+productId);
+    this.httpService.delete(this.baseUrl + '/api/products/'+productId)
+.subscribe(data => {
+   swal({
+       type: 'success',
+       title: 'You successfully delete product!',
+       showConfirmButton: false,
+       timer: 1500
+   });
+   this.router.navigate(['/cabinet']);
+},
+error => {
+ 
+       swal({
+           type: 'error',
+           title: 'Error!',
+           text: 'Can not delete product'
+       });
+ 
+   console.log(error);
+});
+ }
   onMouseEnter() {
     this.isHovered = true;
   }

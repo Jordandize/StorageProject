@@ -13,10 +13,7 @@ import swal from 'sweetalert2';
 import { HttpService } from '../http.service';
 
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+
 
 @Component({
   selector: 'app-products2',
@@ -24,12 +21,10 @@ export interface DialogData {
   styleUrls: ['./products.component.css']
 })
 export class ProductsOpComponent implements OnInit {
-  animal: string;
-  name: string;
 
   products: Product[];
   categories: Category[];
-
+  baseUrl = baseUrl;
   selectedCategoryId: number;
 
   count = 0;
@@ -37,11 +32,13 @@ export class ProductsOpComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private sessionService: SessionService,
+    private httpService: HttpService,
     private formBuilder: FormBuilder,
+    private router: Router,
     public dialog: MatDialog) { }
     openDialog(): void {
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-        width: '80%'
+        width: '80%',
       });
   
       dialogRef.afterClosed().subscribe(result => {
@@ -49,7 +46,8 @@ export class ProductsOpComponent implements OnInit {
         
       });
     }
-  
+    
+   
   ngOnInit() {
    
 
@@ -87,6 +85,11 @@ export class ProductsOpComponent implements OnInit {
   }
 
 }
+
+
+
+
+
 @Component({
   selector: 'productCrud',
   templateUrl: 'productCrud.html',
@@ -96,13 +99,16 @@ export class DialogOverviewExampleDialog implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private productService: ProductService,private http: HttpClient,private router: Router,private httpService: HttpService,
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: Product) {}
     crudForm: FormGroup;
     categories: Category[];
     loading = false;
     submitted = false;
     baseUrl = baseUrl;
+    selectedCategoryId: number;
     ngOnInit() {
+      
+      
     this.crudForm = this.formBuilder.group({
       name: ['', Validators.required],
       amount: ['', Validators.required],
@@ -112,6 +118,10 @@ export class DialogOverviewExampleDialog implements OnInit {
       categoryId: ['', Validators.required],
       isActive: ['', Validators.required]
   });
+ 
+  if(this.data!=null){
+   
+    }
   this.productService.getCategories()
   .subscribe(categories => {
     this.categories = categories;
@@ -146,7 +156,7 @@ active=false;
       'icon': this.f.icon.value
   };
   console.log(crudForm);
-
+  if(this.data==null){
 return this.httpService.post(this.baseUrl + '/api/products', crudForm)
   .subscribe(data => {
       swal({
@@ -169,7 +179,34 @@ return this.httpService.post(this.baseUrl + '/api/products', crudForm)
       
       this.loading = false;
   });
-  
+}
+else{
+  console.log(this.data);
+console.log(this.data.id);
+  return this.httpService.post(this.baseUrl + '/api/products/'+this.data.id, crudForm)
+  .subscribe(data => {
+      swal({
+          type: 'success',
+          title: 'You successfully update product!',
+          showConfirmButton: false,
+          timer: 1500
+      });
+      this.router.navigate(['/cabinet']);
+  },
+  error => {
+    
+          swal({
+              type: 'error',
+              title: 'Error!',
+              text: 'Can not update product'
+          });
+    
+      console.log(error);
+      
+      this.loading = false;
+  });
+
+}
 }
   onNoClick(): void {
     this.dialogRef.close();

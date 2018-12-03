@@ -48,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
          } catch (EmptyResultDataAccessException e){
              return false;
         } catch (Exception e) {
+        	e.printStackTrace();
         	throw new Exception("Exeption occured in ProductServiceImpl: operation delete [" + product + "] failed.", e);
         }
     }

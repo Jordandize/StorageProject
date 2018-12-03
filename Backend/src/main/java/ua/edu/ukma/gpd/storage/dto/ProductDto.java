@@ -29,7 +29,7 @@ public class ProductDto {
     private Long categoryId;
 
     @NotNull()
-    private Boolean isActive;
+    private boolean isActive;
 
     public String getName() {
         return name;
@@ -69,11 +69,11 @@ public class ProductDto {
         this.icon = icon;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return isActive;
     }
 
-    public void setActive(Boolean isActive) {
+    public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
 
