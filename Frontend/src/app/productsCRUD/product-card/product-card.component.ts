@@ -39,7 +39,7 @@ export class ProductCardOpComponent implements OnInit {
       console.log(this.product);
       const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
         width: '80%',
-        data: {product:this.product,id:this.product.id}
+        data: {product:this.product,id:this.product.id,name:this.product.name,categoryId:this.product.categoryId,amount:this.product.amount,description:this.product.description,image:this.product.image,icon:this.product.icon,active:this.product.active}
       });
   
       dialogRef.afterClosed().subscribe(result => {
@@ -65,7 +65,6 @@ export class ProductCardOpComponent implements OnInit {
     }
   }
   delete( productId:number): void {
-    console.log("KEK"+productId);
     this.httpService.delete(this.baseUrl + '/api/products/'+productId)
 .subscribe(data => {
    swal({
