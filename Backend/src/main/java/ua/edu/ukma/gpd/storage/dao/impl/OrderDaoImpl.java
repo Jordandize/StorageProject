@@ -29,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
-        order.setOrderStatus(resultSet.getInt("order_status"));
+        order.setOrderStatus(resultSet.getInt("order_statuses"));
         order.setOrderType(resultSet.getInt("id_order_type"));
         order.setCreationDateTime(resultSet.getTimestamp("created"));
         order.setModifiedDateTime(resultSet.getTimestamp("changed"));
@@ -71,6 +71,12 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> findAll() {
         return jdbcTemplate.query(OrderSql.FIND_ALL, mapper);
+    }
+    
+    @Override
+    public List<Order> findForKeeperByStatus(Long keeperId, String statusAsString, String statusAsNumber) {
+    	return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_KEEPER_BY_STATUS,
+    			new Object[] { keeperId, statusAsNumber, statusAsString }, mapper);
     }
 
     @Override
