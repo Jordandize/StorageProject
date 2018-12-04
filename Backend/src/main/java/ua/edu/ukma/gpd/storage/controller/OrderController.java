@@ -3,6 +3,8 @@ package ua.edu.ukma.gpd.storage.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
@@ -30,15 +32,25 @@ public class OrderController {
     private OrderProductService opService;
 
     @GetMapping
-    public List<Order> getAll(){
-        List<Order> orders = null;
-        try{
-            orders = orderService.findAll();
-        } catch (Exception  e){
-            e.printStackTrace();
-            orders = null;
-        }
-        return orders;
+    public List<Order> getAll(
+    	@RequestParam(value = "statusAsString", required = false) String statusAsString,
+    	@RequestParam(value = "statusAsNumber", required = false) String statusAsNumber) throws Exception {
+    	if(statusAsString != null || statusAsNumber != null)
+    	{
+	       	return orderService.getForKeeper(statusAsString, statusAsNumber);
+    	} else {
+    		return orderService.findAll();
+    	}
+    }
+    
+    @PostMapping("/{id}/ready")
+    public Order setOrderReady(@PathVariable Long id) throws Exception {
+    	return orderService.setReady(id);
+    }
+    
+    @PostMapping("/{id}/closed")
+    public Order setOrderClosed(@PathVariable Long id) throws Exception {
+    	return orderService.setClosed(id);
     }
 
     @GetMapping("/id_keeper=null")
@@ -65,7 +77,7 @@ public class OrderController {
     
     @GetMapping("/oneOrder/{orderId}")
     public Order getOrderById(@PathVariable(value = "orderId") Long orderId) throws Exception{
-            return orderService.findById(orderId);
+    	return orderService.findById(orderId);
     }
 
     @PostMapping("/{id_order}/assignKeeper/{id_user}")

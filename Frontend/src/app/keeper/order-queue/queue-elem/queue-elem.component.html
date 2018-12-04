@@ -4,42 +4,42 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
-      </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voicemail</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
-      </button>
+      <ng-content></ng-content>
     </mat-menu>
   </div>
   <div fxLayout="row" class="elem-title">
     <mat-icon>assignment</mat-icon>
-    <div>#77</div>
+    <div>#{{order.id}}</div>
   </div>
   <div class="elem-content">
     <div fxLayout="row">
       <div fxFlex>
         <div fxLayout="column" fxLayoutAlign="center center">
-          <div class="ready-to-proccessing">
-            <mat-icon>done</mat-icon>
+
+          <div *ngIf="order.orderStatus !== 3" fxLayout="column" fxLayoutAlign="center center">
+            <div class="ready-to-proccessing">
+              <mat-icon>done</mat-icon>
+            </div>
+            <div>Ready to processing!</div>
           </div>
-          <div>Ready to processing!</div>
+
+          <div *ngIf="order.orderStatus === 3" fxLayout="column" fxLayoutAlign="center center">
+            <div class="ready-to-proccessing">
+              <mat-icon>schedule</mat-icon>
+            </div>
+            <div>Waiting for 2 products</div>
+          </div>
+
         </div>
       </div>
       <div>
         <div fxLayout="row" fxLayoutAlign="end center">
           <div class="datetimes">
               <div fxLayout="row">
-                <div> 05 Nov, 19:03</div>
+                <div>{{order.creationDateTime | date:'dd MMM, HH:mm'}}</div>
               </div>
               <div fxLayout="row">
-                <div> 17 Nov, 09:03</div>
+                <div>{{order.modifiedDateTime | date:'dd MMM, HH:mm'}}</div>
               </div>
           </div>
         </div>
@@ -47,14 +47,13 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center" class="creator-info">
-    <!-- <div>675kostya@gmail.com</div> -->
     <mat-expansion-panel fxFlex [hideToggle]="'true'">
         <mat-expansion-panel-header [collapsedHeight]="'24px'" [expandedHeight]="'24px'">
           <mat-panel-title fxFlex fxLayoutAlign="center center">
-            675kostya@gmail.com
+            {{user.email}}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class="creater-info-details">This is the primary comment of the user.</div>
+        <div class="creater-info-details">{{order.annotation}}</div>
       
       </mat-expansion-panel>
   </div>

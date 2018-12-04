@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 import { OrderLine } from '../data/OrderLine';
 import { SessionService } from '../session.service';
