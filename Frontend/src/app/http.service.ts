@@ -25,6 +25,12 @@ export class HttpService {
       headers: headers
     });
   }
+  delete<T>(url, headers = new HttpHeaders()): Observable<T> {
+    headers = this.appendAuthHeader(headers);
+    return this.http.delete<T>(url, {
+      headers: headers
+    });
+  }
 
   post<T>(url, data, headers = new HttpHeaders()): Observable<T> {
     headers = this.appendAuthHeader(headers);

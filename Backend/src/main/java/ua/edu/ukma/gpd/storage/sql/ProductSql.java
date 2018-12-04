@@ -12,7 +12,7 @@ public class ProductSql {
             + "WHERE id = ?";
 
     public static final String DELETE =
-            "DELETE * FROM products WHERE id = ?";
+            "DELETE FROM products WHERE id = ?";
 
     public static final String FIND_BY_ID =
             "SELECT * FROM products WHERE id = ?";
