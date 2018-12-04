@@ -108,7 +108,7 @@ export class DialogOverviewExampleDialog implements OnInit {
     selectedCategoryId: number;
     ngOnInit() {
       
-      
+     
     this.crudForm = this.formBuilder.group({
       name: ['', Validators.required],
       amount: ['', Validators.required],
@@ -119,14 +119,23 @@ export class DialogOverviewExampleDialog implements OnInit {
       isActive: ['', Validators.required]
   });
  
-  if(this.data!=null){
-   
-    }
   this.productService.getCategories()
   .subscribe(categories => {
     this.categories = categories;
   });
-  
+  if(this.data!=null){
+       
+    this.crudForm.setValue({
+      name: this.data.name, 
+      amount: this.data.amount,
+      description:this.data.description,
+      image:this.data.image,
+      icon:this.data.icon,
+      categoryId:this.data.categoryId,
+      isActive:this.data.active
+    });
+ //   this.crudForm.setValue.   this.data.id
+  }
 }
 get f() { return this.crudForm.controls; }
 onSubmit() {
@@ -145,7 +154,7 @@ onSubmit() {
   else{
 active=false;
   }
-
+  
   const crudForm = {
       'categoryId': this.f.categoryId.value,
       'isActive': active,
@@ -165,6 +174,7 @@ return this.httpService.post(this.baseUrl + '/api/products', crudForm)
           showConfirmButton: false,
           timer: 1500
       });
+      this.onNoClick();
       this.router.navigate(['/cabinet']);
   },
   error => {
@@ -181,8 +191,6 @@ return this.httpService.post(this.baseUrl + '/api/products', crudForm)
   });
 }
 else{
-  console.log(this.data);
-console.log(this.data.id);
   return this.httpService.post(this.baseUrl + '/api/products/'+this.data.id, crudForm)
   .subscribe(data => {
       swal({
@@ -191,6 +199,7 @@ console.log(this.data.id);
           showConfirmButton: false,
           timer: 1500
       });
+      this.onNoClick();
       this.router.navigate(['/cabinet']);
   },
   error => {
@@ -205,7 +214,7 @@ console.log(this.data.id);
       
       this.loading = false;
   });
-
+  
 }
 }
   onNoClick(): void {

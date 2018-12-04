@@ -39,7 +39,7 @@
         <label for="isActive">Active</label>
         <div class="form-group">
               
-                <mat-radio-group  formControlName="isActive" >
+                <mat-radio-group type="radio" formControlName="isActive" >
                         <mat-radio-button checked=true value="true">Yes</mat-radio-button>
                         <mat-radio-button value="false">No</mat-radio-button>
                       </mat-radio-group>
@@ -54,8 +54,7 @@
         </mat-form-field>
         </div>
         <div mat-dialog-actions class="form-group">
-                <button mat-button (click)="onNoClick()">Back</button>
-                <button mat-button [disabled]="loading"  cdkFocusInitial>Create</button>
-              </div>
+              <button class="go-to-order" mat-stroked-button color="primary"  [disabled]="loading"  cdkFocusInitial>OK</button>
+        </div>
     </form>
 </div>
