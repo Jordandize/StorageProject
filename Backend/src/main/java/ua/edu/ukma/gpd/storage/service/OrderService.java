@@ -18,4 +18,6 @@ public interface OrderService {
 
     Order assignKeeperToOrder(Long userId, Long orderId) throws Exception;
 
+    Order declineOrder(Long orderId) throws Exception;
+
 }
