@@ -136,7 +136,7 @@ public class OrderController {
         return order;
     }
 
-    @PostMapping("/declineOrder/{id_user}")
+    @PostMapping("/declineOrder/{orderId}")
     public ResponseEntity<Order> declineOrder(@PathVariable Long orderId) throws Exception{
         Order order;
         HttpStatus status;

@@ -20,11 +20,11 @@
 	</properties>
 
 	<dependencies>
-    <dependency>
+   <!--  <dependency>
       <groupId>ua.edu.ukma.gpd.storage</groupId>
       <artifactId>StorageProject-Frontend</artifactId>
       <version>${project.parent.version}</version>
-    </dependency>
+    </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>

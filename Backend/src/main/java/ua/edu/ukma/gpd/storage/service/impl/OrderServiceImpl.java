@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     public Order declineOrder(Long orderId) throws Exception{
         Order order = null;
         try{
-            order = orderDao.assignKeeperToOrder(userId, orderId);
+            order = orderDao.declineOrder(orderId);
         } catch (EmptyResultDataAccessException e){
             e.printStackTrace();
         } catch (Exception e){
