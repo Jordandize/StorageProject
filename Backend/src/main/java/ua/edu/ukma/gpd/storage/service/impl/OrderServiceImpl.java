@@ -113,14 +113,14 @@ public class OrderServiceImpl implements OrderService {
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
     	// TODO
-    	order.setOrderStatus(4);
+    	order.setOrderStatus("4");
     	return order;
     }
     
     public Order setClosed(Long id) throws Exception {
     	Order order = findById(id);
     	// TODO
-    	order.setOrderStatus(8);
+    	order.setOrderStatus("8");
     	return order;
     }
 }
