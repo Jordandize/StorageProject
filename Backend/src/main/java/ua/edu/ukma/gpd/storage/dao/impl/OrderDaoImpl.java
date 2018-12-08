@@ -29,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
         Order order = new Order();
         order.setId(resultSet.getLong("id"));
         order.setParentId(resultSet.getLong("id_parent"));
-        order.setOrderStatus(resultSet.getInt("order_statuses"));
+        order.setOrderStatus(resultSet.getString("order_statuses"));
         order.setOrderType(resultSet.getInt("id_order_type"));
         order.setCreationDateTime(resultSet.getTimestamp("created"));
         order.setModifiedDateTime(resultSet.getTimestamp("changed"));
@@ -44,17 +44,15 @@ public class OrderDaoImpl implements OrderDao {
     public Long create(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            System.out.println("here");
             PreparedStatement ps = connection.prepareStatement(OrderSql.INSERT, new String[] {"id"});
             ps.setLong(1, order.getParentId());
-            ps.setInt(2, order.getOrderType());
-            ps.setInt(3, order.getOrderStatus());
+            ps.setString(2, order.getOrderStatus());
+            ps.setInt(3, order.getOrderType());
             ps.setTimestamp(4, order.getCreationDateTime());
             ps.setTimestamp(5, order.getModifiedDateTime());
             ps.setString(6, order.getAnnotation());
             ps.setBoolean(7, order.getArchived());
             ps.setLong(8, order.getCreatedBy());
-            ps.setLong(9, order.getAssignedTo());
             System.out.println(ps);
             return ps;
         }, keyHolder);
@@ -86,7 +84,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findUnassignedOrders(){
-        return jdbcTemplate.query(OrderSql.FIND_UNNASIGNED_ORDERS, mapper);
+        return jdbcTemplate.query(OrderSql.FIND_UNASIGNED_ORDERS, mapper);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class OrderDto {
     @NotNull()
     private Long createdBy;
 
-    // name and amount of product
+    // id and amount of product
     @NotNull()
     private HashMap<Long, Integer> products;
 

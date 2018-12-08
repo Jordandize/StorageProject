@@ -10,7 +10,7 @@ public class Order {
 
     private Integer orderType;
 
-    private Integer orderStatus;
+    private String orderStatus;
 
     private Timestamp creationDateTime;
 
@@ -51,11 +51,11 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public Integer getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

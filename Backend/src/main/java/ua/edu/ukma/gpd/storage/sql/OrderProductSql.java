@@ -3,7 +3,7 @@ package ua.edu.ukma.gpd.storage.sql;
 public class OrderProductSql {
 
     public static final String INSERT =
-            "INSERT INTO orders_products (productId, orderId, amount, amount_returned)"
+            "INSERT INTO orders_products (id_order, id_product, amount, amount_returned)"
             + " VALUES (?, ?, ?, ?)";
 
     public static final String FIND_BY_ID =
