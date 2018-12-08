@@ -29,6 +29,7 @@
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "sweetalert2": "^7.28.11",
+    "primeng": "^7.0.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
