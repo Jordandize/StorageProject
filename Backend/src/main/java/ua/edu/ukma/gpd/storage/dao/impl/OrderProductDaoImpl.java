@@ -57,6 +57,10 @@ public class OrderProductDaoImpl implements OrderProductDao {
     public OrderProduct findById(Long orderId, Long productId){
         return jdbcTemplate.queryForObject(OrderProductSql.FIND_BY_ID, new Object[] {orderId, productId}, mapper);
     }
+    @Override
+    public  List< OrderProduct>  findByOrder(Long orderId){
+        return jdbcTemplate.query(OrderProductSql.FIND_BY_ORDER, new Object[] {orderId}, mapper);
+    }
 
     @Override
     public List<OrderProduct> findAll() {

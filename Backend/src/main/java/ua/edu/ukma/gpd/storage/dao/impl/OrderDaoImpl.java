@@ -70,6 +70,12 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> findAll() {
         return jdbcTemplate.query(OrderSql.FIND_ALL, mapper);
     }
+    
+    @Override
+    public List<Order> findForKeeperByStatus(Long keeperId, String statusAsString, String statusAsNumber) {
+    	return jdbcTemplate.query(OrderSql.FIND_ORDERS_FOR_KEEPER_BY_STATUS,
+    			new Object[] { keeperId, statusAsNumber, statusAsString }, mapper);
+    }
 
     @Override
     public List<Order> findOrdersForUser(Long userId) {

@@ -3,4 +3,5 @@ export class OrderLine {
     amount: number;
     product: string;
     category: string;
+    position: number;
 }

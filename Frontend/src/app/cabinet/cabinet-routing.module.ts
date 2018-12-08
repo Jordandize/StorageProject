@@ -4,10 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { SessionViewerComponent } from '../session-viewer/session-viewer.component';
 import { CabinetComponent } from './cabinet.component';
 import { ProductsComponent } from '../products/products.component';
+import { ProductsOpComponent } from '../productsCRUD/products.component';
 import { OrderComponent } from '../order/order.component';
 import { OrdersComponent } from '../orders/orders.component';
 import { OneOrderComponent } from '../oneOrder';
+import { CreateOrderComponent } from '../create-order/create-order.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
+import { OrderQueueComponent } from '../keeper/order-queue/order-queue.component';
 
 const cabinetRoutes: Routes = [
   {
@@ -22,6 +25,14 @@ const cabinetRoutes: Routes = [
       {
         path: 'products',
         component: ProductsComponent
+      },
+      {
+        path: 'productsOperations',
+        component: ProductsOpComponent
+      },
+      {
+        path: 'create-order',
+        component: CreateOrderComponent
       },
       {
         path: 'user-management',
@@ -42,6 +53,10 @@ const cabinetRoutes: Routes = [
       {
         path: 'session',
         component: SessionViewerComponent
+      },
+      {
+        path: 'queue',
+        component: OrderQueueComponent
       }
     ]
   }

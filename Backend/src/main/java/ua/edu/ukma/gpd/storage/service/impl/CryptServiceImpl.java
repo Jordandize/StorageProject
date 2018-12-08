@@ -33,9 +33,7 @@ public class CryptServiceImpl implements CryptService {
     		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
     		cipher.init(Cipher.ENCRYPT_MODE, sks, ips);
     		return Base64.getEncoder().encodeToString(cipher.doFinal(value.getBytes()));
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+    	} catch (Exception ignore) { }
     	return null;
 	}
 
@@ -47,9 +45,7 @@ public class CryptServiceImpl implements CryptService {
     		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
     		cipher.init(Cipher.DECRYPT_MODE, sks, ips);
     		return new String(cipher.doFinal(Base64.getDecoder().decode(crypt)));
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+    	} catch (Exception ignore) {	}
     	return null;
 	}
 

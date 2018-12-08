@@ -32,22 +32,25 @@ public class TabsController {
     public List<TabSidebar> getUserTabs() throws Exception{
     	
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List role= (List) authentication.getAuthorities();
-        System.out.println(role);
-        
-       String role2="USER";
+        Collection<? extends GrantedAuthority> role= authentication.getAuthorities();
+        List<String> roles = new ArrayList<String>();
+        for (GrantedAuthority a : role) {
+            roles.add(a.getAuthority());
+        }
+      
         List<TabSidebar> tabs = null;
         String admin="ADMIN";
         String user="USER";
         String keeper="KEEPER";
         try{
-        	if(role2.equals(user)) {
+        	
+        	if(roles.contains(user)) {
             tabs = tabsService.findUserTabs();
         	}
-        	else if(role2.equals(keeper)) {
+            if(roles.contains(keeper)) {
                 tabs = tabsService.findKeeperTabs();
             	}
-        	else if(role2.equals(admin)) {
+           if(roles.contains(admin)) {
                 tabs = tabsService.findAdminTabs();
             	}
         } catch (Exception  e){

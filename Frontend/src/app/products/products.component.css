@@ -6,10 +6,8 @@ app-product-card {
     margin: 20px 10px;
 }
 
-.products-container {
-    padding-top: 25px;
-}
-
-.products-tiles {
-    padding-left: 15px;
+.go-to-order {
+    font-size: 15px;
+    font-family: Arial;
+    color: aliceblue;
 }

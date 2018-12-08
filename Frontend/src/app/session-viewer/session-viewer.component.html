@@ -5,7 +5,7 @@
 
   <!-- Position Column -->
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Product Id </th>
+    <th mat-header-cell *matHeaderCellDef>Id</th>
     <td mat-cell *matCellDef="let orderLine"> {{orderLine.id}} </td>
   </ng-container>
 
@@ -25,6 +25,21 @@
   <ng-container matColumnDef="category">
     <th mat-header-cell *matHeaderCellDef> Category </th>
     <td mat-cell *matCellDef="let orderLine"> {{orderLine.category}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> # </th>
+    <td mat-cell *matCellDef="let orderLine"> {{orderLine.position}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="remove-but">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let orderLine">
+        <button (click)="removeLine(orderLine.id)" mat-icon-button>
+          <mat-icon class="remove-butt">clear</mat-icon>
+        </button>
+      </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
