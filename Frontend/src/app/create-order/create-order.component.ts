@@ -57,8 +57,8 @@ export class CreateOrderComponent implements OnInit {
     resp => {
       this.order.comment = '';
       this.clean();
-      this.messageService.add({severity: 'success', summary: `Order #${144} created!`,
-        detail: 'Please, visit \'Orders\' page for more details.', life: 4000});
+      this.messageService.add({severity: 'success', summary: `Order #${resp} created!`,
+        detail: 'Please, visit \'Orders\' page for more details.', life: 6000});
       this.loading = false;
     },
     error => {
