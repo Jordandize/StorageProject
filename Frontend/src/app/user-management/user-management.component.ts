@@ -19,6 +19,8 @@ import { baseUrl } from '../../varUrl';
 })
 export class UserManagementComponent implements OnInit{
 
+  columnsToDisplay = [];
+
 	baseUrl = baseUrl;
 
 	constructor(
