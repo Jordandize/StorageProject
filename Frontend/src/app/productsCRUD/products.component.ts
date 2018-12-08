@@ -105,8 +105,12 @@ export class DialogOverviewExampleDialog implements OnInit {
     loading = false;
     submitted = false;
     baseUrl = baseUrl;
-    selectedCategoryId: number;
-    ngOnInit() {
+    selectedCategoryId=1;
+    selectedRadio:string;
+    category1: Category;
+    act1="false";
+    act2="false";
+  async  ngOnInit() {
       
      
     this.crudForm = this.formBuilder.group({
@@ -119,12 +123,19 @@ export class DialogOverviewExampleDialog implements OnInit {
       isActive: ['', Validators.required]
   });
  
-  this.productService.getCategories()
+  
+ this.productService.getCategories()
   .subscribe(categories => {
     this.categories = categories;
+    this.category1=this.categories.find(x=> x.id==this.data.categoryId);
+  });
+ 
+  this.crudForm.patchValue({
+    isActive: "true"
   });
   if(this.data!=null){
-       
+    console.log(this.data.active);
+    this.data.active== true ? this.act1='true' : this.act2='true';
     this.crudForm.setValue({
       name: this.data.name, 
       amount: this.data.amount,
@@ -134,8 +145,9 @@ export class DialogOverviewExampleDialog implements OnInit {
       categoryId:this.data.categoryId,
       isActive:this.data.active
     });
- //   this.crudForm.setValue.   this.data.id
+    this.selectedCategoryId=this.data.categoryId;
   }
+  
 }
 get f() { return this.crudForm.controls; }
 onSubmit() {
@@ -178,13 +190,13 @@ return this.httpService.post(this.baseUrl + '/api/products', crudForm)
       this.router.navigate(['/cabinet']);
   },
   error => {
-    
+    console.log(error);
           swal({
-              type: 'error',
-              title: 'Error!',
-              text: 'Can not create product'
-          });
-    
+            type: 'error',
+            title: 'Error!',
+
+            text:'Can not create product :' + this.checkErrors(error)
+          })
       console.log(error);
       
       this.loading = false;
@@ -204,11 +216,12 @@ else{
   },
   error => {
     
-          swal({
-              type: 'error',
-              title: 'Error!',
-              text: 'Can not update product'
-          });
+    swal({
+      type: 'error',
+      title: 'Error!',
+
+      text:'Can not update product :' + this.checkErrors(error)
+    })
     
       console.log(error);
       
@@ -219,6 +232,9 @@ else{
 }
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  checkErrors(error): string {
+    return (error.error.errors.image!= null ? JSON.stringify(error.error.errors.image): "") +". "+ (error.error.errors.icon!= null ?   JSON.stringify(error.error.errors.icon): "" )   ;
   }
 
 }
