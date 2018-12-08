@@ -4,8 +4,8 @@ public class OrderSql {
 
     //deleted id_keeper insertion
     public static final String INSERT =
-            "INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper) " +
-            		"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user) " +
+            		"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String FIND_ALL =
             "SELECT * FROM orders";

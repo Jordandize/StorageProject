@@ -53,7 +53,7 @@
           <mat-card-title title="{{product.name}}">
               {{product.name | strLimit:62}}
           </mat-card-title>
-          <img mat-card-avatar src="{{product.imageIcon | defaultImage:'http://i.piccy.info/i9/a9a6d256d57426cbccec3dc80df25376/1542410160/14591/1281946/pr_card_stub_3_xs.png'}}"
+          <img mat-card-avatar src="{{product.icon | defaultImage:'http://i.piccy.info/i9/a9a6d256d57426cbccec3dc80df25376/1542410160/14591/1281946/pr_card_stub_3_xs.png'}}"
             fxFlex="40px"
             class="icon-label">
           <mat-card-subtitle class="category-label">
@@ -63,7 +63,7 @@
               <div>#{{product.id}}</div>
           </mat-card-subtitle> -->
         </div>
-        <img fxFlex="225px" src="{{product.image | defaultImage:'http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png'}}"/>
+        <img fxFlex="225px" [style.maxHeight.px]="225" [style.minHeight.px]="225" src="{{product.image | defaultImage:'http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png'}}"/>
       </div>
     </mat-card-content>
 

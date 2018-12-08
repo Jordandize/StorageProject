@@ -42,9 +42,7 @@ export class OrderService {
   }
 
   createOrderAny(order: any): Observable<number> {
-    const head = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post<number>(this.baseUrl + '/api/orders', order, {headers: head}).pipe(
-      catchError(this.handleError<number>('create order')));
+    return this.httpService.post<number>(this.baseUrl + '/api/orders', order);
   }
 
   getUserOrders(id: number): Observable<Order>{
