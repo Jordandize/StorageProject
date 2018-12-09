@@ -82,6 +82,15 @@ public class UserServiceImpl implements UserService {
 			throw new Exception("UserServiceImpl: Get all users operation failed", e);
 		}
 	}
+	@Override
+	public List<User> getAllByEmail(String email) throws Exception {
+		try {
+			return userDao.findAllByEmail(email);
+		} catch (Exception e) {
+			throw new Exception("UserServiceImpl: Get all users by email operation failed", e);
+		}
+	}
+	
 
 	@Override
 	public List<User> getActiveKeepers() throws Exception {
