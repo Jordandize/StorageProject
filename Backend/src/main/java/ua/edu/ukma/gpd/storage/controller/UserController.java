@@ -23,10 +23,10 @@ public class UserController {
 	@Autowired
 	private EmailService emailService;
 	
-//	@GetMapping
-//	public List<User> getUsers() throws Exception {
-//		return userService.getAll();
-//	}
+	@GetMapping
+	public List<User> getUsers() throws Exception {
+		return userService.getAll();
+	}
 	
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable("id") Long id) throws Exception {

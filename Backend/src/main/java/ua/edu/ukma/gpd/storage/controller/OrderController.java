@@ -87,12 +87,13 @@ public class OrderController {
             Order order = buildOrder(form);
             id = orderService.add(order);
             List<OrderProduct> products = buildProducts(form, id);
+            if (products.isEmpty())
+                orderService.delete(order);
             for (OrderProduct op : products) {
-                System.out.println(op);
-                System.out.println("this is op");
                 opService.add(op);
             }
             status = HttpStatus.OK;
+
         } catch (Exception e) {
             e.printStackTrace();
             id = (long) -1;

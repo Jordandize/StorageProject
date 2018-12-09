@@ -8,6 +8,8 @@ public interface OrderService {
 
     Long add(Order order) throws Exception;
 
+    void delete(Order order) throws Exception;
+
     Order findById(Long id) throws Exception;
 
     List<Order> findAll() throws Exception;

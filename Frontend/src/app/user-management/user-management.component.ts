@@ -4,6 +4,7 @@ import {MatTableDataSource, MatPaginator} from '@angular/material';
 import { User } from '../User';
 import {HttpClient} from "@angular/common/http";
 import { baseUrl } from '../../varUrl';
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-user-management',
@@ -22,10 +23,13 @@ export class UserManagementComponent implements OnInit{
 	baseUrl = baseUrl;
 
 	constructor(
-    private http: HttpClient) {}
+    private http: HttpClient, 
+    private orderService: OrderService) {}
 
     async ngOnInit() {
      await  this.http.get(this.baseUrl + "/api/users").subscribe(data => {
+
+        this.orderService.assignKeeperToOrder(97, 2222);
 
         if(data!=null){
         this.dataSource2=<User[]>data;

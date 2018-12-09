@@ -61,6 +61,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void delete(Order order){
+        jdbcTemplate.update(OrderSql.DELETE, order.getId());
+    }
+
+    @Override
     public Order findById(Long id) {
         return jdbcTemplate.queryForObject(OrderSql.FIND_BY_ID,
                 new Object[] { id }, mapper);

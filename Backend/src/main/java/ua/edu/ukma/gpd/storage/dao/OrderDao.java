@@ -8,6 +8,8 @@ public interface OrderDao {
 
     Long create(Order order);
 
+    void delete(Order order);
+
     Order findById(Long id);
 
     List<Order> findAll();
