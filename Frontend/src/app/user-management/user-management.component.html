@@ -3,7 +3,7 @@
 </mat-form-field>
 <table mat-table
        [dataSource]="dataSource2" multiTemplateDataRows
-       class="mat-elevation-z8">
+       class="mat-elevation-z8"  *ngIf="!loading">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
@@ -28,13 +28,13 @@
 <div class="example-element-diagram">
 <p>Give roles</p>
 <div class="example-element-roles">
-<mat-slide-toggle   color="primary"   checked={{element.roles.user}}  (change)="changeUser(element.id,'user')" >User {{element.roles.user}} </mat-slide-toggle>
+<mat-slide-toggle   color="primary"    checked={{element.roles?.user}}  (change)="changeUser(element.id,'user')" >User  </mat-slide-toggle>
 </div>
 <div class="example-element-roles">
-  <mat-slide-toggle color="primary" checked={{element.roles.keeper}}  (change)="changeUser(element.id,'keeper')">Keeper</mat-slide-toggle>
+  <mat-slide-toggle color="primary" checked={{element.roles?.keeper}}  (change)="changeUser(element.id,'keeper')">Keeper</mat-slide-toggle>
   </div>
   <div class="example-element-roles">
-    <mat-slide-toggle color="primary" checked={{element.roles.admin}}  (change)="changeUser(element.id,'admin')">Admin</mat-slide-toggle>
+    <mat-slide-toggle color="primary"   checked={{element.roles?.admin}}  (change)="changeUser(element.id,'admin')">Admin</mat-slide-toggle>
     </div>
     <button class="okButton" mat-stroked-button color="primary"  [disabled]="loading"  (click)="submitRoles(element.id)" cdkFocusInitial>OK</button>
     </div>
@@ -49,7 +49,8 @@
       (click)="expandedElement = element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-
 </table>
+<div *ngIf="loading">
+  Wait for data loading ...
+  </div>
 <mat-paginator  class="orders" [pageSizeOptions]="[5,8, 10]" showFirstLastButtons></mat-paginator>
-

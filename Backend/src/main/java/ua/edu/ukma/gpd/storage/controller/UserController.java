@@ -132,15 +132,15 @@ public class UserController {
 		Role role=new Role(); 
 			if(names[i].equals(Role.USER)) {
 			role = roleService.getRoleByName(Role.USER);
-			roles.set(i, role);
+			roles.add(i, role);
 			}
 			else if(names[i].equals(Role.KEEPER)){
 				role = roleService.getRoleByName(Role.KEEPER);
-				roles.set(i, role);
+				roles.add(i, role);
 			}
 			else if(names[i].equals(Role.ADMIN)){
 			role = roleService.getRoleByName(Role.ADMIN);
-			roles.set(i, role);
+			roles.add(i, role);
 			}
 		}
 		return roles;
