@@ -1,3 +1,4 @@
+
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { baseUrl } from '../../varUrl';
@@ -9,6 +10,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 /**
  * @title Table with expandable rows
  */
+
 @Component({
   selector: 'app-user-management',
   styleUrls: ['./user-management.component.css'],
@@ -21,6 +23,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
     ]),
   ],
 })
+
 export class UserManagementComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -152,3 +155,4 @@ const ELEMENT_DATA: User[] = [
     roles: { user: true, keeper: false, admin: true }
   }
 ];
+

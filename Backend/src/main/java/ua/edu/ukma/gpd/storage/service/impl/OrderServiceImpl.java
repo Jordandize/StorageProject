@@ -2,10 +2,13 @@ package ua.edu.ukma.gpd.storage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.service.OrderService;
+import ua.edu.ukma.gpd.storage.service.UserService;
 
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDao orderDao;
+    
+    @Autowired
+    private UserService userService;
 
     @Override
     public Long add(Order order) {
@@ -21,11 +27,9 @@ public class OrderServiceImpl implements OrderService {
         try{
            Order exists = findById(order.getId());
            if(exists == null){
-               System.out.println("not found");
                id = orderDao.create(order);
            }
         } catch (Exception e){
-            System.out.println("exactly");
             e.printStackTrace();
         }
         return id;
@@ -55,6 +59,18 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("Exception occured in OrderServiceImpl: operation findAll failed");
         }
         return orders;
+    }
+    
+    @Override
+    public List<Order> getForKeeper(String statusAsString, String statusAsNumber) throws Exception {
+    	try {
+        	UserDetails userDetails =
+          			 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	Long keeperId = userService.getByEmail(userDetails.getUsername()).getId();
+        	return orderDao.findForKeeperByStatus(keeperId, statusAsString, statusAsNumber);
+    	} catch (Exception ex) {
+    		throw new Exception("OrderServiceImp.getForKeeper() failed", ex);
+		}
     }
 
     public List<Order> findOrdersForUser(Long userId) throws Exception{
@@ -92,5 +108,19 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("Exception occured in OrderServiceImpl: operation assignKeeperToOrder [" +  userId + ", " + orderId + "] failed", e);
         }
         return order;
+    }
+    
+    public Order setReady(Long id) throws Exception {
+    	Order order = findById(id);
+    	// TODO
+    	order.setOrderStatus("4");
+    	return order;
+    }
+    
+    public Order setClosed(Long id) throws Exception {
+    	Order order = findById(id);
+    	// TODO
+    	order.setOrderStatus("8");
+    	return order;
     }
 }

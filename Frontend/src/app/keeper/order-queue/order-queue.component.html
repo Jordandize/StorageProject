@@ -1,9 +1,36 @@
 <div fxLayout="row" class="queue-container">
-  <div *ngFor="let column of columns" fxFlex>
+  <div *ngFor="let column of columns; let i = index" fxFlex>
     <mat-card>
-      <mat-card-title matBadge="3" matBadgeColor="warn" matBadgePosition="above after">{{column}}</mat-card-title>
+      <mat-card-title matBadge="{{orders[column].length}}" matBadgeColor="warn" matBadgePosition="above after">{{column}}</mat-card-title>
       <mat-card-content>
-        <app-queue-elem></app-queue-elem>
+
+
+        <app-queue-elem *ngFor="let order of orders[column]" [order]="order">
+            <button *ngIf="i === 0" mat-menu-item (click)="toReady(order.id)">
+              <mat-icon>forward</mat-icon>
+              <span>Ready</span>
+            </button>
+
+
+            <button *ngIf="i === 1" mat-menu-item (click)="toSupply(order.id)">
+                <mat-icon>open_with</mat-icon> <!-- place -->
+                <span>Supply</span>
+            </button>
+
+
+            <button mat-menu-item>
+                <mat-icon>email</mat-icon>
+                <span>Message</span>
+            </button>
+
+
+            <button *ngIf="i === 0" mat-menu-item disabled>
+              <mat-icon>control_point</mat-icon>
+              <span>Base Order</span>
+            </button>
+        </app-queue-elem>
+
+        
       </mat-card-content>
     </mat-card>
   </div>

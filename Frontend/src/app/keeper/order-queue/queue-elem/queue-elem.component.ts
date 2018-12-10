@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Order } from 'src/app/oneOrder';
+import { User } from 'src/app/User';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-queue-elem',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QueueElemComponent implements OnInit {
 
-  constructor() { }
+  @Input() order: Order;
+  user: User;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getUserById(this.order.createdBy).subscribe(data => {
+      this.user = data;
+    });
   }
 
 }

@@ -11,11 +11,17 @@ public interface OrderService {
     Order findById(Long id) throws Exception;
 
     List<Order> findAll() throws Exception;
+    
+    List<Order> getForKeeper(String statusAsString, String statusAsNumber) throws Exception;
 
     List<Order> findOrdersForUser(Long userId) throws Exception;
 
     List<Order> findUnassignedOrders() throws Exception;
 
     Order assignKeeperToOrder(Long userId, Long orderId) throws Exception;
+    
+    Order setReady(Long id) throws Exception;
+    
+    Order setClosed(Long id) throws Exception;
 
 }

@@ -3,6 +3,8 @@ package ua.edu.ukma.gpd.storage.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
@@ -16,6 +18,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,23 +33,33 @@ public class OrderController {
     private OrderProductService opService;
 
     @GetMapping
-    public List<Order> getAll(){
-        List<Order> orders = null;
-        try{
-            orders = orderService.findAll();
-        } catch (Exception  e){
-            e.printStackTrace();
-            orders = null;
-        }
-        return orders;
+    public List<Order> getAll(
+    	@RequestParam(value = "statusAsString", required = false) String statusAsString,
+    	@RequestParam(value = "statusAsNumber", required = false) String statusAsNumber) throws Exception {
+    	if(statusAsString != null || statusAsNumber != null)
+    	{
+	       	return orderService.getForKeeper(statusAsString, statusAsNumber);
+    	} else {
+    		return orderService.findAll();
+    	}
+    }
+    
+    @PostMapping("/{id}/ready")
+    public Order setOrderReady(@PathVariable Long id) throws Exception {
+    	return orderService.setReady(id);
+    }
+    
+    @PostMapping("/{id}/closed")
+    public Order setOrderClosed(@PathVariable Long id) throws Exception {
+    	return orderService.setClosed(id);
     }
 
     @GetMapping("/id_keeper=null")
-    public List<Order> getUnasgnedOrders(){
+    public List<Order> getUnasgnedOrders() {
         List<Order> orders = null;
-        try{
+        try {
             orders = orderService.findUnassignedOrders();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             orders = null;
         }
@@ -54,10 +67,10 @@ public class OrderController {
     }
 
     @GetMapping("/{userId}")
-    public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception{
+    public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception {
 //        System.out.println("Get!");
 //        if (userId != null) {
-            return orderService.findOrdersForUser(userId);
+        return orderService.findOrdersForUser(userId);
 //        } else {
 //            return orderService.findAll();
 //        }
@@ -65,73 +78,70 @@ public class OrderController {
     
     @GetMapping("/oneOrder/{orderId}")
     public Order getOrderById(@PathVariable(value = "orderId") Long orderId) throws Exception{
-            return orderService.findById(orderId);
+    	return orderService.findById(orderId);
     }
 
     @PostMapping("/{id_order}/assignKeeper/{id_user}")
-    public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user) throws Exception{
+    public ResponseEntity<Order> assignKeeperToOrder(@PathVariable Long id_order, @PathVariable Long id_user) {
         Order order;
         HttpStatus status;
-        try{
+        try {
             order = orderService.assignKeeperToOrder(id_user, id_order);
-            // change later to order = ORDER_STATUS.PROCESSING
-            order.setOrderStatus(2);
+            order.setOrderStatus(OrderStatus.PROCESSING.name());
             status = HttpStatus.OK;
-        } catch (Exception e){
+        } catch (Exception e) {
             order = null;
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(order, status);
-
     }
 
     @PostMapping
-    public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception{
-        HttpStatus status;
+    public ResponseEntity<Long> addOrder(@Valid @RequestBody OrderDto form) throws Exception {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         Long id;
-        try{
+        try {
             Order order = buildOrder(form);
             id = orderService.add(order);
             List<OrderProduct> products = buildProducts(form, id);
-            for(OrderProduct op : products){
+            for (OrderProduct op : products) {
+                System.out.println(op);
+                System.out.println("this is op");
                 opService.add(op);
             }
-
             status = HttpStatus.OK;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            id =(long) -1;
-            status = HttpStatus.BAD_REQUEST;
+            id = (long) -1;
         }
         return new ResponseEntity<>(id, status);
     }
 
-    private List<OrderProduct> buildProducts(OrderDto form, Long id){
+    private List<OrderProduct> buildProducts(OrderDto form, Long id) {
         List<OrderProduct> products = new ArrayList<>();
-        for (Map.Entry<Long, Integer> entry : form.getProducts().entrySet()){
+        for (Map.Entry<Long, Integer> entry : form.getProducts().entrySet()) {
             OrderProduct op = new OrderProduct();
             op.setProductId(entry.getKey());
             op.setOrderId(id);
             op.setAmount(entry.getValue());
             op.setAmountReturned(0);
+            System.out.println(op);
+            products.add(op);
         }
         return products;
     }
 
-    // FOR EDITING ANOTHER CONTROLLER
-
-    private Order buildOrder(OrderDto form){
+    private Order buildOrder(OrderDto form) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Order order = new Order();
-        order.setParentId((long)2);
-        order.setOrderStatus(1);
+        order.setParentId((long) 2);
+        order.setOrderStatus(OrderStatus.OPENED.name());
         order.setOrderType(form.getOrderType());
         order.setCreationDateTime(timestamp);
         order.setModifiedDateTime(timestamp);
         order.setAnnotation(form.getAnnotation());
         order.setArchived(false);
         order.setCreatedBy(form.getCreatedBy());
-        order.setAssignedTo((long)1);
         System.out.println(order);
         return order;
     }
