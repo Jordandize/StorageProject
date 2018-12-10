@@ -1,4 +1,3 @@
-
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { baseUrl } from '../../varUrl';
@@ -10,7 +9,6 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 /**
  * @title Table with expandable rows
  */
-
 @Component({
   selector: 'app-user-management',
   styleUrls: ['./user-management.component.css'],
@@ -23,26 +21,27 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
     ]),
   ],
 })
-
 export class UserManagementComponent implements OnInit {
-  dataSource = ELEMENT_DATA;
+  ELEMENT_DATA: User[];
+  dataSource = this.ELEMENT_DATA;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource2: MatTableDataSource<User>;
 
   columnsToDisplay = ['id', 'email', 'active'];
   expandedElement: User;
   user: User;
-  loading = false;
+  loading = true;
   submitted = false;
   baseUrl = baseUrl;
-  roles: string[];
+  roles: string[]=[];
 
   constructor(private http: HttpClient, private router: Router, private httpService: HttpService, ) {
     this.dataSource2 = new MatTableDataSource(this.dataSource);
   }
 
-  ngOnInit() {
-    this.dataSource2.paginator = this.paginator;
+   ngOnInit() {
+  this.loading = true;
+  this.getUsers();
   }
   applyFilter(filterValue: string) {
     this.dataSource2.filter = filterValue.trim().toLowerCase();
@@ -69,40 +68,89 @@ export class UserManagementComponent implements OnInit {
     if (this.user.roles.user == true) {
       this.roles.push("USER");
     }
-    else if (this.user.roles.keeper == true) {
+    if (this.user.roles.keeper == true) {
       this.roles.push("KEEPER");
     }
-    else if (this.user.roles.admin == true) {
+    if (this.user.roles.admin == true) {
       this.roles.push("ADMIN");
     }
+    const ch = {
+      'name': this.roles
+  };
 
-    return this.httpService.post(this.baseUrl + '/api/user/' + userR + '/roles', this.roles)
+    return this.httpService.post(this.baseUrl + '/api/users/' + userR + '/roles', ch)
       .subscribe(data => {
-        swal({
-          type: 'success',
-          title: 'You successfully  update roles!',
-          showConfirmButton: false,
-          timer: 1500
-        });
+        this.swalOk('You successfully  update roles!');
         this.router.navigate(['/cabinet']);
       },
         error => {
           console.log(error);
-          swal({
-            type: 'error',
-            title: 'Error!',
-
-            text: 'Can not update roles :'
-          })
-          console.log(error);
-
+          this.swalError('Can not update roles :');
           this.loading = false;
         });
 
   }
+swalOk(str:string){
+  swal({
+    type: 'success',
+    title: str,
+    showConfirmButton: false,
+    timer: 1500
+  });
+}
+swalError(str:string){
+  swal({
+    type: 'error',
+    title: 'Error!',
 
+    text: str
+  })
+}
+getUsers(){
+  return this.httpService.get(this.baseUrl + '/api/users')
+  .subscribe(data => {
+    this.dataSource=<User[]>data;
+    console.log(data);
+    for (let entry of this.dataSource) {
+     this.httpService.get(this.baseUrl + '/api/users/' + entry.id+ '/roles')
+     .subscribe(data => {
+       var r= { user: false, keeper: false, admin: false };
+       var roles=<RolesFromBack[]>data; 
+       console.log(roles)
+       for(var i=0;i<roles.length;i++){
+         if(roles[i].name==userRole){
+           r.user=true;
+         }
+         else if(roles[i].name==keeperRole){
+          r.keeper=true;
+         }
+         else if(roles[i].name==adminRole){
+          r.admin=true;
+         }
+       }
+       entry.roles=r;
+       console.log( entry.roles);
+       this.loading = false;
+     },
+       error => {
+         console.log(error);
+         this.loading = false;
+       });
+    }
+    this.dataSource2 = new MatTableDataSource<User>(this.dataSource);
+    this.dataSource2.paginator = this.paginator;
+    this.loading = false;
+  },
+    error => {
+      console.log(error);
+      this.loading = false;
+    });
+}
 
 }
+const userRole:string="USER";
+const keeperRole:string="KEEPER";
+const adminRole:string="ADMIN";
 
 export interface User {
   email: string;
@@ -113,6 +161,10 @@ export interface User {
   active: boolean;
   roles: Roles;
 }
+export interface RolesFromBack {
+  id: number;
+  name: string;
+}
 export interface Roles {
   user: boolean;
   keeper: boolean;
@@ -120,7 +172,7 @@ export interface Roles {
 }
 
 
-const ELEMENT_DATA: User[] = [
+/*const ELEMENT_DATA: User[] = [
   {
     id: 7,
     email: "whilerun2@moto.sport",
@@ -154,5 +206,4 @@ const ELEMENT_DATA: User[] = [
     active: true,
     roles: { user: true, keeper: false, admin: true }
   }
-];
-
+];*/
