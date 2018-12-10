@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.CategoryDao;
 import ua.edu.ukma.gpd.storage.entity.Category;
+import ua.edu.ukma.gpd.storage.entity.Product;
 import ua.edu.ukma.gpd.storage.exception.NotUniqueValueException;
 import ua.edu.ukma.gpd.storage.service.CategoryService;
 
@@ -23,10 +24,32 @@ public class CategoryServiceImpl implements CategoryService {
             if (exists == null) {
                 return categoryDao.create(category);
             } else {
-            	throw new NotUniqueValueException("Category", "name", category.getName());
+              throw new NotUniqueValueException("Category", "name", category.getName());
             }
         } catch (Exception e) {
-            throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category + "] failed.");
+        	throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category + "] failed.", e);
+        }
+    }
+    
+    @Override
+    public boolean update(Category category) throws Exception {
+    	 try {
+             return categoryDao.update(category);
+         } catch (EmptyResultDataAccessException e){
+             return false;
+        } catch (Exception e) {
+        	throw new Exception("Exeption occured in CategoryServiceImpl: operation update [" + category + "] failed.", e);
+        }
+    }
+    @Override
+    public boolean delete(Category category) throws Exception {
+    	 try {
+             return categoryDao.delete(category);
+         } catch (EmptyResultDataAccessException e){
+             return false;
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	throw new Exception("Exeption occured in CategoryServiceImpl: operation delete [" + category + "] failed.", e);
         }
     }
 

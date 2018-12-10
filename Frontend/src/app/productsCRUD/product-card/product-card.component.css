@@ -71,6 +71,10 @@ mat-card-content p.hover-tip {
     width: 100%;
 }
 
+.image-container{
+    min-height:225px;
+    max-height:225px;
+}
 mat-card-subtitle.category-label, mat-card-subtitle.id-label{
     margin: 0;
 }
