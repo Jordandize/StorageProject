@@ -46,28 +46,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(userDetailsService)
-    		.passwordEncoder(encoder)
-    		.and()
-    		.inMemoryAuthentication()
-    		.withUser("admin").password(encoder.encode("adminPass")).roles("ADMIN")
-    		.and()
-    		.withUser("user").password(encoder.encode("userPass")).roles("USER)");
+    		.passwordEncoder(encoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
         	.csrf().disable()
-        	.addFilterAfter(tokenAuthenticationFilter("/api2/**"), UsernamePasswordAuthenticationFilter.class)
-    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
+        	.addFilterBefore(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
+    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
-        	.antMatchers("/api/foo").anonymous()
-        	.antMatchers("/api/foos").authenticated()
+        	.antMatchers("/api/forAll").permitAll()
+        	.antMatchers("/api/forAnon").anonymous()
+        	.antMatchers("/api/forLogined").authenticated()
+        	.antMatchers("/api/forUserRole").hasRole("USER_ROLE")
+        	.antMatchers("/api/forAdminRole").hasRole("ADMIN_ROLE")
         	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
         	.antMatchers("/login").anonymous()
         	.and().cors();

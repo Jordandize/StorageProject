@@ -1,16 +1,19 @@
-<div class="products-container">
+<div>
   <!--Category Filter-->
   <div fxLoyout="row">
-    <mat-form-field fxFlex="200px" fxFlexOffset="30px">
+    <mat-form-field fxFlex="200px" fxFlexOffset="15px">
       <mat-select [(value)]="selectedCategoryId" placeholder="Specify category" (selectionChange)="categoryChanged()">
         <mat-option>--</mat-option>
         <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <div fxLayoutAlign="start center" fxFlexOffset="40px">
+      <button [routerLink]="['../create-order']" class="go-to-order" mat-stroked-button color="primary">{{count}} products choosed</button>
+    </div>
   </div>
 
   <!--Products List-->
-  <div fxLayout="row wrap" fxLayoutAlign="start" class="products-tiles">
+  <div fxLayout="row wrap" fxLayoutAlign="start">
     <div *ngFor="let product of products"  fxFlex="0 1 calc(20%)" fxLayoutAlign="center center">
         <app-product-card [product]="product" [amount]="inOrderAmount(product)">
         </app-product-card>

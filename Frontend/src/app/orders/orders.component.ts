@@ -1,8 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
+import { OrderService } from '../order.service';
+import { SessionService } from '../session.service';
+import { HttpService } from '../http.service';
+
 
 export class Order {
   annotation: string;
@@ -26,39 +30,56 @@ export class OrdersComponent implements OnInit {
 
   displayedColumns = ['id', 'creationDateTime', 'annotation'];
   private orders: Order[] = null;
-  public id = sessionStorage.getItem('userId');
+  public id = this.sessionService.getUser().id;
   baseUrl = baseUrl;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-     public  dataSource2 : Order[] ;
+     public  dataSource2: Order[] ;
 
       public  dataSource ;
-  
+
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
   constructor(
-    private http: HttpClient) {}
+    private orderService: OrderService,
+    private http: HttpClient,
+    private httpService: HttpService,
+    private sessionService: SessionService) {}
+
+  openDialog(){
+
+    alert("Select Storekeeper")
+  }
+
+  rejectOrder(){
+      //this.OrderService.setStatus("declined");
+    alert("Are you sure?");
+  }
 
     async ngOnInit() {
-     await  this.http.get(this.baseUrl + "/api/orders?user="+this.id).subscribe(data => {
+     await  this.httpService.get(this.baseUrl + '/api/orders/' + this.id).subscribe(data => {
 
-        if(data!=null){
-        this.dataSource2=<Order[]>data;
+      // this.this.UserService.getActiveKeepers();
+      //   .subscribe(storekeepers => {
+      //     this.storekeepers = storekeepers;
+      //   });
+      //   }
+
+        if (data != null) {
+        this.dataSource2 = <Order[]>data;
         }
-      
-        
+
+
         this.dataSource = new MatTableDataSource(this.dataSource2);
         this.dataSource.paginator = this.paginator;
 
-         
+
           },   error => {
             console.log(error);
         }
         );
     }
-
-   
 
 }

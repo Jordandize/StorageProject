@@ -39,6 +39,21 @@ public class OrderProductServiceImpl implements OrderProductService {
         }
         return null;
     }
+    @Override
+    public  List< OrderProduct>  findByOrder(Long orderId) throws Exception {
+    	 List< OrderProduct>  orderProduct=null;
+        try{
+            orderProduct = orderProductDao.findByOrder(orderId);
+            return orderProduct;
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+            orderProduct=null;
+        } catch (Exception e){
+        	e.printStackTrace();
+            throw new Exception("Exeption occured in OrderProductServiceImpl: operation findByOrder [" + orderId +" ] failed.", e);
+        }
+        return  orderProduct;
+    }
 
     @Override
     public List<OrderProduct> findAll() throws Exception {

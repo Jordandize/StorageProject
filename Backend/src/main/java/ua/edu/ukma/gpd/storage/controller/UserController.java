@@ -14,7 +14,6 @@ import ua.edu.ukma.gpd.storage.service.EmailService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
-@RequestMapping("api/users")
 public class UserController {
 	
 	@Autowired
@@ -23,12 +22,13 @@ public class UserController {
 	@Autowired
 	private EmailService emailService;
 	
-	@GetMapping
+
+	@GetMapping("api/users")
 	public List<User> getUsers() throws Exception {
 		return userService.getAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("api/users/{id}")
 	public User getUserById(@PathVariable("id") Long id) throws Exception {
 		return userService.getById(id);
 	}
@@ -44,7 +44,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping
+	@PostMapping("users")
 	public ResponseEntity<Long> addUser(@Valid @RequestBody SignupFormDto form) throws Exception {
 		HttpStatus status;
 		Long id;

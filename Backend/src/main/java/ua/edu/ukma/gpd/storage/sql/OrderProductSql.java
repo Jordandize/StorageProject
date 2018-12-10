@@ -11,4 +11,6 @@ public class OrderProductSql {
 
     public static final String FIND_ALL =
             "SELECT * FROM orders_products";
+    public static final String FIND_BY_ORDER =
+            "SELECT * FROM orders_products WHERE id_order = ?";
 }

@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        return this.http.post(this.baseUrl + '/api/users', user, {headers: head}).subscribe(
+        return this.http.post(this.baseUrl + '/users', user, {headers: head}).subscribe(
          data => {
               swal({
                 position: 'top-end',
