@@ -95,7 +95,6 @@ public class OrderDaoImpl implements OrderDao {
         } catch (EmptyResultDataAccessException e){
 
         }catch (Exception e){
-            System.out.println("exeption occured here");
             e.printStackTrace();
         }
         return order;
