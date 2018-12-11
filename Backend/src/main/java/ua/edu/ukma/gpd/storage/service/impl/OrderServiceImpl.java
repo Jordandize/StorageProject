@@ -120,6 +120,7 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("Exception occured in OrderServiceImpl: operation rdeclineOrder [" +  orderId + "] failed", e);
         }
         return order;
+    }
     
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
