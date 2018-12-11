@@ -39,7 +39,8 @@ public class TabsDaoImpl implements TabsDao {
 		   tabs.add(new TabSidebar("Orders","orders", "sort"));
 		   tabs.add(new TabSidebar("Session","session", "data_usage"));
 		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
-		   tabs.add(new TabSidebar("Product CRUD","productsOperations", "view_module"));
+		   tabs.add(new TabSidebar("Products operations","productsOperations", "view_module"));
+		   tabs.add(new TabSidebar("Users roles","user-management", "assignment_ind"));
 	        return tabs;
     }
 

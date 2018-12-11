@@ -5,6 +5,8 @@ import { baseUrl } from '../varUrl';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Order } from './order';
+import { Order as FullOrder } from './oneOrder/oneOrder.component';
+import { HttpService } from './http.service';
 //import { User } from './userPage/user.component';
 //import { ORDERS } from './order/ORDERS';
 
@@ -29,7 +31,9 @@ export class OrderService {
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private httpService: HttpService) { }
 
   createOrder(order: Order): Observable<number> {
     const head = new HttpHeaders({'Content-Type': 'application/json'});
@@ -38,9 +42,7 @@ export class OrderService {
   }
 
   createOrderAny(order: any): Observable<number> {
-    const head = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post<number>(this.baseUrl + '/api/orders', order, {headers: head}).pipe(
-      catchError(this.handleError<number>('create order')));
+    return this.httpService.post<number>(this.baseUrl + '/api/orders', order);
   }
 
   getUserOrders(id: number): Observable<Order>{
@@ -79,6 +81,19 @@ export class OrderService {
 
   private log(message: string) {
     console.log(`OrderServise: ${message}`);
+  }
+
+  getOrdersForKeeperByStatus(statusAsString: string, statusAsNumber: string): Observable<FullOrder[]> {
+    return this.httpService.get(
+      `${baseUrl}/api/orders?statusAsString=${statusAsString}&statusAsNumber=${statusAsNumber}`);
+  }
+
+  setOrderReady(id: number): Observable<Order> {
+    return this.httpService.post(`${baseUrl}/api/orders/${id}/ready`, { });
+  }
+
+  setOrderClosed(id: number): Observable<Order> {
+    return this.httpService.post(`${baseUrl}/api/orders/${id}/closed`, { });
   }
 
 }

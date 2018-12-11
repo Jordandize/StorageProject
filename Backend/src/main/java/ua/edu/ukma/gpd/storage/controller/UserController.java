@@ -1,20 +1,21 @@
 package ua.edu.ukma.gpd.storage.controller;
 	
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import ua.edu.ukma.gpd.storage.dto.ProductDto;
+import ua.edu.ukma.gpd.storage.dto.RolesDto;
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
+import ua.edu.ukma.gpd.storage.entity.Role;
 import ua.edu.ukma.gpd.storage.entity.User;
 import ua.edu.ukma.gpd.storage.service.EmailService;
+import ua.edu.ukma.gpd.storage.service.RoleService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
 @RestController
@@ -22,6 +23,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@Autowired
 	private EmailService emailService;
@@ -36,15 +40,63 @@ public class UserController {
 		return userService.getById(id);
 	}
 
-	@GetMapping("api/users/keeperActive={active}")
-	public List<User> getActiveKeepers(@PathVariable("active") Boolean active) throws Exception{
-		List<User> activeKeepers;
-		if (active) {
-			activeKeepers = userService.getActiveKeepers();
-			return activeKeepers;
+	@GetMapping("/role={user}/active={activeness}")
+	public List<User> getActiveKeepers(@PathVariable("user") String user, @PathVariable("activeness") boolean activeness) throws Exception{
+		List<User> users;
+		if (user.equals("keeper") && activeness){
+			users = userService.getActiveKeepers();
+			return users;
 		} else {
 			throw new Exception("No active keepers");
 		}
+	}
+	@GetMapping("api/users/search/{email}")
+	public List<User> getAllByEmail(@PathVariable("email") String email) throws Exception{
+		List<User> emailLike;
+	        try{
+	        	emailLike = userService.getAllByEmail(email);
+	        } catch (Exception e){
+	            e.printStackTrace();
+	            emailLike = null;
+	        }
+	        return emailLike;
+	}
+	@GetMapping("api/users/{id}/roles")
+	public List<Role> getAllRolesByUser(@PathVariable("id") Long id) throws Exception{
+		List <Role> roles;
+		User user;
+		
+	        try{
+	        	user=userService.getById(id);
+	        	roles=roleService.getRolesForUser(user);
+	        	
+	        } catch (Exception e){
+	            e.printStackTrace();
+	            roles = null;
+	        }
+	        return roles;
+	}
+	@PostMapping("api/users/{id}/roles")
+	public ResponseEntity<Boolean> changeRolesForUser(@Valid @RequestBody RolesDto form,@PathVariable("id") Long id) throws Exception{
+		List <Role> roles;
+		User user;
+	    boolean b;
+	    HttpStatus status;
+	        try{
+	        	roles = buildRolesFromDto(form);
+	        	user = userService.getById(id);
+	        	roleService.removeRolesForUser(user);
+	        	for(int i=0;i<roles.size();i++ ) {
+	        	roleService.addRoleToUser(user, roles.get(i));
+	        	}
+	        	b=true;
+	            status = HttpStatus.OK;
+	        } catch (Exception e){
+	            e.printStackTrace();
+	            b=false;
+	            status = HttpStatus.BAD_REQUEST;
+	        }
+	        return new ResponseEntity<>(b, status);
 	}
 
 	@PostMapping("users")
@@ -72,6 +124,26 @@ public class UserController {
 		user.setSurname(form.getSurname());
 		user.setPhone(form.getPhone());
 		return user;
+	}
+	private List<Role> buildRolesFromDto(RolesDto form) throws Exception {
+		List<Role> roles = new ArrayList<Role>();
+		String[] names=form.getName();
+		for(int i=0;i<names.length;i++) {
+		Role role=new Role(); 
+			if(names[i].equals(Role.USER)) {
+			role = roleService.getRoleByName(Role.USER);
+			roles.add(i, role);
+			}
+			else if(names[i].equals(Role.KEEPER)){
+				role = roleService.getRoleByName(Role.KEEPER);
+				roles.add(i, role);
+			}
+			else if(names[i].equals(Role.ADMIN)){
+			role = roleService.getRoleByName(Role.ADMIN);
+			roles.add(i, role);
+			}
+		}
+		return roles;
 	}
 	
 }

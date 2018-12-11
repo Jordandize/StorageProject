@@ -2,6 +2,7 @@ package ua.edu.ukma.gpd.storage.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
@@ -12,17 +13,20 @@ public class ProductDto {
     @Size(max = 64, message = "Name must not be more than 64 characters long")
     private String name;
 
-    
-    @Range(min = 1, message = "Enter correct amount")
+    @NotNull()
+    @Range(min=1,message = "Enter correct amount")
     private Integer amount;
 
     @NotBlank(message = "Description cannot be blank")
     @Size(max = 2000, message = "Not allowed more than 2000 characters")
     private String description;
     
-    @NotBlank(message = "Enter amount of product")
+    @NotBlank(message = "Enter correct image of product")
+    @Pattern(regexp = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)", message = "Enter correct image.")
     private String image;
     
+    @NotBlank(message = "Enter correct icon of product")
+    @Pattern(regexp = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)", message = "Enter correct icon.")
     private String icon;
     
     @NotNull()

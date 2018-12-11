@@ -16,6 +16,8 @@ public interface UserDao {
 	
 	User findByEmail(String email);
 	
+	List<User> findAllByEmail(String email);
+	
 	List<User> findAll();
 
 	List<User> findActiveKeepers();

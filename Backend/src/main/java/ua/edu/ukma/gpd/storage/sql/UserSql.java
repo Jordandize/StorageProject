@@ -16,6 +16,9 @@ public class UserSql {
 
     public static final String FIND_ALL =
             "SELECT * FROM users";
+    
+    public static final String FIND_ALL_EMAIL =
+    		"SELECT * FROM users WHERE email LIKE '%?%'";
 
     public static final String FIND_BY_ID =
             "SELECT * FROM users WHERE id = ?";
@@ -25,11 +28,10 @@ public class UserSql {
 
     public static final String FIND_ACTIVE_KEEPERS =
             "SELECT * \n" +
-                    "FROM users\n" +
-                    "WHERE users.id IN(\n" +
-                    "SELECT id_user FROM users_roles WHERE id_role = 2)\n" +
+                    "FROM (users INNER JOIN users_roles ON users.id = users_roles.id_user) X INNER JOIN roles ON X.id_role = roles.id\n" +
+                    "WHERE roles.name = 'KEEPER'\n" +
                     "AND\n" +
-                    "users.active='true'";
+                    "active='true'";
 
     private UserSql() {
     }

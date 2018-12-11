@@ -11,6 +11,8 @@ public interface OrderDao {
     Order findById(Long id);
 
     List<Order> findAll();
+    
+    List<Order> findForKeeperByStatus(Long id, String statusAsString, String statusAsNumber);
 
     List<Order> findOrdersForUser(Long userId);
 

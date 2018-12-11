@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
@@ -10,7 +10,7 @@ import { HttpService } from '../http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService implements OnInit {
+export class ProductService {
 
   private productsUrl = baseUrl + '/api/products';
   private productsByCategoryParam = 'category=';
@@ -19,8 +19,6 @@ export class ProductService implements OnInit {
   constructor(
     private http: HttpClient,
     private httpService: HttpService) { }
-
-  ngOnInit() { }
 
   getProducts(): Observable<Product[]> {
     return this.httpService.get<Product[]>(this.productsUrl);
