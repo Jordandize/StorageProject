@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { baseUrl } from '../../../varUrl';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 import { HttpService } from '../../http.service';
 export class Tab {
   name: string;

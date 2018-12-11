@@ -2,27 +2,14 @@
 
 
   <app-queue-column [name]="columns.processing.name" [orders]="columns.processing.orders" fxFlex>
-    <button mat-menu-item (click)="toReady(order.id)">
-      <mat-icon>forward</mat-icon>
-      <span>Ready</span>
-    </button>
-    <button mat-menu-item disabled>
-      <mat-icon>control_point</mat-icon>
-      <span>Base Order</span>
-    </button>
   </app-queue-column>
 
 
   <app-queue-column [name]="columns.ready.name" [orders]="columns.ready.orders" fxFlex>
-    <button mat-menu-item (click)="toSupply(order.id)">
-        <mat-icon>place</mat-icon>
-        <span>Supply</span>
-    </button>
   </app-queue-column>
 
 
   <app-queue-column [name]="columns.waiting.name" [orders]="columns.waiting.orders" fxFlex>
-
   </app-queue-column>
 
   

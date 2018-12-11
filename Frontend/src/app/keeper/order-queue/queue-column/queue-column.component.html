@@ -1,12 +1,6 @@
 <mat-card>
   <mat-card-title matBadge="{{orders.length}}" matBadgeColor="warn" matBadgePosition="above after">{{name}}</mat-card-title>
   <mat-card-content>
-    <app-queue-elem *ngFor="let order of orders" [order]="order">
-      <ng-content></ng-content>
-      <button mat-menu-item>
-          <mat-icon>email</mat-icon>
-          <span>Message</span>
-      </button>
-    </app-queue-elem>
+    <app-queue-elem *ngFor="let order of orders" [order]="order"></app-queue-elem>
   </mat-card-content>
 </mat-card>
