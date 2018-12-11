@@ -18,7 +18,6 @@ export class SidebarComponent implements OnInit {
     { name: 'Products', url: 'products', icon: 'ballot' },
     { name: 'Create Order', url: 'create-order', icon: 'queue' },
     { name: 'Orders', url: 'orders', icon: 'sort' },
-    { name: 'Session', url: 'session', icon: 'data_usage' },
     { name: 'Queue', url: 'queue', icon: 'compare_arrows'} // view_week
   ];
   baseUrl = baseUrl;
@@ -28,6 +27,7 @@ export class SidebarComponent implements OnInit {
   async ngOnInit() {
     await  this.httpService.get(this.baseUrl+"/api/tabs").subscribe(data => {
       this.tabs=<Tab[]>data;
+      this.tabs.push({ name: 'Categories', url: 'categories', icon: 'data_usage' })
           },   error => {
             console.log(error);
         }
