@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import ua.edu.ukma.gpd.storage.dao.UserDao;
 import ua.edu.ukma.gpd.storage.entity.User;
+import ua.edu.ukma.gpd.storage.sql.ProductSql;
 import ua.edu.ukma.gpd.storage.sql.UserSql;
 
 @Repository
@@ -45,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 		user.setActive  (rs.getBoolean("active"));
 		return user;
 	};
+
 
 	@Override
 	public Long create(User user) {
@@ -92,7 +94,12 @@ public class UserDaoImpl implements UserDao {
 	public List<User> findAll() {
 		return jdbcTemplate.query(UserSql.FIND_ALL, mapper);
 	}
-
+	@Override
+	public List<User> findAllByEmail(String email) {
+		return jdbcTemplate.query(UserSql.FIND_ALL_EMAIL,
+				new Object[] { email }, mapper);
+	}
+	
 
 	@Override
 	public List<User> findActiveKeepers(){

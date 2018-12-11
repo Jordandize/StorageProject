@@ -7,7 +7,7 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-  background: #f5f5f5;
+  background: #808080;
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
@@ -25,21 +25,33 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-diagram {
   min-width: 80px;
-  border: 2px solid black;
+  text-align:left;
+  border: 2px solid  #B0BEC5;
   padding: 8px;
   font-weight: lighter;
   margin: 8px 0;
-  height: 104px;
+  position:relative;
+  height: auto;
 }
-
+.okButton {
+  font-size: 15px;
+  font-family: Arial;
+  color: aliceblue;
+  position:absolute;
+  bottom:2px;
+  left:20px;
+}
 .example-element-symbol {
   font-weight: bold;
   font-size: 40px;
   line-height: normal;
 }
 
-.example-element-description {
-  padding: 16px;
+.example-element-user {
+  padding: 2px;
+}
+.example-element-roles {
+  padding: 4px;
 }
 
 .example-element-description-attribution {

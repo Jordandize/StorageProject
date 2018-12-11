@@ -16,6 +16,9 @@ public class UserSql {
 
     public static final String FIND_ALL =
             "SELECT * FROM users";
+    
+    public static final String FIND_ALL_EMAIL =
+    		"SELECT * FROM users WHERE email LIKE '%?%'";
 
     public static final String FIND_BY_ID =
             "SELECT * FROM users WHERE id = ?";

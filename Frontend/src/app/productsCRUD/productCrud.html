@@ -10,9 +10,10 @@
         </div>
         <div class="form-group">
             <label for="amount">Amount</label>
-            <input type="text" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+            <input type="text" formControlName="amount" pattern="^[0-9]*$" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
             <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
                 <div *ngIf="f.amount.errors.required">Amount is required</div>
+                <div *ngIf="f.amount.errors.pattern">Amount must be with numbers </div>
             </div>
         </div>
         <div class="form-group">
@@ -39,17 +40,19 @@
         <label for="isActive">Active</label>
         <div class="form-group">
               
-                <mat-radio-group type="radio" formControlName="isActive" >
-                        <mat-radio-button checked=true value="true">Yes</mat-radio-button>
-                        <mat-radio-button value="false">No</mat-radio-button>
+                <mat-radio-group type="radio" formControlName="isActive"  [(value)]="selectedRadio"   >
+                        <mat-radio-button checked="{{act1}}" value="true">Yes</mat-radio-button>
+                        <mat-radio-button  checked="{{act2}}"  value="false">No</mat-radio-button>
                       </mat-radio-group>
+                      
                
         </div>
         <div class="form-group">
         <mat-form-field fxFlex="200px" fxFlexOffset="15px">
                 <mat-select formControlName="categoryId" [(value)]="selectedCategoryId" placeholder="Choose category" >
                   <mat-option>--</mat-option>
-                  <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
+                  <mat-option [value]="selectedCategoryId" *ngIf="selectedCategoryId " style="display: none">{{category1?.name}}</mat-option>
+                  <mat-option *ngFor="let category of categories" value="{{category.id}}" >{{category.name}}</mat-option>
                 </mat-select>
         </mat-form-field>
         </div>
