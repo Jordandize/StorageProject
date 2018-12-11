@@ -44,7 +44,9 @@ export class UserManagementComponent implements OnInit {
   this.getUsers();
   }
   applyFilter(filterValue: string) {
-    this.dataSource2.filter = filterValue.trim().toLowerCase();
+  filterValue = filterValue.trim(); 
+  filterValue = filterValue.toLowerCase(); 
+  this.dataSource2.filter = filterValue;
   }
 
   changeUser(userRole: any, role: any): void {
@@ -138,6 +140,9 @@ getUsers(){
        });
     }
     this.dataSource2 = new MatTableDataSource<User>(this.dataSource);
+    this.dataSource2.filterPredicate = function(data, filter: string): boolean {
+      return data.email.toLowerCase().includes(filter);
+  };
     this.dataSource2.paginator = this.paginator;
     this.loading = false;
   },
