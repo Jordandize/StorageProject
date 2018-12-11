@@ -36,6 +36,7 @@ import { CreateOrderComponent } from './create-order/create-order.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { OrderQueueComponent } from './keeper/order-queue/order-queue.component';
 import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.component';
+import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-column.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.c
     CreateOrderComponent,
     DialogOverviewExampleDialog,
     OrderQueueComponent,
-    QueueElemComponent
+    QueueElemComponent,
+    QueueColumnComponent
   ],
   imports: [
     BrowserModule,

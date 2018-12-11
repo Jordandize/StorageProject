@@ -67,10 +67,18 @@ mat-expansion-panel mat-expansion-panel-header {
     font-size: 12px!important;
 }
 
+.no-right-margin {
+    margin-right: 0!important;
+}
+
 mat-expansion-panel div.creater-info-details {
     font-size: 12px!important;
     margin-left: -10px;
     margin-right: -10px;
     margin-bottom: -10px;
     text-align: center;
+}
+
+a {
+    color: inherit;
 }

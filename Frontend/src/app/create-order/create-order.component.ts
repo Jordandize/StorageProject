@@ -37,7 +37,7 @@ export class CreateOrderComponent implements OnInit {
       const life = 4000;
       if (!this.emptyListMessageActive) {
         this.emptyListMessageActive = true;
-        this.messageService.add({severity: 'info', summary: 'Bad order.',
+        this.messageService.add({severity: 'info', summary: 'Bad order',
           detail: 'Cannot create order, empty product list is not allowed.', life: life});
         setTimeout(() => this.emptyListMessageActive = false, life - 1500);
       }
@@ -62,7 +62,7 @@ export class CreateOrderComponent implements OnInit {
       this.loading = false;
     },
     error => {
-      this.messageService.add({severity: 'error', summary: `Sorry, operation failed.`,
+      this.messageService.add({severity: 'error', summary: `Sorry, operation failed`,
         detail: 'Connect with our support group or repeat operation later.', life: 4000});
       this.loading = false;
     });
