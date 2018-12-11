@@ -145,4 +145,19 @@ public class OrderController {
         System.out.println(order);
         return order;
     }
+
+    @PostMapping("/declineOrder/{orderId}")
+    public ResponseEntity<Order> declineOrder(@PathVariable Long orderId) throws Exception{
+        Order order;
+        HttpStatus status;
+        try{
+            order = orderService.declineOrder(orderId);
+            status = HttpStatus.OK;
+        } catch (Exception e){
+            order = null;
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<Order>(order, status);
+
+    }
 }

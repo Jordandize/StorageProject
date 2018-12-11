@@ -24,4 +24,6 @@ public interface OrderService {
     
     Order setClosed(Long id) throws Exception;
 
+    Order declineOrder(Long orderId) throws Exception;
+
 }

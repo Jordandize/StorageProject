@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.sql.OrderSql;
+import ua.edu.ukma.gpd.storage.enumeration.*;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
@@ -99,6 +100,14 @@ public class OrderDaoImpl implements OrderDao {
             System.out.println("exeption occured here");
             e.printStackTrace();
         }
+        return order;
+    }
+
+    @Override
+    public Order declineOrder(Long orderId) {
+        Order order = null;
+        jdbcTemplate.update(OrderSql.DECLINE_ORDER, OrderStatus.DECLINED, orderId);
+        order = findById(orderId);
         return order;
     }
 

@@ -109,6 +109,17 @@ public class OrderServiceImpl implements OrderService {
         }
         return order;
     }
+
+    public Order declineOrder(Long orderId) throws Exception{
+        Order order = null;
+        try{
+            order = orderDao.declineOrder(orderId);
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            throw new Exception("Exception occured in OrderServiceImpl: operation rdeclineOrder [" +  orderId + "] failed", e);
+        }
+        return order;
     
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
