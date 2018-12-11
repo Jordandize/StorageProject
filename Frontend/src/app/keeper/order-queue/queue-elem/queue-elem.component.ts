@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/oneOrder';
 import { User } from 'src/app/User';
 import { UserService } from 'src/app/user.service';

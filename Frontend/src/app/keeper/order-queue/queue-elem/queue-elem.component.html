@@ -16,14 +16,14 @@
       <div fxFlex>
         <div fxLayout="column" fxLayoutAlign="center center">
 
-          <div *ngIf="order.orderStatus !== 3" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngIf="order.orderStatus !== '3'" fxLayout="column" fxLayoutAlign="center center">
             <div class="ready-to-proccessing">
               <mat-icon>done</mat-icon>
             </div>
             <div>Ready to processing!</div>
           </div>
 
-          <div *ngIf="order.orderStatus === 3" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngIf="order.orderStatus === '3'" fxLayout="column" fxLayoutAlign="center center">
             <div class="ready-to-proccessing">
               <mat-icon>schedule</mat-icon>
             </div>
@@ -47,14 +47,15 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center" class="creator-info">
-    <mat-expansion-panel fxFlex [hideToggle]="'true'">
-        <mat-expansion-panel-header [collapsedHeight]="'24px'" [expandedHeight]="'24px'">
-          <mat-panel-title fxFlex fxLayoutAlign="center center">
-            {{user.email}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="creater-info-details">{{order.annotation}}</div>
-      
-      </mat-expansion-panel>
+    <mat-expansion-panel fxFlex [hideToggle]="true">
+      <mat-expansion-panel-header [expandedHeight]="'24px'" [collapsedHeight]="'24px'">
+        <mat-panel-title *ngIf="user != null" fxFlex fxLayoutAlign="center center">
+          {{user.email}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="creater-info-details">
+        {{order.annotation}}
+      </div>
+    </mat-expansion-panel>
   </div>
 </mat-card>

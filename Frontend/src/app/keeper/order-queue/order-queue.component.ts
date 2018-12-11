@@ -9,7 +9,11 @@ import { Order } from 'src/app/oneOrder';
 })
 export class OrderQueueComponent implements OnInit {
 
-  columns = ['Processing', 'Ready', 'Waiting'];
+  columns = {
+    processing: { name: 'Processing', orders: [] },
+    ready: { name: 'Ready', orders: [] },
+    waiting: { name: 'Waiting', orders: [] }
+  };
 
   processingAsString = 'PROCESSING';
   readyAsString      = 'READY';
@@ -18,22 +22,20 @@ export class OrderQueueComponent implements OnInit {
   readyAsNumber      = '4';
   waitingAsNumber    = '3';
 
-  orders = [];
-
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
     this.orderService.getOrdersForKeeperByStatus(this.processingAsString, this.processingAsNumber)
       .subscribe(data => {
-        this.orders[this.columns[0]] = data;
+        this.columns.processing.orders = data;
     });
     this.orderService.getOrdersForKeeperByStatus(this.readyAsString, this.readyAsNumber)
       .subscribe(data => {
-      this.orders[this.columns[1]] = data;
+        this.columns.ready.orders = data;
     });
     this.orderService.getOrdersForKeeperByStatus(this.waitingAsString, this.waitingAsNumber)
       .subscribe(data => {
-      this.orders[this.columns[2]] = data;
+        this.columns.waiting.orders = data;
     });
   }
 
