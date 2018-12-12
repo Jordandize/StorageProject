@@ -45,13 +45,19 @@ public class OrderController {
     }
     
     @PostMapping("/{id}/ready")
-    public Order setOrderReady(@PathVariable Long id) throws Exception {
-    	return orderService.setReady(id);
+    public ResponseEntity<Order> setOrderReady(@PathVariable Long id) throws Exception {
+    	Order order = orderService.setReady(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     
     @PostMapping("/{id}/closed")
-    public Order setOrderClosed(@PathVariable Long id) throws Exception {
-    	return orderService.setClosed(id);
+    public ResponseEntity<Order> setOrderClosed(@PathVariable Long id) throws Exception {
+    	Order order = orderService.setClosed(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/id_keeper=null")

@@ -7,9 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -112,15 +114,21 @@ public class OrderServiceImpl implements OrderService {
     
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
-    	// TODO
-    	order.setOrderStatus("4");
+    	if(order != null) {
+        	order.setOrderStatus(OrderStatus.READY.name());
+        	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.update(order);
+    	}
     	return order;
     }
     
     public Order setClosed(Long id) throws Exception {
     	Order order = findById(id);
-    	// TODO
-    	order.setOrderStatus("8");
+    	if(order != null) {
+        	order.setOrderStatus(OrderStatus.CLOSED.name());
+        	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.update(order);
+    	}
     	return order;
     }
 }
