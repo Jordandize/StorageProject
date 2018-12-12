@@ -7,6 +7,8 @@ import java.util.List;
 public interface OrderDao {
 
     Long create(Order order);
+    
+    Order update(Order order);
 
     Order findById(Long id);
 

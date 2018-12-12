@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.sql.OrderSql;
+import ua.edu.ukma.gpd.storage.sql.ProductSql;
 import ua.edu.ukma.gpd.storage.enumeration.*;
 
 import javax.sql.DataSource;
@@ -59,6 +60,14 @@ public class OrderDaoImpl implements OrderDao {
         }, keyHolder);
         order.setId((Long) keyHolder.getKey());
         return order.getId();
+    }
+    
+    @Override
+    public Order update(Order order) {
+    	return jdbcTemplate.update(OrderSql.UPDATE,
+                order.getParentId(), order.getOrderStatus(), order.getOrderType(),
+                order.getCreationDateTime(), order.getModifiedDateTime(), order.getAnnotation(),
+                order.getArchived(), order.getCreatedBy(), order.getId()) > 0 ? order : null;
     }
 
     @Override
