@@ -22,4 +22,7 @@ public interface OrderDao {
 
     List<Order> findUnassignedOrders();
 
+    Order declineOrder(Long orderId);
+
+
 }
