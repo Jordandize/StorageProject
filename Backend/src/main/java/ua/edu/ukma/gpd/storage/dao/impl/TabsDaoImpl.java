@@ -26,7 +26,6 @@ public class TabsDaoImpl implements TabsDao {
 		   tabs.add(new TabSidebar("Products","products", "ballot"));
 		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
 		   tabs.add(new TabSidebar("Orders","orders", "sort"));
-		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
 	        return tabs;
 	 }
 
@@ -36,7 +35,6 @@ public class TabsDaoImpl implements TabsDao {
     	 tabs.add(new TabSidebar("Products","products", "ballot"));
 		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
 		   tabs.add(new TabSidebar("Orders","orders", "sort"));
-		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
 		   tabs.add(new TabSidebar("Products operations","productsOperations", "view_module"));
 		   tabs.add(new TabSidebar("Users roles","user-management", "assignment_ind"));
 	        return tabs;
