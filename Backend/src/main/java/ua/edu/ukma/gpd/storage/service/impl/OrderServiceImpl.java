@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
@@ -125,14 +126,14 @@ public class OrderServiceImpl implements OrderService {
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
     	// TODO
-    	order.setOrderStatus(4);
+    	order.setOrderStatus(OrderStatus.READY.name());
     	return order;
     }
     
     public Order setClosed(Long id) throws Exception {
     	Order order = findById(id);
     	// TODO
-    	order.setOrderStatus(8);
+    	order.setOrderStatus(OrderStatus.CLOSED.name());
     	return order;
     }
 }
