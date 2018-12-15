@@ -31,16 +31,17 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
     
-    @Override
-    public boolean update(Category category) throws Exception {
-    	 try {
-             return categoryDao.update(category);
-         } catch (EmptyResultDataAccessException e){
-             return false;
-        } catch (Exception e) {
-        	throw new Exception("Exeption occured in CategoryServiceImpl: operation update [" + category + "] failed.", e);
-        }
-    }
+//    @Override
+//    public boolean update(Category category) throws Exception {
+//    	 try {
+//             return categoryDao.update(category);
+//         } catch (EmptyResultDataAccessException e){
+//             return false;
+//        } catch (Exception e) {
+//        	throw new Exception("Exeption occured in CategoryServiceImpl: operation update [" + category + "] failed.", e);
+//        }
+//    }
+
     @Override
     public boolean delete(Category category) throws Exception {
     	 try {
@@ -69,21 +70,21 @@ public class CategoryServiceImpl implements CategoryService {
         return category;
     }
 
-    @Override
-    public boolean delete(Category category) throws Exception {
-        boolean deleted;
-        try{
-            Category exists = getByName(category.getName());
-            if (exists != null) {
-                deleted = categoryDao.delete(category);
-            } else {
-                deleted = false;
-            }
-        } catch (Exception e){
-            throw new Exception("Exeption occured in CategoryServiceImpl: operation delete [" + category + "] failed.");
-        }
-        return deleted;
-    }
+//    @Override
+//    public boolean delete(Category category) throws Exception {
+//        boolean deleted;
+//        try{
+//            Category exists = getByName(category.getName());
+//            if (exists != null) {
+//                deleted = categoryDao.delete(category);
+//            } else {
+//                deleted = false;
+//            }
+//        } catch (Exception e){
+//            throw new Exception("Exeption occured in CategoryServiceImpl: operation delete [" + category + "] failed.");
+//        }
+//        return deleted;
+//    }
 
     @Override
     public Category getByName(String name) throws Exception {
