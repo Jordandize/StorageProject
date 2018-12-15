@@ -38,4 +38,10 @@ export class HttpService {
       headers: headers
     });
   }
+  postUrl<T>(url,  headers = new HttpHeaders()): Observable<T> {
+    headers = this.appendAuthHeader(headers);
+    return this.http.post<T>(url,  {
+      headers: headers
+    });
+  }
 }

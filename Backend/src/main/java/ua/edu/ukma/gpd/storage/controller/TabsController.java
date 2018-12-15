@@ -38,26 +38,30 @@ public class TabsController {
             roles.add(a.getAuthority());
         }
       
-        List<TabSidebar> tabs = null;
+  
         String admin="ADMIN";
         String user="USER";
         String keeper="KEEPER";
+        List<TabSidebar> list = new ArrayList<>();
         try{
         	
         	if(roles.contains(user)) {
-            tabs = tabsService.findUserTabs();
+        	List<TabSidebar> tabs = tabsService.findUserTabs();
+            list.addAll(tabs);
         	}
             if(roles.contains(keeper)) {
-                tabs = tabsService.findKeeperTabs();
+            	List<TabSidebar> tabs = tabsService.findKeeperTabs();
+            	 list.addAll(tabs);
             	}
            if(roles.contains(admin)) {
-                tabs = tabsService.findAdminTabs();
+        	   List<TabSidebar>  tabs = tabsService.findAdminTabs();
+        	   list.addAll(tabs);
             	}
         } catch (Exception  e){
             e.printStackTrace();
-            tabs = null;
+            list = null;
         }
-        return tabs;
+        return list;
     }
 
 }
