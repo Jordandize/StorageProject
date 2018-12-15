@@ -86,6 +86,7 @@ public class CategoryController {
         category.setName(form.getName());
         return category;
     }
+
     @PostMapping("/update={id}/set={name}")
     public Category updateCategory(@PathVariable("id") Long id, @PathVariable("name") String name) throws Exception{
         return categoryService.update(id, name);
