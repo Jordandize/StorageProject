@@ -4,26 +4,54 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <ng-content></ng-content>
+
+
+      <button *ngIf="order.orderStatus == OrderStatus.processing.asNumber || order.orderStatus == OrderStatus.processing.asString" 
+      mat-menu-item (click)="toReady(order.id)">
+        <mat-icon>forward</mat-icon>
+        <span>Ready</span>
+      </button>
+
+
+      <button *ngIf="order.orderStatus == OrderStatus.processing.asNumber || order.orderStatus == OrderStatus.processing.asString"
+      mat-menu-item disabled>
+        <mat-icon>control_point</mat-icon>
+        <span>Base Order</span>
+      </button>
+
+
+      <button  *ngIf="order.orderStatus == OrderStatus.ready.asNumber || order.orderStatus == OrderStatus.ready.asString"
+      mat-menu-item (click)="toSupply(order.id)">
+          <mat-icon>place</mat-icon>
+          <span>Supply</span>
+      </button>
+
+
+      <button mat-menu-item>
+          <mat-icon>email</mat-icon>
+          <span>Message</span>
+      </button>
+
+
     </mat-menu>
   </div>
   <div fxLayout="row" class="elem-title">
     <mat-icon>assignment</mat-icon>
-    <div>#{{order.id}}</div>
+    <div><a routerLink="../orders/{{order.id}}">#{{order.id}}</a></div>
   </div>
   <div class="elem-content">
     <div fxLayout="row">
       <div fxFlex>
         <div fxLayout="column" fxLayoutAlign="center center">
 
-          <div *ngIf="order.orderStatus !== 3" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngIf="order.orderStatus == OrderStatus.processing.asNumber || order.orderStatus == OrderStatus.processing.asString || order.orderStatus == OrderStatus.ready.asNumber || order.orderStatus == OrderStatus.ready.asString" fxLayout="column" fxLayoutAlign="center center">
             <div class="ready-to-proccessing">
               <mat-icon>done</mat-icon>
             </div>
             <div>Ready to processing!</div>
           </div>
 
-          <div *ngIf="order.orderStatus === 3" fxLayout="column" fxLayoutAlign="center center">
+          <div *ngIf="order.orderStatus == OrderStatus.waiting.asNumber || order.orderStatus === OrderStatus.waiting.asString" fxLayout="column" fxLayoutAlign="center center">
             <div class="ready-to-proccessing">
               <mat-icon>schedule</mat-icon>
             </div>
@@ -47,14 +75,17 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center" class="creator-info">
-    <mat-expansion-panel fxFlex [hideToggle]="'true'">
-        <mat-expansion-panel-header [collapsedHeight]="'24px'" [expandedHeight]="'24px'">
-          <mat-panel-title fxFlex fxLayoutAlign="center center">
-            {{user.email}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="creater-info-details">{{order.annotation}}</div>
-      
-      </mat-expansion-panel>
+    <mat-expansion-panel fxFlex [hideToggle]="true">
+      <mat-expansion-panel-header [expandedHeight]="'24px'" [collapsedHeight]="'24px'">
+        <mat-panel-title *ngIf="user != null" fxFlex fxLayoutAlign="center center" class="no-right-margin">
+          {{user.email}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="user != null" class="creater-info-details">
+        <div>{{user.phone}}</div>
+        <div>{{user.name}} {{user.surname}}</div>
+        <div>{{order.annotation}}</div>
+      </div>
+    </mat-expansion-panel>
   </div>
 </mat-card>

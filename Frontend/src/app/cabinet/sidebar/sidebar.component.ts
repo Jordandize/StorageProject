@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { baseUrl } from '../../../varUrl';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 import { HttpService } from '../../http.service';
 export class Tab {
   name: string;
@@ -15,10 +15,7 @@ export class Tab {
 export class SidebarComponent implements OnInit {
 
   tabs = [
-    { name: 'Products', url: 'products', icon: 'ballot' },
-    { name: 'Create Order', url: 'create-order', icon: 'queue' },
-    { name: 'Orders', url: 'orders', icon: 'sort' },
-    { name: 'Queue', url: 'queue', icon: 'compare_arrows'} // view_week
+    { name: 'Products', url: 'products', icon: 'ballot' }
   ];
   baseUrl = baseUrl;
   

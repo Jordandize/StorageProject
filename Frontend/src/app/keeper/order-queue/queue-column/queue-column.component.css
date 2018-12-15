@@ -1,0 +1,14 @@
+mat-card {
+    margin: 10px;
+    min-width: 275px;
+}
+
+mat-card-title {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+}
+
+.mat-badge-content {
+    font-weight: 500;
+    font-size: 13px;
+}

@@ -70,15 +70,15 @@ export class RegisterComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
-
+                    this.loading = false;
                     swal({
                         type: 'error',
                         title: 'Error!',
 
-                        text:error.error.errors ? JSON.stringify(error.error.errors.email) +". "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" ) :""  
+                        text:error.error.errors.email  ? JSON.stringify(error.error.errors.email) :""  +"  "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" )  
                       })
                    
-                    this.loading = false;
+                    
                 }
                 );
     }

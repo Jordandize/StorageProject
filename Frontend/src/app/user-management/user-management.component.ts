@@ -1,10 +1,11 @@
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatPaginator} from '@angular/material';
-import { User } from '../User';
-import {HttpClient} from "@angular/common/http";
+import { OnInit, Component, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { baseUrl } from '../../varUrl';
-import { OrderService } from '../order.service';
+import swal from 'sweetalert2';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpService } from '../http.service';
+import { MatTableDataSource, MatPaginator,MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-user-management',
@@ -12,141 +13,204 @@ import { OrderService } from '../order.service';
   templateUrl: './user-management.component.html',
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class UserManagementComponent implements OnInit{
-
-	baseUrl = baseUrl;
-
-	constructor(
-    private http: HttpClient, 
-    private orderService: OrderService) {}
-
-    async ngOnInit() {
-     await  this.http.get(this.baseUrl + "/api/users").subscribe(data => {
-
-        this.orderService.assignKeeperToOrder(97, 2222);
-
-        if(data!=null){
-        this.dataSource2=<User[]>data;
-        }
-      
-        
-        this.dataSource = new MatTableDataSource(this.dataSource2);
-        this.dataSource.paginator = this.paginator;
-
-         
-          },   error => {
-            console.log(error);
-        }
-        );
-    }
-
-
-  //dataSource = ELEMENT_DATA;
-  displayedColumns = ['id', 'email', 'name', 'surname', 'active'];
- // expandedElement: PeriodicElement;
-
+export class UserManagementComponent implements OnInit {
+  ELEMENT_DATA: User[];
+  dataSource = this.ELEMENT_DATA;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-     public  dataSource2 : User[] ;
+  @ViewChild(MatSort) sort: MatSort;
 
-      public  dataSource ;
-  
-    applyFilter(filterValue: string) {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+  dataSource2: MatTableDataSource<User>;
+
+  columnsToDisplay = ['id', 'email', 'name'];
+  expandedElement: User;
+  user: User;
+  loading = true;
+  submitted = false;
+  baseUrl = baseUrl;
+  roles: string[]=[];
+
+  constructor(private http: HttpClient, private router: Router, private httpService: HttpService, ) {
+    this.dataSource2 = new MatTableDataSource(this.dataSource);
+  }
+
+   ngOnInit() {
+  this.loading = true;
+  this.getUsers();
+  }
+  applyFilter(filterValue: string) {
+  filterValue = filterValue.trim(); 
+  filterValue = filterValue.toLowerCase(); 
+  this.dataSource2.filter = filterValue;
+  }
+
+  changeUser(userRole: any, role: any): void {
+    this.user = this.dataSource.find(x => x.id == userRole);
+    if (role == "user") {
+      this.user.roles.user == true ? this.user.roles.user = false : this.user.roles.user = true;
     }
+    else if (role == "keeper") {
+      this.user.roles.keeper == true ? this.user.roles.keeper = false : this.user.roles.keeper = true;
+    }
+    else if (role == "admin") {
+      this.user.roles.admin == true ? this.user.roles.admin = false : this.user.roles.admin = true;
+    }
+    console.log(this.user);
+  }
+
+  submitRoles(userR: any) {
+    this.submitted = true;
+    this.loading = true;
+    var counter=0;
+    this.user = this.dataSource.find(x => x.id == userR);
+    if (this.user.roles.user == true) {
+      this.roles.push("USER");
+    }
+    if (this.user.roles.keeper == true) {
+      this.roles.push("KEEPER");
+    }
+    if (this.user.roles.admin == true) {
+      this.roles.push("ADMIN");
+    }
+    if(this.user.roles.user ==false && this.user.roles.keeper ==false && this.user.roles.admin ==false){
+      this.roles.push("USER");
+    }
+    const ch = {
+      'name': this.roles
+  };
+
+    return this.httpService.post(this.baseUrl + '/api/users/' + userR + '/roles', ch)
+      .subscribe(data => {
+        this.swalOk('You successfully  update roles!');
+        this.router.navigate(['/cabinet']);
+      },
+        error => {
+          console.log(error);
+          this.swalError('Can not update roles :');
+          this.loading = false;
+        });
+
+  }
+swalOk(str:string){
+  swal({
+    type: 'success',
+    title: str,
+    showConfirmButton: false,
+    timer: 1500
+  });
+}
+swalError(str:string){
+  swal({
+    type: 'error',
+    title: 'Error!',
+
+    text: str
+  })
+}
+getUsers(){
+  return this.httpService.get(this.baseUrl + '/api/users')
+  .subscribe(data => {
+    this.dataSource=<User[]>data;
+    for (let entry of this.dataSource) {
+     this.httpService.get(this.baseUrl + '/api/users/' + entry.id+ '/roles')
+     .subscribe(data => {
+       var r= { user: false, keeper: false, admin: false };
+       var roles=<RolesFromBack[]>data; 
+       for(var i=0;i<roles.length;i++){
+         if(roles[i].name==userRole){
+           r.user=true;
+         }
+         else if(roles[i].name==keeperRole){
+          r.keeper=true;
+         }
+         else if(roles[i].name==adminRole){
+          r.admin=true;
+         }
+       }
+       entry.roles=r;
+       this.loading = false;
+     },
+       error => {
+         console.log(error);
+         this.loading = false;
+       });
+    }
+    this.dataSource2 = new MatTableDataSource<User>(this.dataSource);
+    this.dataSource2.filterPredicate = function(data, filter: string): boolean {
+      return data.email.toLowerCase().includes(filter);
+  };
+    this.dataSource2.paginator = this.paginator;
+    this.dataSource2.sort = this.sort;
+    this.loading = false;
+  },
+    error => {
+      console.log(error);
+      this.loading = false;
+    });
 }
 
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-//   description: string;
-// }
+}
+const userRole:string="USER";
+const keeperRole:string="KEEPER";
+const adminRole:string="ADMIN";
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {
-//     position: 1,
-//     name: 'Hydrogen',
-//     weight: 1.0079,
-//     symbol: 'H',
-//     description: `Hydrogen is a chemical element with symbol H and atomic number 1. With a standard
-//         atomic weight of 1.008, hydrogen is the lightest element on the periodic table.`
-//   }, {
-//     position: 2,
-//     name: 'Helium',
-//     weight: 4.0026,
-//     symbol: 'He',
-//     description: `Helium is a chemical element with symbol He and atomic number 2. It is a
-//         colorless, odorless, tasteless, non-toxic, inert, monatomic gas, the first in the noble gas
-//         group in the periodic table. Its boiling point is the lowest among all the elements.`
-//   }, {
-//     position: 3,
-//     name: 'Lithium',
-//     weight: 6.941,
-//     symbol: 'Li',
-//     description: `Lithium is a chemical element with symbol Li and atomic number 3. It is a soft,
-//         silvery-white alkali metal. Under standard conditions, it is the lightest metal and the
-//         lightest solid element.`
-//   }, {
-//     position: 4,
-//     name: 'Beryllium',
-//     weight: 9.0122,
-//     symbol: 'Be',
-//     description: `Beryllium is a chemical element with symbol Be and atomic number 4. It is a
-//         relatively rare element in the universe, usually occurring as a product of the spallation of
-//         larger atomic nuclei that have collided with cosmic rays.`
-//   }, {
-//     position: 5,
-//     name: 'Boron',
-//     weight: 10.811,
-//     symbol: 'B',
-//     description: `Boron is a chemical element with symbol B and atomic number 5. Produced entirely
-//         by cosmic ray spallation and supernovae and not by stellar nucleosynthesis, it is a
-//         low-abundance element in the Solar system and in the Earth's crust.`
-//   }, {
-//     position: 6,
-//     name: 'Carbon',
-//     weight: 12.0107,
-//     symbol: 'C',
-//     description: `Carbon is a chemical element with symbol C and atomic number 6. It is nonmetallic
-//         and tetravalent—making four electrons available to form covalent chemical bonds. It belongs
-//         to group 14 of the periodic table.`
-//   }, {
-//     position: 7,
-//     name: 'Nitrogen',
-//     weight: 14.0067,
-//     symbol: 'N',
-//     description: `Nitrogen is a chemical element with symbol N and atomic number 7. It was first
-//         discovered and isolated by Scottish physician Daniel Rutherford in 1772.`
-//   }, {
-//     position: 8,
-//     name: 'Oxygen',
-//     weight: 15.9994,
-//     symbol: 'O',
-//     description: `Oxygen is a chemical element with symbol O and atomic number 8. It is a member of
-//          the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing
-//          agent that readily forms oxides with most elements as well as with other compounds.`
-//   }, {
-//     position: 9,
-//     name: 'Fluorine',
-//     weight: 18.9984,
-//     symbol: 'F',
-//     description: `Fluorine is a chemical element with symbol F and atomic number 9. It is the
-//         lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard
-//         conditions.`
-//   }, {
-//     position: 10,
-//     name: 'Neon',
-//     weight: 20.1797,
-//     symbol: 'Ne',
-//     description: `Neon is a chemical element with symbol Ne and atomic number 10. It is a noble gas.
-//         Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about
-//         two-thirds the density of air.`
-//   },
-// ];
+export interface User {
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  surname: string;
+  active: boolean;
+  roles: Roles;
+}
+export interface RolesFromBack {
+  id: number;
+  name: string;
+}
+export interface Roles {
+  user: boolean;
+  keeper: boolean;
+  admin: boolean;
+}
+
+
+/*const ELEMENT_DATA: User[] = [
+  {
+    id: 7,
+    email: "whilerun2@moto.sport",
+    name: "Caly",
+    surname: "Referer",
+    phone: "+1010101010101",
+    active: true,
+    roles: { user: true, keeper: false, admin: true }
+  }, {
+    id: 2,
+    email: "whilerun2@moto.sport",
+    name: "Caly",
+    surname: "Referer",
+    phone: "+1010101010101",
+    active: true,
+    roles: { user: false, keeper: false, admin: true }
+  }, {
+    id: 3,
+    email: "whilerun2@moto.sport",
+    name: "Caly",
+    surname: "Referer",
+    phone: "+1010101010101",
+    active: true,
+    roles: { user: true, keeper: false, admin: true }
+  }, {
+    id: 4,
+    email: "whilerun2@moto.sport",
+    name: "Caly",
+    surname: "Referer",
+    phone: "+1010101010101",
+    active: true,
+    roles: { user: true, keeper: false, admin: true }
+  }
+];*/

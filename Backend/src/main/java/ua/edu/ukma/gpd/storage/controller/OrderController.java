@@ -45,13 +45,19 @@ public class OrderController {
     }
     
     @PostMapping("/{id}/ready")
-    public Order setOrderReady(@PathVariable Long id) throws Exception {
-    	return orderService.setReady(id);
+    public ResponseEntity<Order> setOrderReady(@PathVariable Long id) throws Exception {
+    	Order order = orderService.setReady(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     
     @PostMapping("/{id}/closed")
-    public Order setOrderClosed(@PathVariable Long id) throws Exception {
-    	return orderService.setClosed(id);
+    public ResponseEntity<Order> setOrderClosed(@PathVariable Long id) throws Exception {
+    	Order order = orderService.setClosed(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/id_keeper=null")
@@ -145,5 +151,20 @@ public class OrderController {
         order.setCreatedBy(form.getCreatedBy());
         System.out.println(order);
         return order;
+    }
+
+    @PostMapping("/declineOrder/{orderId}")
+    public ResponseEntity<Order> declineOrder(@PathVariable Long orderId) throws Exception{
+        Order order;
+        HttpStatus status;
+        try{
+            order = orderService.declineOrder(orderId);
+            status = HttpStatus.OK;
+        } catch (Exception e){
+            order = null;
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<Order>(order, status);
+
     }
 }

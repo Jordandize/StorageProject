@@ -1,0 +1,6 @@
+<mat-card>
+  <mat-card-title matBadge="{{orders.length}}" matBadgeColor="warn" matBadgePosition="above after">{{name}}</mat-card-title>
+  <mat-card-content>
+    <app-queue-elem *ngFor="let order of orders" [order]="order"></app-queue-elem>
+  </mat-card-content>
+</mat-card>

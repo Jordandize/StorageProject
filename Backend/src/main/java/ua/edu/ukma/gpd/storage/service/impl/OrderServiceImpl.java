@@ -11,6 +11,7 @@ import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -122,18 +123,36 @@ public class OrderServiceImpl implements OrderService {
         }
         return order;
     }
+
+    public Order declineOrder(Long orderId) throws Exception{
+        Order order = null;
+        try{
+            order = orderDao.declineOrder(orderId);
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            throw new Exception("Exception occured in OrderServiceImpl: operation rdeclineOrder [" +  orderId + "] failed", e);
+        }
+        return order;
+    }
     
     public Order setReady(Long id) throws Exception {
     	Order order = findById(id);
-    	// TODO
-    	order.setOrderStatus(OrderStatus.READY.name());
+    	if(order != null) {
+        	order.setOrderStatus(OrderStatus.READY.name());
+        	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.update(order);
+    	}
     	return order;
     }
     
     public Order setClosed(Long id) throws Exception {
     	Order order = findById(id);
-    	// TODO
-    	order.setOrderStatus(OrderStatus.CLOSED.name());
+    	if(order != null) {
+        	order.setOrderStatus(OrderStatus.CLOSED.name());
+        	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.update(order);
+    	}
     	return order;
     }
 }

@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule,MatRadioModule,
+import { MatTabsModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatRadioModule,
   MatBadgeModule, MatExpansionModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 import { CabinetRoutingModule } from './cabinet/cabinet-routing.module';
 import { routing } from './app-routing.module';
@@ -20,7 +22,7 @@ import { OneOrderComponent } from './oneOrder';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { CustomMaterialModule } from './material.module';
 import { ProductsComponent } from './products/products.component';
-import { ProductsOpComponent,DialogOverviewExampleDialog } from './productsCRUD/products.component';
+import { ProductsOpComponent, DialogOverviewExampleDialog } from './productsCRUD/products.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProductCardComponent } from './products/product-card/product-card.component';
@@ -35,6 +37,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { OrderQueueComponent } from './keeper/order-queue/order-queue.component';
 import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-column.component';
 
 
 @NgModule({
@@ -63,7 +66,8 @@ import { CategoriesComponent } from './categories/categories.component';
     DialogOverviewExampleDialog,
     OrderQueueComponent,
     QueueElemComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    QueueColumnComponent
   ],
   imports: [
     BrowserModule,
@@ -86,10 +90,11 @@ import { CategoriesComponent } from './categories/categories.component';
     FlexLayoutModule,
     MatSelectModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ToastModule
   ],
   entryComponents: [DialogOverviewExampleDialog ],
-  providers: [ PreviousRouteService],
+  providers: [PreviousRouteService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

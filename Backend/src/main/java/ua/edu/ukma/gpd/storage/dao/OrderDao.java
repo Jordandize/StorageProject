@@ -7,6 +7,8 @@ import java.util.List;
 public interface OrderDao {
 
     Long create(Order order);
+    
+    Order update(Order order);
 
     void delete(Order order);
 
@@ -21,5 +23,8 @@ public interface OrderDao {
     Order assignKeeperToOrder(Long userId, Long orderId);
 
     List<Order> findUnassignedOrders();
+
+    Order declineOrder(Long orderId);
+
 
 }
