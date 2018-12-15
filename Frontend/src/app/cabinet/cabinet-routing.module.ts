@@ -11,6 +11,7 @@ import { OneOrderComponent } from '../oneOrder';
 import { CreateOrderComponent } from '../create-order/create-order.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { OrderQueueComponent } from '../keeper/order-queue/order-queue.component';
+import { AdminOrdersComponent } from '../adminOrders/adminOrders.component';
 import { CategoriesComponent } from '../categories/categories.component';
 
 const cabinetRoutes: Routes = [
@@ -42,6 +43,10 @@ const cabinetRoutes: Routes = [
       {
         path: 'user-management',
         component: UserManagementComponent
+      },
+      {
+        path: 'adminOrders',
+        component: AdminOrdersComponent
       },
       {
         path: 'order',
