@@ -44,6 +44,5 @@ public class OrderSql {
     public static final String FIND_ORDERS_FOR_KEEPER_BY_STATUS =
     		"SELECT * " +
     			"FROM orders " +
-    			"WHERE id_keeper = ? " +
-    			"AND (order_statuses = ? OR order_statuses = ?)";
+    			"WHERE id_keeper = ? AND order_statuses = ?";
 }
