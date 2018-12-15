@@ -12,6 +12,7 @@ import { CreateOrderComponent } from '../create-order/create-order.component';
 import { UserManagementComponent } from '../user-management/user-management.component';
 import { OrderQueueComponent } from '../keeper/order-queue/order-queue.component';
 import { AdminOrdersComponent } from '../adminOrders/adminOrders.component';
+import { CategoriesComponent } from '../categories/categories.component';
 
 const cabinetRoutes: Routes = [
   {
@@ -22,6 +23,10 @@ const cabinetRoutes: Routes = [
         path: '',
         redirectTo: 'products',
         pathMatch: 'full'
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent
       },
       {
         path: 'products',

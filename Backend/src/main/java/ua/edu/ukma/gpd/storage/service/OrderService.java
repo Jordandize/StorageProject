@@ -1,6 +1,7 @@
 package ua.edu.ukma.gpd.storage.service;
 
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 
 import java.util.List;
 
@@ -8,11 +9,13 @@ public interface OrderService {
 
     Long add(Order order) throws Exception;
 
+    void delete(Order order) throws Exception;
+
     Order findById(Long id) throws Exception;
 
     List<Order> findAll() throws Exception;
     
-    List<Order> getForKeeper(String statusAsString, String statusAsNumber) throws Exception;
+    List<Order> getForKeeperByStatus(OrderStatus status) throws Exception;
 
     List<Order> findOrdersForUser(Long userId) throws Exception;
 

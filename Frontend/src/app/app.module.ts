@@ -37,6 +37,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { AdminOrdersComponent, AssignKeeper } from './adminOrders/adminOrders.component';
 import { OrderQueueComponent } from './keeper/order-queue/order-queue.component';
 import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.component';
+import { CategoriesComponent } from './categories/categories.component';
 import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-column.component';
 
 
@@ -68,6 +69,7 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     DialogOverviewExampleDialog,
     OrderQueueComponent,
     QueueElemComponent,
+    CategoriesComponent,
     QueueColumnComponent
   ],
   imports: [

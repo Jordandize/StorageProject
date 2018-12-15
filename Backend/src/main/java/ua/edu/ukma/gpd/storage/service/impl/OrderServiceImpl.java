@@ -38,6 +38,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void delete(Order order){
+        try{
+            Order exists = orderDao.findById(order.getId());
+            if (exists != null){
+                orderDao.delete(order);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Order findById(Long id) throws Exception{
         try{
             Order order = orderDao.findById(id);
@@ -64,12 +76,12 @@ public class OrderServiceImpl implements OrderService {
     }
     
     @Override
-    public List<Order> getForKeeper(String statusAsString, String statusAsNumber) throws Exception {
+    public List<Order> getForKeeperByStatus(OrderStatus status) throws Exception {
     	try {
         	UserDetails userDetails =
           			 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         	Long keeperId = userService.getByEmail(userDetails.getUsername()).getId();
-        	return orderDao.findForKeeperByStatus(keeperId, statusAsString, statusAsNumber);
+        	return orderDao.findForKeeperByStatus(keeperId, status);
     	} catch (Exception ex) {
     		throw new Exception("OrderServiceImp.getForKeeper() failed", ex);
 		}

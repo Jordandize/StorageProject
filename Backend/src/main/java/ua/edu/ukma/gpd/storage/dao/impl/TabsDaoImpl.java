@@ -34,6 +34,7 @@ public class TabsDaoImpl implements TabsDao {
     	 List<TabSidebar> tabs= new ArrayList();
 		   tabs.add(new TabSidebar("Order list","adminOrders", "book"));
 		   tabs.add(new TabSidebar("Products operations","productsOperations", "view_module"));
+		   tabs.add(new TabSidebar("Categories","categories", "line_weight"));
 		   tabs.add(new TabSidebar("Users roles","user-management", "assignment_ind"));
 	        return tabs;
     }
