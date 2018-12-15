@@ -10,6 +10,8 @@ public interface OrderDao {
     
     Order update(Order order);
 
+    void delete(Order order);
+
     Order findById(Long id);
 
     List<Order> findAll();

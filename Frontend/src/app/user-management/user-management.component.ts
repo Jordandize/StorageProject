@@ -6,9 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
 import { MatTableDataSource, MatPaginator,MatSort } from '@angular/material';
-/**
- * @title Table with expandable rows
- */
+
 @Component({
   selector: 'app-user-management',
   styleUrls: ['./user-management.component.css'],

@@ -12,6 +12,10 @@ public interface CategoryService {
     
     boolean delete(Category category) throws Exception;
 
+    Category update(Long id, String name) throws Exception;
+
+    boolean delete(Category category) throws Exception;
+
     Category getById(Long id) throws Exception;
 
     Category getByName(String name) throws Exception;

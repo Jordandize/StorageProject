@@ -44,9 +44,15 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public boolean update(Category category) {
-        return jdbcTemplate.update(CategorySql.UPDATE, category.getName(), 
-        		category.getId()) > 0;
+    public Category update(Long id, String name) {
+        Category category = null;
+        try{
+            jdbcTemplate.update(CategorySql.UPDATE, name, id);
+            category = findById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return category;
     }
 
     @Override

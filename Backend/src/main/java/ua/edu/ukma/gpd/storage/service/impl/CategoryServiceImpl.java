@@ -54,6 +54,38 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category update(Long id, String name) throws Exception {
+        Category category;
+        try {
+            Category exists = getById(id);
+            if (exists != null) {
+                category = categoryDao.update(id, name);
+            } else {
+                category = null;
+            }
+        } catch (Exception e){
+            throw new Exception("Exeption occured in CategoryServiceImpl: operation update failed.");
+        }
+        return category;
+    }
+
+    @Override
+    public boolean delete(Category category) throws Exception {
+        boolean deleted;
+        try{
+            Category exists = getByName(category.getName());
+            if (exists != null) {
+                deleted = categoryDao.delete(category);
+            } else {
+                deleted = false;
+            }
+        } catch (Exception e){
+            throw new Exception("Exeption occured in CategoryServiceImpl: operation delete [" + category + "] failed.");
+        }
+        return deleted;
+    }
+
+    @Override
     public Category getByName(String name) throws Exception {
         try {
             return categoryDao.findByName(name);

@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import ua.edu.ukma.gpd.storage.dto.CategoryDto;
 import ua.edu.ukma.gpd.storage.entity.Category;
 import ua.edu.ukma.gpd.storage.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -29,6 +29,7 @@ public class CategoryController {
     public Category getCategoryById(@PathVariable("id") Long id) throws Exception{
         return categoryService.getById(id);
     }
+  
     @PostMapping
     public ResponseEntity<Long> addCategory(@Valid @RequestBody CategoryDto form) throws Exception{
         HttpStatus status;
@@ -85,4 +86,14 @@ public class CategoryController {
         category.setName(form.getName());
         return category;
     }
+    @PostMapping("/update={id}/set={name}")
+    public Category updateCategory(@PathVariable("id") Long id, @PathVariable("name") String name) throws Exception{
+        return categoryService.update(id, name);
+    }
+
+//    @PostMapping("delete={id}")
+//    public boolean deleteCategory(@PathVariable("id") Long id) throws Exception{
+//        return categoryService.delete(id);
+//    }
+
 }

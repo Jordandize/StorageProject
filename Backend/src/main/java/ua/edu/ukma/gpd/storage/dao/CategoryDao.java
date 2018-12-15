@@ -8,7 +8,7 @@ public interface CategoryDao {
 
     Long create(Category category);
 
-    boolean update(Category category);
+    Category update(Long id, String name);
 
     boolean delete(Category category);
 

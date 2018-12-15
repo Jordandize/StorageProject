@@ -12,6 +12,10 @@ public class OrderSql {
     		+ "SET id_parent = ?, order_statuses = ?, id_order_type = ?, created = ?, changed = ?, annotation = ?, archived = ?, id_user = ? "
     		+ "WHERE id = ?";
 
+    public static final String DELETE =
+            "DELETE FROM orders\n" +
+                    "WHERE orders.id = ?";
+
     public static final String FIND_ALL =
             "SELECT * FROM orders";
 

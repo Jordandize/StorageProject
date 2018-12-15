@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
   async ngOnInit() {
     await  this.httpService.get(this.baseUrl+"/api/tabs").subscribe(data => {
       this.tabs=<Tab[]>data;
+      this.tabs.push({ name: 'Categories', url: 'categories', icon: 'data_usage' })
           },   error => {
             console.log(error);
         }

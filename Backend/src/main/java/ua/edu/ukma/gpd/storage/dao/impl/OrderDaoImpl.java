@@ -71,6 +71,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void delete(Order order){
+        jdbcTemplate.update(OrderSql.DELETE, order.getId());
+    }
+
+    @Override
     public Order findById(Long id) {
         return jdbcTemplate.queryForObject(OrderSql.FIND_BY_ID,
                 new Object[] { id }, mapper);
@@ -106,7 +111,6 @@ public class OrderDaoImpl implements OrderDao {
         } catch (EmptyResultDataAccessException e){
 
         }catch (Exception e){
-            System.out.println("exeption occured here");
             e.printStackTrace();
         }
         return order;

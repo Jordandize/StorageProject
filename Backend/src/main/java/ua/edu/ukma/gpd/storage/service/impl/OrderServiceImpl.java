@@ -38,6 +38,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void delete(Order order){
+        try{
+            Order exists = orderDao.findById(order.getId());
+            if (exists != null){
+                orderDao.delete(order);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Order findById(Long id) throws Exception{
         try{
             Order order = orderDao.findById(id);
