@@ -130,7 +130,7 @@ export class AssignKeeper implements OnInit {
   }
   assignKeeper(idKeeper:number){
     this.loading=true;
-    return this.httpService.postUrl(this.baseUrl + '/'+ this.idOrder +'/assignKeeper/' + idKeeper)
+    return this.httpService.post(this.baseUrl + '/api/orders/'+ this.idOrder +'/assignKeeper/' + idKeeper,{})
         .subscribe(data => {
           swal({
             type: 'success',
