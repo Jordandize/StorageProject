@@ -46,22 +46,22 @@ public class CategoryController {
         return new ResponseEntity<>(id, status);
     }
     
-    @PostMapping("/{id}")
-    public ResponseEntity<Boolean> updateProduct(@Valid @RequestBody CategoryDto form,@PathVariable("id") Long id) throws Exception{
-        HttpStatus status;
-        boolean b;
-        try{
-            Category category = buildCategoryFromDto(form);
-            category.setId(id);
-            b = categoryService.update(category);
-            status = HttpStatus.OK;
-        } catch (Exception e){
-            e.printStackTrace();
-            b=false;
-            status = HttpStatus.BAD_REQUEST;
-        }
-        return new ResponseEntity<>(b, status);
-    }
+//    @PostMapping("/{id}")
+//    public ResponseEntity<Boolean> updateProduct(@Valid @RequestBody CategoryDto form,@PathVariable("id") Long id) throws Exception{
+//        HttpStatus status;
+//        boolean b;
+//        try{
+//            Category category = buildCategoryFromDto(form);
+//            category.setId(id);
+//            b = categoryService.update(category);
+//            status = HttpStatus.OK;
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            b=false;
+//            status = HttpStatus.BAD_REQUEST;
+//        }
+//        return new ResponseEntity<>(b, status);
+//    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id) throws Exception{
