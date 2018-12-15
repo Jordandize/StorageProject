@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { OrderObject as Order } from 'src/app/data/OrderObject';
 
 @Component({
   selector: 'app-queue-column',
@@ -7,12 +8,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class QueueColumnComponent implements OnInit {
 
-  @Input() name = 'no_name_column';
-  @Input() orders = [];
+  @Output() ready = new EventEmitter<Order>();
+  @Output() supply = new EventEmitter<Order>();
+
+  @Input() name = 'Column';
+  @Input() orders: Order[] = [];
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  orderReady(order: Order) {
+    this.ready.emit(order);
+  }
+
+  orderSupply(order: Order) {
+    this.supply.emit(order);
   }
 
 }

@@ -1,6 +1,7 @@
 package ua.edu.ukma.gpd.storage.dao;
 
 import ua.edu.ukma.gpd.storage.entity.Order;
+import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface OrderDao {
 
     List<Order> findAll();
     
-    List<Order> findForKeeperByStatus(Long id, String statusAsString, String statusAsNumber);
+    List<Order> findForKeeperByStatus(Long id, OrderStatus status);
 
     List<Order> findOrdersForUser(Long userId);
 
@@ -23,6 +24,5 @@ public interface OrderDao {
     List<Order> findUnassignedOrders();
 
     Order declineOrder(Long orderId);
-
 
 }

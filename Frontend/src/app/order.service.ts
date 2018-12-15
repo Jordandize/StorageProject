@@ -4,9 +4,10 @@ import { OrderComponent } from './order/order.component';
 import { baseUrl } from '../varUrl';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Order } from './order';
-import { Order as FullOrder } from './oneOrder/oneOrder.component';
+import { Order as OldOrder } from './order';
+import { Order } from './data/Order';
 import { HttpService } from './http.service';
+import { OrderStatus } from './data/OrderStatus';
 //import { User } from './userPage/user.component';
 //import { ORDERS } from './order/ORDERS';
 
@@ -17,13 +18,13 @@ export class OrderService {
   baseUrl = baseUrl;
   //ORDERS = ORDERS;
 
-  ORDERS:Order[] = [
+  ORDERS: OldOrder[] = [
 {
 	name: 'order1',
 	amount: 1, 
 	orderType: 1,
 	annotation: 'qwr',
-	products: {1:2, 2:3},
+	products: {1: 2, 2: 3},
 	id_user: 2,
   createdBy: 2
 }
@@ -35,7 +36,7 @@ export class OrderService {
     private http: HttpClient,
     private httpService: HttpService) { }
 
-  createOrder(order: Order): Observable<number> {
+  createOrder(order: OldOrder): Observable<number> {
     const head = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<number>(this.baseUrl + '/api/orders', this.ORDERS[0], {headers: head}).pipe(
       catchError(this.handleError<number>('create order')));
@@ -45,20 +46,20 @@ export class OrderService {
     return this.httpService.post<number>(this.baseUrl + '/api/orders', order);
   }
 
-  getUserOrders(id: number): Observable<Order>{
+  getUserOrders(id: number): Observable<OldOrder>{
     const url = `${this.baseUrl}/orders/${id}`;
-    return this.http.get<Order>(url)
+    return this.http.get<OldOrder>(url)
     .pipe(
-      catchError(this.handleError<Order>(`getUserOrder id=${id}`))
+      catchError(this.handleError<OldOrder>(`getUserOrder id=${id}`))
       );
   }
 
 
-   assignKeeperToOrder(id_user: number, id_order: number): Observable<Order>{
+   assignKeeperToOrder(id_user: number, id_order: number): Observable<OldOrder>{
      const url = `${this.baseUrl}/${id_order}/assignKeeper/${id_user}`;
-     return this.http.post<Order>(url, {id_order, id_user})
+     return this.http.post<OldOrder>(url, {id_order, id_user})
      .pipe(
-       catchError(this.handleError<Order>(`assign order id={id_order} to keeper id={id_keeper} failed`))
+       catchError(this.handleError<OldOrder>(`assign order id={id_order} to keeper id={id_keeper} failed`))
        );
    }
   // }
@@ -71,8 +72,8 @@ export class OrderService {
   //   return this.http.post(this.baseUrl+'')
   // }
 
-  private handleError<T> (operation = 'operation', result?:T){
-    return (error:any): Observable<T> => {
+  private handleError<T> (operation = 'operation', result?: T){
+    return (error: any): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
@@ -83,9 +84,9 @@ export class OrderService {
     console.log(`OrderServise: ${message}`);
   }
 
-  getOrdersForKeeperByStatus(statusAsString: string, statusAsNumber: string): Observable<FullOrder[]> {
+  getOrdersForKeeperByStatus(status: OrderStatus): Observable<Order[]> {
     return this.httpService.get(
-      `${baseUrl}/api/orders?statusAsString=${statusAsString}&statusAsNumber=${statusAsNumber}`);
+      `${baseUrl}/api/orders?status=${status}`);
   }
 
   setOrderReady(id: number): Observable<Order> {

@@ -1,5 +1,10 @@
-export const OrderStatus = {
-    processing: { asString: 'PROCESSING', asNumber: '2' },
-    ready: { asString: 'READY', asNumber: '4' },
-    waiting: { asString: 'WAITING', asNumber: '3' }
-};
+export enum OrderStatus {
+    Opened     = 'OPENED',
+    Processing = 'PROCESSING',
+    Ready      = 'READY',
+    Closed     = 'CLOSED',
+    Waiting    = 'WAITING',
+    Edited     = 'EDITED',
+    Canceled   = 'CANCELED',
+    Declinded  = 'DECLINED'
+}
