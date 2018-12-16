@@ -29,4 +29,6 @@ public interface OrderService {
 
     Order declineOrder(Long orderId) throws Exception;
 
+    Order cancelOrder(Long orderId) throws Exception;
+
 }

@@ -35,12 +35,6 @@ public class OrderSql {
                     "FROM orders\n" +
                     "WHERE id_keeper is null\n";
 
-    public static final String DECLINE_ORDER =
-            "UPDATE orders " +
-                    "SET id_order_status = ? " +
-                    "WHERE id = ?";
-
-    
     public static final String FIND_ORDERS_FOR_KEEPER_BY_STATUS =
     		"SELECT * " +
     			"FROM orders " +
