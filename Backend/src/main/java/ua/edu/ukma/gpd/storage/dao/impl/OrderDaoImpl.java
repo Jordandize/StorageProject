@@ -15,6 +15,7 @@ import ua.edu.ukma.gpd.storage.enumeration.*;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -118,9 +119,19 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order declineOrder(Long orderId) {
-        Order order = null;
-        jdbcTemplate.update(OrderSql.DECLINE_ORDER, OrderStatus.DECLINED, orderId);
-        order = findById(orderId);
+    	Order order = findById(orderId);
+    	order.setOrderStatus(OrderStatus.DECLINED.name());
+    	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+    	order = this.update(order);
+        return order;
+    }
+    
+    @Override
+    public Order cancelOrder(Long orderId) {
+    	Order order = findById(orderId);
+    	order.setOrderStatus(OrderStatus.CANCELED.name());
+    	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+    	order = this.update(order);
         return order;
     }
 

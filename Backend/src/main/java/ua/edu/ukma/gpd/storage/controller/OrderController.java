@@ -149,18 +149,20 @@ public class OrderController {
         return order;
     }
 
-    @PostMapping("/declineOrder/{orderId}")
-    public ResponseEntity<Order> declineOrder(@PathVariable Long orderId) throws Exception{
-        Order order;
-        HttpStatus status;
-        try{
-            order = orderService.declineOrder(orderId);
-            status = HttpStatus.OK;
-        } catch (Exception e){
-            order = null;
-            status = HttpStatus.BAD_REQUEST;
-        }
-        return new ResponseEntity<Order>(order, status);
-
+    @PostMapping("/{id}/decline")
+    public ResponseEntity<Order> declineOrder(@PathVariable Long id) throws Exception {
+    	Order order = orderService.declineOrder(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<Order> cancelOrder(@PathVariable Long id) throws Exception {
+    	Order order = orderService.cancelOrder(id);
+    	return order != null
+    			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+      
 }
