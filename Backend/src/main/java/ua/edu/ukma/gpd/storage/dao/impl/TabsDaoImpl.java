@@ -32,8 +32,8 @@ public class TabsDaoImpl implements TabsDao {
     @Override
     public List<TabSidebar> findAdminTabs() {
     	 List<TabSidebar> tabs= new ArrayList();
-		   tabs.add(new TabSidebar("Order list","adminOrders", "book"));
-		   tabs.add(new TabSidebar("Products operations","productsOperations", "view_module"));
+		   tabs.add(new TabSidebar("Order List","adminOrders", "book"));
+		   tabs.add(new TabSidebar("Create Products","productsOperations", "view_module"));
 		   tabs.add(new TabSidebar("Categories","categories", "line_weight"));
 		   tabs.add(new TabSidebar("Users roles","user-management", "assignment_ind"));
 	        return tabs;
