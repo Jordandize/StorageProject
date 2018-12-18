@@ -33,8 +33,10 @@ import { PreviousRouteService } from './service-previousUrl/previous-route.servi
 import { OrdersComponent } from './orders/orders.component';
 import { CreateOrderComponent } from './create-order/create-order.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { AdminOrdersComponent, AssignKeeper } from './adminOrders/adminOrders.component';
 import { OrderQueueComponent } from './keeper/order-queue/order-queue.component';
 import { QueueElemComponent } from './keeper/order-queue/queue-elem/queue-elem.component';
+import { CategoriesComponent } from './categories/categories.component';
 import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-column.component';
 
 
@@ -54,6 +56,8 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     HeaderComponent,
     SidebarComponent,
     OneOrderComponent,
+    AssignKeeper,
+    AdminOrdersComponent,
     UserManagementComponent,
     OneOrderComponent,
     SessionViewerComponent,
@@ -62,6 +66,7 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     DialogOverviewExampleDialog,
     OrderQueueComponent,
     QueueElemComponent,
+    CategoriesComponent,
     QueueColumnComponent
   ],
   imports: [
@@ -88,7 +93,7 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     MatExpansionModule,
     ToastModule
   ],
-  entryComponents: [DialogOverviewExampleDialog ],
+  entryComponents: [AssignKeeper,DialogOverviewExampleDialog ],
   providers: [PreviousRouteService, MessageService],
   bootstrap: [AppComponent]
 })

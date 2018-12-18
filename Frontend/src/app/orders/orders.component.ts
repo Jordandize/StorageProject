@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatPaginator} from '@angular/material';
+import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
@@ -34,6 +34,8 @@ export class OrdersComponent implements OnInit {
   baseUrl = baseUrl;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
      public  dataSource2: Order[] ;
 
       public  dataSource ;
@@ -58,6 +60,7 @@ export class OrdersComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource(this.dataSource2);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
 
           },   error => {

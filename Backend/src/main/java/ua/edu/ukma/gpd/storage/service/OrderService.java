@@ -10,6 +10,8 @@ public interface OrderService {
 
     Long add(Order order) throws Exception;
 
+    void delete(Order order) throws Exception;
+
     Order findById(Long id) throws Exception;
 
     List<Order> findAll() throws Exception;
@@ -29,5 +31,7 @@ public interface OrderService {
     Order setClosed(Long id) throws Exception;
 
     Order declineOrder(Long orderId) throws Exception;
+
+    Order cancelOrder(Long orderId) throws Exception;
 
 }

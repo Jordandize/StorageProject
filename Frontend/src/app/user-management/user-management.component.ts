@@ -5,10 +5,8 @@ import swal from 'sweetalert2';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from '../http.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
-/**
- * @title Table with expandable rows
- */
+import { MatTableDataSource, MatPaginator,MatSort } from '@angular/material';
+
 @Component({
   selector: 'app-user-management',
   styleUrls: ['./user-management.component.css'],
@@ -25,9 +23,11 @@ export class UserManagementComponent implements OnInit {
   ELEMENT_DATA: User[];
   dataSource = this.ELEMENT_DATA;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   dataSource2: MatTableDataSource<User>;
 
-  columnsToDisplay = ['id', 'email', 'active'];
+  columnsToDisplay = ['id', 'email', 'name'];
   expandedElement: User;
   user: User;
   loading = true;
@@ -66,6 +66,7 @@ export class UserManagementComponent implements OnInit {
   submitRoles(userR: any) {
     this.submitted = true;
     this.loading = true;
+    var counter=0;
     this.user = this.dataSource.find(x => x.id == userR);
     if (this.user.roles.user == true) {
       this.roles.push("USER");
@@ -75,6 +76,9 @@ export class UserManagementComponent implements OnInit {
     }
     if (this.user.roles.admin == true) {
       this.roles.push("ADMIN");
+    }
+    if(this.user.roles.user ==false && this.user.roles.keeper ==false && this.user.roles.admin ==false){
+      this.roles.push("USER");
     }
     const ch = {
       'name': this.roles
@@ -112,13 +116,11 @@ getUsers(){
   return this.httpService.get(this.baseUrl + '/api/users')
   .subscribe(data => {
     this.dataSource=<User[]>data;
-    console.log(data);
     for (let entry of this.dataSource) {
      this.httpService.get(this.baseUrl + '/api/users/' + entry.id+ '/roles')
      .subscribe(data => {
        var r= { user: false, keeper: false, admin: false };
        var roles=<RolesFromBack[]>data; 
-       console.log(roles)
        for(var i=0;i<roles.length;i++){
          if(roles[i].name==userRole){
            r.user=true;
@@ -131,7 +133,6 @@ getUsers(){
          }
        }
        entry.roles=r;
-       console.log( entry.roles);
        this.loading = false;
      },
        error => {
@@ -144,6 +145,7 @@ getUsers(){
       return data.email.toLowerCase().includes(filter);
   };
     this.dataSource2.paginator = this.paginator;
+    this.dataSource2.sort = this.sort;
     this.loading = false;
   },
     error => {

@@ -11,6 +11,8 @@ public interface OrderDao {
     
     Order update(Order order);
 
+    void delete(Order order);
+
     Order findById(Long id);
 
     List<Order> findAll();
@@ -24,5 +26,8 @@ public interface OrderDao {
     List<Order> findUnassignedOrders();
 
     Order declineOrder(Long orderId);
+    
+    Order cancelOrder(Long orderId);
+
 
 }

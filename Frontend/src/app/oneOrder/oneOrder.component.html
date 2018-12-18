@@ -7,17 +7,18 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         
-        <div fxLayout="row wrap"  fxLayoutWrap class="card-deck-container mat-elevation-z4 ">
-            <div fxFlex *ngFor="let prod of obs  | async" class="card-item">
-                <mat-card style="width:300px;" class="grow">
+        <div fxLayout="row wrap"  fxLayoutWrap class="card-deck-container mat-elevation-z4 " >
+            <div fxFlex *ngFor="let prod of obs  | async" class="card-item" >
+                <mat-card style="width:300px;" class="grow"  (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
                     <mat-card-header >
-                      <mat-card-title>Product : {{ prod.name }}</mat-card-title>
+                      <mat-card-title>Product : {{ (prod.name.length>34)? (prod.name | slice:0:35):(prod.name)  }}</mat-card-title>
+                      <mat-card-subtitle> {{ (17>prod.name.length)? ('	&nbsp;'): ('') }}</mat-card-subtitle>
                       <mat-card-subtitle>Product amount: {{ prod.amount}} </mat-card-subtitle>
                     </mat-card-header>
                     <mat-divider></mat-divider>
-                    <img mat-card-image   src={{prod.image}}  >
+                    <img mat-card-image   [src]="prod.image!=null ? prod.image : defaultImage" style=" min-height:225px; max-height:225px;"  >
                     <mat-divider></mat-divider>
-                    <mat-card-content class="fix">
+                    <mat-card-content class="fix" *ngIf="isHovered">
                       <p>{{ prod.description }}</p>
                     </mat-card-content>
                   </mat-card>

@@ -96,12 +96,13 @@ public  dataSource ;
 obs: Observable<any>;
 public product: Product[];
 public order: Order;
+isHovered = false;
+public defaultImage="http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png"
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private httpService: HttpService,
     private router: Router) {}
-
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
@@ -120,6 +121,13 @@ public order: Order;
               console.log(error);
             }
           );
+    }
+    onMouseEnter() {
+      this.isHovered = true;
+    }
+  
+    onMouseLeave() {
+      this.isHovered = false;
     }
 
    
