@@ -41,7 +41,7 @@ public class UserPrincipal implements UserDetails {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		try {
 			for(Role role: roleService.getRolesForUser(user))
-				authorities.add(new SimpleGrantedAuthority(role.getName()));
+				authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

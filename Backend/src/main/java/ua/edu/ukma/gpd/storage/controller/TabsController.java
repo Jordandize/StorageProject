@@ -31,9 +31,9 @@ public class TabsController {
         }
       
   
-        String admin="ADMIN";
-        String user="USER";
-        String keeper="KEEPER";
+        String admin="ROLE_ADMIN";
+        String user="ROLE_USER";
+        String keeper="ROLE_KEEPER";
         List<TabSidebar> list = new ArrayList<>();
         try{
         	

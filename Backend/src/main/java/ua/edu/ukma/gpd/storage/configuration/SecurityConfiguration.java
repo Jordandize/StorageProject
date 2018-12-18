@@ -53,20 +53,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
         	.csrf().disable()
+        	.addFilterAfter(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
+    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.exceptionHandling()
         	.authenticationEntryPoint(authEntryPoint)
         	.and()
-        	.addFilterBefore(tokenAuthenticationFilter("/api/**"), UsernamePasswordAuthenticationFilter.class)
-    		.addFilterBefore(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
         	.antMatchers("/api/forAll").permitAll()
         	.antMatchers("/api/forAnon").anonymous()
         	.antMatchers("/api/forLogined").authenticated()
-        	.antMatchers("/api/forUserRole").hasRole("USER_ROLE")
-        	.antMatchers("/api/forAdminRole").hasRole("ADMIN_ROLE")
-        	.antMatchers("/api/admin/**").hasRole("ADMIN_ROLE")
+        	.antMatchers("/api/forUserRole").hasRole("USER")
+        	.antMatchers("/api/forAdminRole").hasRole("ADMIN")
+        	.antMatchers("/api/admin/**").hasRole("ADMIN")
         	.antMatchers("/login").anonymous()
         	.and().cors();
     }
