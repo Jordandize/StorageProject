@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from './product';
 import { ProductService } from './product.service';
-// import { UserService } from './product.service';
 import { Category } from './category';
 import { SessionService } from '../session.service';
+import { OrderType } from '../data/OrderType';
 
 @Component({
   selector: 'app-products',
@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   products: Product[];
   categories: Category[];
 
+  activeType: OrderType;
   selectedCategoryId: number;
 
   count = 0;
@@ -33,10 +34,16 @@ export class ProductsComponent implements OnInit {
       .subscribe(categories => {
         this.categories = categories;
       });
-    this.count = this.sessionService.getOrderLines().length;
+    this.activeType = this.sessionService.getCreationOrderType();
+    this.count = this.getCount();
     this.sessionService.orderLinesChange$.subscribe(() => {
-      this.count = this.sessionService.getOrderLines().length;
+      this.count = this.getCount();
     });
+  }
+
+  getCount(): number {
+    return this.sessionService.getOrderLines(this.activeType)
+      .filter(elem => elem.order == null).length;
   }
 
   categoryChanged() {
@@ -54,8 +61,10 @@ export class ProductsComponent implements OnInit {
   }
 
   inOrderAmount(product: Product): number {
-    const orderLine = this.sessionService.getOrderLine(product.id);
-    return orderLine != null ? orderLine.amount : 0;
+    const orderLine = this.sessionService.getOrderLine(product.id, this.activeType);
+    return orderLine != null
+      ? orderLine.order == null ? orderLine.amount : 0
+      : 0;
   }
 
 }

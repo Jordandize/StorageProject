@@ -1,5 +1,6 @@
 package ua.edu.ukma.gpd.storage.service;
 
+import ua.edu.ukma.gpd.storage.dto.ShortageDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 
@@ -16,6 +17,8 @@ public interface OrderService {
     List<Order> findAll() throws Exception;
     
     List<Order> getForKeeperByStatus(OrderStatus status) throws Exception;
+    
+    List<ShortageDto> getShortageForOrder(Long id) throws Exception;
 
     List<Order> findOrdersForUser(Long userId) throws Exception;
 

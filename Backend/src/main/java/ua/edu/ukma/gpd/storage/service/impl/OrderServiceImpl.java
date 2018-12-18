@@ -6,6 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
+import ua.edu.ukma.gpd.storage.dao.OrderProductDao;
+import ua.edu.ukma.gpd.storage.dto.ShortageDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
@@ -13,12 +15,16 @@ import ua.edu.ukma.gpd.storage.service.UserService;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDao orderDao;
+    
+    @Autowired
+    private OrderProductDao orderProductDao;
     
     @Autowired
     private UserService userService;
@@ -140,6 +146,7 @@ public class OrderServiceImpl implements OrderService {
         	order.setOrderStatus(OrderStatus.READY.name());
         	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
         	order = orderDao.update(order);
+        	orderProductDao.reserveProductsForOrder(id);
     	}
     	return order;
     }
@@ -150,10 +157,20 @@ public class OrderServiceImpl implements OrderService {
         	order.setOrderStatus(OrderStatus.CLOSED.name());
         	order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
         	order = orderDao.update(order);
+        	orderProductDao.writeOffProductsForOrder(id);
     	}
     	return order;
     }
     
+    public List<ShortageDto> getShortageForOrder(Long id) throws Exception {
+    	List<ShortageDto> shortage = null;
+    	Order order = findById(id);
+    	if(order != null) {
+    		shortage = orderProductDao.findShortageForOrder(order.getId());
+    	}
+    	return shortage;
+    }
+      
     public Order cancelOrder(Long orderId) throws Exception{
     	Order order = findById(orderId);
     	if(order != null) {

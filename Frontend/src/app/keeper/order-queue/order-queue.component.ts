@@ -23,16 +23,14 @@ export class OrderQueueComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    this.orderService.getOrdersForKeeperByStatus(OrderStatus.Processing)
-      .subscribe(orders => this.columns.processing.orders
-        = orders.map(o => ({ order: o, user: null }))
-    );
-    this.orderService.getOrdersForKeeperByStatus(OrderStatus.Ready)
-      .subscribe(orders => this.columns.ready.orders
-        = orders.map(o => ({ order: o, user: null }))
-    );
-    this.orderService.getOrdersForKeeperByStatus(OrderStatus.Waiting)
-      .subscribe(orders => this.columns.waiting.orders
+    this.loadOrders(OrderStatus.Processing);
+    this.loadOrders(OrderStatus.Ready);
+    this.loadOrders(OrderStatus.Waiting);
+  }
+
+  loadOrders(status: OrderStatus) {
+    this.orderService.getOrdersForKeeperByStatus(status)
+      .subscribe(orders => this.columns[status.toLowerCase()].orders
         = orders.map(o => ({ order: o, user: null }))
     );
   }
@@ -40,6 +38,7 @@ export class OrderQueueComponent implements OnInit {
   orderReady(order: Order) {
     this.columns.processing.orders = this.columns.processing
       .orders.filter(o => o.order.id !== order.order.id);
+    this.loadOrders(OrderStatus.Processing);
     this.columns.ready.orders.push(order);
   }
 

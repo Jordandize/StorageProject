@@ -25,8 +25,8 @@ export class SessionViewerComponent implements OnInit {
     }
   }
 
-  removeLine(id: number) {
-    this.sessionService.removeOrderLine(id);
+  removeLine(id: number, order = null) {
+    this.sessionService.removeOrderLine(id, this.sessionService.getCreationOrderType(), order);
   }
 
 }

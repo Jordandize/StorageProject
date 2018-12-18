@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OrderComponent } from './order/order.component';
 import { baseUrl } from '../varUrl';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Order as OldOrder } from './order';
 import { Order } from './data/Order';
 import { HttpService } from './http.service';
 import { OrderStatus } from './data/OrderStatus';
+import { OrderShortage } from './data/OrderShortage';
 //import { User } from './userPage/user.component';
 //import { ORDERS } from './order/ORDERS';
 
@@ -72,7 +72,7 @@ export class OrderService {
   //   return this.http.post(this.baseUrl+'')
   // }
 
-  private handleError<T> (operation = 'operation', result?: T){
+  private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
@@ -84,9 +84,12 @@ export class OrderService {
     console.log(`OrderServise: ${message}`);
   }
 
+  getShortageForOrder(id: number): Observable<OrderShortage[]> {
+    return this.httpService.get(`${baseUrl}/api/orders/${id}/shortage`);
+  }
+
   getOrdersForKeeperByStatus(status: OrderStatus): Observable<Order[]> {
-    return this.httpService.get(
-      `${baseUrl}/api/orders?status=${status}`);
+    return this.httpService.get(`${baseUrl}/api/orders?status=${status}`);
   }
 
   setOrderReady(id: number): Observable<Order> {

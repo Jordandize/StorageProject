@@ -3,6 +3,7 @@ import { SessionService } from '../session.service';
 import { OrderLine } from '../data/OrderLine';
 import { OrderService } from '../order.service';
 import { MessageService } from 'primeng/api';
+import { OrderType } from '../data/OrderType';
 
 class Order {
   comment: string;
@@ -15,10 +16,19 @@ class Order {
 })
 export class CreateOrderComponent implements OnInit {
 
-  order: Order = new Order();
-  orderLines: OrderLine[];
-  loading = false;
+  public OrderType = OrderType;
+  orderTypes = [OrderType.User, OrderType.Base];
+  activeType: OrderType;
+  showOrderTypeMenu: boolean;
+  userColumns = ['position', 'product', 'amount', 'remove-but'];
+  keeperColumns = ['position', 'order', 'product', 'amount', 'remove-but'];
+  orderCreatedMessageLifeTime = 6000;
+  messageLifeTime = 4000;
   emptyListMessageActive = false;
+  loading = false;
+
+  orderLines: OrderLine[];
+  order: Order = new Order();
 
   constructor(
     private sessionService: SessionService,
@@ -26,20 +36,21 @@ export class CreateOrderComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit() {
-    this.orderLines = this.sessionService.getOrderLines();
+    this.showOrderTypeMenu = this.sessionService.isUser() && this.sessionService.isKeeper();
+    this.activeType = this.sessionService.getCreationOrderType();
+    this.orderLines = this.sessionService.getOrderLines(this.activeType);
     this.sessionService.orderLinesChange$.subscribe(() => {
-      this.orderLines = this.sessionService.getOrderLines();
+      this.orderLines = this.sessionService.getOrderLines(this.activeType);
     });
   }
 
   create() {
     if (this.orderLines == null || this.orderLines.length === 0) {
-      const life = 4000;
       if (!this.emptyListMessageActive) {
         this.emptyListMessageActive = true;
         this.messageService.add({severity: 'info', summary: 'Bad order',
-          detail: 'Cannot create order, empty product list is not allowed.', life: life});
-        setTimeout(() => this.emptyListMessageActive = false, life - 1500);
+          detail: 'Cannot create order, empty product list is not allowed.', life: this.messageLifeTime});
+        setTimeout(() => this.emptyListMessageActive = false, this.messageLifeTime - 1500);
       }
       return;
     }
@@ -58,18 +69,24 @@ export class CreateOrderComponent implements OnInit {
       this.order.comment = '';
       this.clean();
       this.messageService.add({severity: 'success', summary: `Order #${resp} created!`,
-        detail: 'Please, visit \'Orders\' page for more details.', life: 6000});
+        detail: 'Visit \'Orders\' page for additional information.', life: this.orderCreatedMessageLifeTime});
       this.loading = false;
     },
     error => {
       this.messageService.add({severity: 'error', summary: `Sorry, operation failed`,
-        detail: 'Connect with our support group or repeat operation later.', life: 4000});
+        detail: 'Connect with our support group or repeat operation later.', life: this.messageLifeTime});
       this.loading = false;
     });
   }
 
   clean() {
-    this.sessionService.deleteOrderLines();
+    this.sessionService.deleteOrderLines(this.activeType);
+  }
+
+  setOrderType(type: OrderType) {
+    this.activeType = type;
+    this.sessionService.setCreationOrderType(type);
+    this.orderLines = this.sessionService.getOrderLines(this.activeType);
   }
 
 }

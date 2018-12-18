@@ -97,7 +97,7 @@ error => {
   get() {
     if (this.amount !== 0) {
       this.sessionService.setOrderLine({id: this.product.id, amount: this.amount,
-        product: this.product.name, category: this.product.category,
+        product: this.product.name,
         position: this.sessionService.getOrderLines().length + 1 });
     } else if (this.amount === 0) {
       this.sessionService.removeOrderLine(this.product.id);

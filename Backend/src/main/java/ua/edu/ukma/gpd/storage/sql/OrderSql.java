@@ -23,7 +23,7 @@ public class OrderSql {
             "SELECT * FROM orders WHERE id = ?";
 
     public static final String FIND_ORDERS_FOR_USER =
-            "SELECT * FROM orders WHERE id_user = ?";
+            "SELECT * FROM orders WHERE id_user = ? ORDER BY created DESC";
 
     public static final String ASSIGN_KEEPER_TO_ORDER =
             "UPDATE orders " +
