@@ -61,12 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         	.and()
         	.authorizeRequests()
-        	.antMatchers("/api/forAll").permitAll()
-        	.antMatchers("/api/forAnon").anonymous()
-        	.antMatchers("/api/forLogined").authenticated()
-        	.antMatchers("/api/forUserRole").hasRole("USER")
-        	.antMatchers("/api/forAdminRole").hasRole("ADMIN")
-        	.antMatchers("/api/admin/**").hasRole("ADMIN")
         	.antMatchers("/login").anonymous()
         	.and().cors();
     }
