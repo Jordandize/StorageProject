@@ -15,7 +15,6 @@ import ua.edu.ukma.gpd.storage.service.UserService;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -133,8 +132,6 @@ public class OrderServiceImpl implements OrderService {
     public Order declineOrder(Long orderId) throws Exception{
     	Order order = findById(orderId);
     	if(order != null) {
-        	//order.setOrderStatus(OrderStatus.DECLINED.name());
-        	//order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
         	order = orderDao.declineOrder(orderId);
     	}
     	return order;
@@ -174,8 +171,6 @@ public class OrderServiceImpl implements OrderService {
     public Order cancelOrder(Long orderId) throws Exception{
     	Order order = findById(orderId);
     	if(order != null) {
-        	//order.setOrderStatus(OrderStatus.CANCELED.name());
-        	//order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
         	order = orderDao.cancelOrder(orderId);
     	}
     	return order;

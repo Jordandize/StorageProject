@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 public class OrderDto {
 
-    // TODO: make correct validation
-
     private String annotation;
 
     @NotNull()
