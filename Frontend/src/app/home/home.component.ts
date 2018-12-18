@@ -1,12 +1,8 @@
 
-import { Component, OnInit,Input, ViewChild } from '@angular/core';
-import { first } from 'rxjs/operators';
-import {HttpClient} from "@angular/common/http";
-import {FormBuilder} from "@angular/forms";
-import {Router} from "@angular/router";
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatTableDataSource,MatPaginator} from '@angular/material';
-import "@angular/material/prebuilt-themes/indigo-pink.css";
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {MatTableDataSource, MatPaginator} from '@angular/material';
+import '@angular/material/prebuilt-themes/indigo-pink.css';
 import { baseUrl } from '../../varUrl';
 
 
@@ -23,8 +19,8 @@ orderType: number;
 parentId: number;
 }
 
-var angular: any;
-@Component({ selector: 'app-userpage',templateUrl: 'home.component.html'})
+
+@Component({ selector: 'app-userpage', templateUrl: 'home.component.html'})
 
 export class HomeComponent implements OnInit {
 

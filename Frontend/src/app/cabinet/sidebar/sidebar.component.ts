@@ -18,16 +18,15 @@ export class SidebarComponent implements OnInit {
     { name: 'Products', url: 'products', icon: 'ballot' }
   ];
   baseUrl = baseUrl;
-  
-  constructor( private httpService: HttpService,private http: HttpClient) {  }
+
+  constructor( private httpService: HttpService, private http: HttpClient) {  }
 
   async ngOnInit() {
-    await  this.httpService.get(this.baseUrl+"/api/tabs").subscribe(data => {
-      this.tabs=<Tab[]>data;
-          },   error => {
-            console.log(error);
-        }
-        );
+    await this.httpService.get(this.baseUrl + '/api/tabs').subscribe(data => {
+      this.tabs = <Tab[]>data;
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { baseUrl } from '../../varUrl';
-import { Product } from './product';
-import { Category } from './category';
 import { Observable } from 'rxjs';
 import { HttpService } from '../http.service';
+import { Product } from '../data/Product';
+import { Category } from '../data/Categoty';
 
 @Injectable({
   providedIn: 'root'

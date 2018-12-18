@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { OrderLine } from './data/OrderLine';
-import { User } from './User';
 import { OrderType } from './data/OrderType';
+import { User } from './data/User';
 
 @Injectable({
   providedIn: 'root'

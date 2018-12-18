@@ -1,16 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Product } from '../../products/product';
 import { ProductService } from '../../products/product.service';
-import { PRODUCTS } from '../../products/PRODUCTS';
 import { SessionService } from 'src/app/session.service';
 import { baseUrl } from '../../../varUrl';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { HttpService } from '../../http.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { DialogOverviewExampleDialog } from '../products.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog} from '@angular/material';
+import { Product } from 'src/app/data/Product';
 
 @Component({
   selector: 'app-product-card2',
@@ -48,15 +46,6 @@ export class ProductCardOpComponent implements OnInit {
       });
     }
   ngOnInit() {
-    // If No Product Injected Take From Static Collection
-    if (this.product == null) {
-      this.productService.getProducts()
-        .subscribe(products => {
-          // this.product = products[0];
-          this.product = PRODUCTS[1];
-        
-        });
-    }
     if (this.product.category == null) {
       this.productService.getCategories()
         .subscribe(categories => {
@@ -92,16 +81,6 @@ error => {
 
   onMouseLeave() {
     this.isHovered = false;
-  }
-
-  get() {
-    if (this.amount !== 0) {
-      this.sessionService.setOrderLine({id: this.product.id, amount: this.amount,
-        product: this.product.name,
-        position: this.sessionService.getOrderLines().length + 1 });
-    } else if (this.amount === 0) {
-      this.sessionService.removeOrderLine(this.product.id);
-    }
   }
 
 }

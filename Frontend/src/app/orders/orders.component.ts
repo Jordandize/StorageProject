@@ -50,24 +50,8 @@ export class OrdersComponent implements OnInit {
     private httpService: HttpService,
     private sessionService: SessionService) {}
 
-  openDialog(){
-
-    alert("Select Storekeeper")
-  }
-
-  rejectOrder(){
-      //this.OrderService.setStatus("declined");
-    alert("Are you sure?");
-  }
-
     async ngOnInit() {
      await  this.httpService.get(this.baseUrl + '/api/orders/' + this.id).subscribe(data => {
-
-      // this.this.UserService.getActiveKeepers();
-      //   .subscribe(storekeepers => {
-      //     this.storekeepers = storekeepers;
-      //   });
-      //   }
 
         if (data != null) {
         this.dataSource2 = <Order[]>data;

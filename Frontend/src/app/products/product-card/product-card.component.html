@@ -1,113 +1,63 @@
-<!-- <div class="card-container"
-  fxLayout="row"
-  fxLayoutAlign="center center"> -->
+<!--Product card-->
+<mat-card *ngIf="product" fxFlex="225px" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
 
-  <!--Product card-->
-  <mat-card *ngIf="product" fxFlex="225px" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <!--Content-->
+  <mat-card-content fxLayout="row">
 
-    <!--Title-->
-    <mat-card-title>
-      <!-- <mat-card-subtitle>
-          <div>#{{product.id}}</div>
-      </mat-card-subtitle> -->
-      <!-- <div>
-        <img mat-card-avatar src="{{product.imageIcon | defaultImage:'http://i.piccy.info/i9/a9bb460a29be712a134aaa9518d524da/1542113823/152253/1281946/pr_card_stub_1_sm.png'}}"
-          fxFlex="40px" fxFlexOffset="5px">
-        <mat-card-subtitle fxFlexOffset="55px" [style.marginTop.px]="2">
-          <div>{{product.category}}</div>
-        </mat-card-subtitle>
-      </div> -->
-      <!-- <div fxLayout="row" fxLayoutAlign="start start" title="{{product.name}}">
-        <mat-card-title fxFill fxFlexAlign="center">
-          {{product.name | strLimit:54}}
+    <!--Image-->
+    <div class="image-container">
+      <div *ngIf="!isHovered">
+        <mat-card-title title="{{product.name}}">
+            {{product.name | strLimit:62}}
         </mat-card-title>
-      </div> -->
+        <img mat-card-avatar src="{{product.icon | defaultImage:'http://i.piccy.info/i9/a9a6d256d57426cbccec3dc80df25376/1542410160/14591/1281946/pr_card_stub_3_xs.png'}}"
+          fxFlex="40px"
+          class="icon-label">
+        <mat-card-subtitle class="category-label">
+            <div>{{product.category}}</div>
+        </mat-card-subtitle>
+      </div>
+      <img fxFlex="225px" [style.maxHeight.px]="225" [style.minHeight.px]="225" src="{{product.image | defaultImage:'http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png'}}"/>
+    </div>
+
+  </mat-card-content>
+
+  <!--Hover part-->
+  <mat-card fxLayout="column" *ngIf="isHovered" class="hover-part">
+
+    <!--Buttons-->
+    <div fxLayou fxLayoutAlign="start center" class="hover-buttons">
+      <mat-card-actions fxFlexOffset="5px" fxLayout="raw" fxLayoutAlign="center center">
+        <button mat-icon-button color="primary" (click)="decrease()">
+          <mat-icon>remove</mat-icon>
+        </button>
+        
+        <!--Input-->
+        <mat-form-field fxFlex="50px">
+            <input class="amount" [(ngModel)]="amount" (blur)="amountInput()" matInput value="0" length="5">
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="increase()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-actions>
+      <button fxFlex="60px" fxFlexAlign="center" fxFlexOffset="15px" class="get" color="primary" mat-fab (click)="get()">
+        Get
+      </button>
+
+    </div>
+
+    <!--Full Name-->
+    <mat-card-title class="hover-name" title="{{product.name}}">
+      {{product.name}}
     </mat-card-title>
 
-
-    <!--Content-->
-    <mat-card-content fxLayout="row">
-      <!--Buttons-->
-      <!-- <div fxFlex fxLayoutAlign="start center">
-        <div fxFill fxLayout="column-reverse">
-          <mat-card-actions fxLayout="raw" fxLayoutAlign="center center">
-            <button mat-icon-button color="primary" (click)="decrease()">
-              <mat-icon>remove</mat-icon>
-            </button> -->
-            <!--Input-->
-            <!-- <mat-form-field fxFlex="50px">
-                <input class="amount" [(ngModel)]="amount" (blur)="amountInput()" matInput value="0" length="5">
-            </mat-form-field>
-            <button mat-icon-button color="primary" (click)="increase()">
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-card-actions>
-          <button fxFlexAlign="center" class="get" color="primary" mat-fab>
-            Get
-          </button>
-        </div>
-      </div> -->
-      <!--Image-->
-      <div class="image-container">
-        <div *ngIf="!isHovered">
-          <mat-card-title title="{{product.name}}">
-              {{product.name | strLimit:62}}
-          </mat-card-title>
-          <img mat-card-avatar src="{{product.icon | defaultImage:'http://i.piccy.info/i9/a9a6d256d57426cbccec3dc80df25376/1542410160/14591/1281946/pr_card_stub_3_xs.png'}}"
-            fxFlex="40px"
-            class="icon-label">
-          <mat-card-subtitle class="category-label">
-              <div>{{product.category}}</div>
-          </mat-card-subtitle>
-          <!-- <mat-card-subtitle class="id-label">
-              <div>#{{product.id}}</div>
-          </mat-card-subtitle> -->
-        </div>
-        <img fxFlex="225px" [style.maxHeight.px]="225" [style.minHeight.px]="225" src="{{product.image | defaultImage:'http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png'}}"/>
-      </div>
+    <!--Description-->
+    <mat-card-content class="hover-description" fxFlex *ngIf="product.description" fxFlexAlign="center center">
+      <p>
+        {{product.description}}
+      </p>
     </mat-card-content>
-
-    <!--Hover tip-->
-    <!-- <mat-card-content fxFlexAlign="center center" *ngIf="!isHovered">
-        <p class="hover-tip">Hover card to interact</p>
-    </mat-card-content> -->
-
-    <!--Hover part-->
-    <mat-card fxLayout="column" *ngIf="isHovered" class="hover-part">
-
-      <!--Buttons-->
-      <div fxLayou fxLayoutAlign="start center" class="hover-buttons">
-        <mat-card-actions fxFlexOffset="5px" fxLayout="raw" fxLayoutAlign="center center">
-          <button mat-icon-button color="primary" (click)="decrease()">
-            <mat-icon>remove</mat-icon>
-          </button>
-          <!--Input-->
-          <mat-form-field fxFlex="50px">
-              <input class="amount" [(ngModel)]="amount" (blur)="amountInput()" matInput value="0" length="5">
-          </mat-form-field>
-          <button mat-icon-button color="primary" (click)="increase()">
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-card-actions>
-        <button fxFlex="60px" fxFlexAlign="center" fxFlexOffset="15px" class="get" color="primary" mat-fab (click)="get()">
-          Get
-        </button>
-      </div>
-
-      <!--Full Name-->
-      <mat-card-title class="hover-name" title="{{product.name}}">
-          {{product.name}}
-      </mat-card-title>
-
-      <!--Description-->
-      <mat-card-content class="hover-description" fxFlex *ngIf="product.description" fxFlexAlign="center center">
-        <p>
-          {{product.description}}
-        </p>
-      </mat-card-content>
-    </mat-card>
-
   </mat-card>
-  <!--End product card-->
 
-<!-- </div> -->
+</mat-card>
+<!--End product card-->
