@@ -5,7 +5,6 @@ import { SessionViewerComponent } from '../session-viewer/session-viewer.compone
 import { CabinetComponent } from './cabinet.component';
 import { ProductsComponent } from '../products/products.component';
 import { ProductsOpComponent } from '../productsCRUD/products.component';
-import { OrderComponent } from '../order/order.component';
 import { OrdersComponent } from '../orders/orders.component';
 import { OneOrderComponent } from '../oneOrder';
 import { CreateOrderComponent } from '../create-order/create-order.component';
@@ -39,20 +38,12 @@ const cabinetRoutes: Routes = [
         component: UserManagementComponent
       },
       {
-        path: 'order',
-        component: OrderComponent
-      },
-      {
         path: 'orders',
         component: OrdersComponent
       },
       {
         path: 'orders/:id',
         component: OneOrderComponent
-      },
-      {
-        path: 'session',
-        component: SessionViewerComponent
       },
       {
         path: 'queue',

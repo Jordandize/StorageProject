@@ -6,7 +6,7 @@ export class Product {
     description: string;
     image: string;
     imageIcon: string;
-    icon:string;
-    amount:number;
-    active:boolean;
+    icon: string;
+    amount: number;
+    active: boolean;
 }

@@ -1,16 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Product } from '../products/product';
+import { Router } from '@angular/router';
 import { ProductService } from '../products/product.service';
-// import { UserService } from './product.service';
-import { Category } from '../products/category';
 import { SessionService } from '../session.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { baseUrl } from '../../varUrl';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { HttpService } from '../http.service';
+import { Product } from '../data/Product';
+import { Category } from '../data/Categoty';
 
 
 

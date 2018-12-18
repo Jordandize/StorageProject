@@ -1,5 +1,4 @@
 export class Order{
-	//parentId: number;
 	name: string;
 	amount: number;
 	orderType: number;

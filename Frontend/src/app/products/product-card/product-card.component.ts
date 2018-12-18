@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Product } from '../product';
 import { ProductService } from '../product.service';
-import { PRODUCTS } from '../PRODUCTS';
 import { SessionService } from 'src/app/session.service';
+import { Product } from 'src/app/data/Product';
 
 @Component({
   selector: 'app-product-card',

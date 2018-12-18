@@ -14,7 +14,6 @@ import { routing } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register';
 import { LoginComponent } from './login';
-import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home';
 import { HeaderComponent } from './cabinet/header/header.component';
 import { SidebarComponent } from './cabinet/sidebar/sidebar.component';
@@ -44,7 +43,6 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    OrderComponent,
     HomeComponent,
     CabinetComponent,
     ProductsComponent,
@@ -55,7 +53,6 @@ import { QueueColumnComponent } from './keeper/order-queue/queue-column/queue-co
     DefaultImagePipe,
     HeaderComponent,
     SidebarComponent,
- //   UserComponent,
     OneOrderComponent,
     UserManagementComponent,
     OneOrderComponent,

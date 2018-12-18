@@ -8,16 +8,12 @@ import { Order } from './data/Order';
 import { HttpService } from './http.service';
 import { OrderStatus } from './data/OrderStatus';
 import { OrderShortage } from './data/OrderShortage';
-//import { User } from './userPage/user.component';
-//import { ORDERS } from './order/ORDERS';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   baseUrl = baseUrl;
-  //ORDERS = ORDERS;
-
   ORDERS: OldOrder[] = [
 {
 	name: 'order1',
@@ -62,15 +58,6 @@ export class OrderService {
        catchError(this.handleError<OldOrder>(`assign order id={id_order} to keeper id={id_keeper} failed`))
        );
    }
-  // }
-  // getUserOrders(id: number): Observable<Order[]>{
-  //   return this.http.get<Order[]>(this.baseUrl+'/orders/{id}').pipe(
-  //     catchError(this.handleError<Order[]>('get orders for user {id}')));
-  // }
-
-  // assignOrderToKeeper(order: Order, id: number){
-  //   return this.http.post(this.baseUrl+'')
-  // }
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

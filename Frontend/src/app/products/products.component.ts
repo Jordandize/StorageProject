@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from './product';
 import { ProductService } from './product.service';
-import { Category } from './category';
 import { SessionService } from '../session.service';
 import { OrderType } from '../data/OrderType';
+import { Product } from '../data/Product';
+import { Category } from '../data/Categoty';
 
 @Component({
   selector: 'app-products',

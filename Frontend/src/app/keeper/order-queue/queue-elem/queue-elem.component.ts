@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Order } from 'src/app/data/Order';
-import { User } from 'src/app/User';
 import { UserService } from 'src/app/user.service';
 import { OrderService } from 'src/app/order.service';
 import { OrderStatus } from 'src/app/data/OrderStatus';
@@ -10,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { OrderShortage } from 'src/app/data/OrderShortage';
 import { SessionService } from 'src/app/session.service';
 import { OrderType } from 'src/app/data/OrderType';
+import { User } from 'src/app/data/User';
 
 @Component({
   selector: 'app-queue-elem',
