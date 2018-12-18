@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public class TabsDaoImpl implements TabsDao {
 
-   
-
 	@Override
 	public List<TabSidebar> findUserTabs() {
 		   List<TabSidebar> tabs= new ArrayList<>();
@@ -23,6 +21,15 @@ public class TabsDaoImpl implements TabsDao {
 	 }
 
     @Override
+    public List<TabSidebar> findKeeperTabs() {
+    	 List<TabSidebar> tabs= new ArrayList<>();
+		   tabs.add(new TabSidebar("Products","products", "ballot"));
+		   tabs.add(new TabSidebar("Create Order","create-order", "queue"));
+		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
+	        return tabs;
+    }
+
+    @Override
     public List<TabSidebar> findAdminTabs() {
     	 List<TabSidebar> tabs= new ArrayList<>();
 		   tabs.add(new TabSidebar("Order List","adminOrders", "book"));
@@ -31,13 +38,5 @@ public class TabsDaoImpl implements TabsDao {
 		   tabs.add(new TabSidebar("Users roles","user-management", "assignment_ind"));
 	        return tabs;
     }
-
-    @Override
-    public List<TabSidebar> findKeeperTabs() {
-    	 List<TabSidebar> tabs= new ArrayList<>();
-		   tabs.add(new TabSidebar("Queue","queue", "compare_arrows"));
-	        return tabs;
-    }
-
 
 }
