@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import ua.edu.ukma.gpd.storage.dao.OrderDao;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.sql.OrderSql;
-import ua.edu.ukma.gpd.storage.sql.ProductSql;
 import ua.edu.ukma.gpd.storage.enumeration.*;
 
 import javax.sql.DataSource;

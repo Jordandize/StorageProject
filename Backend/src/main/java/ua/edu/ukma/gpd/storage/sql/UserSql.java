@@ -33,7 +33,4 @@ public class UserSql {
                     "AND\n" +
                     "active='true'";
 
-    private UserSql() {
-    }
-
 }

@@ -11,8 +11,6 @@ import ua.edu.ukma.gpd.storage.service.CategoryService;
 import javax.validation.Valid;
 import java.util.List;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("api/categories")
 public class CategoryController {
@@ -46,23 +44,6 @@ public class CategoryController {
         return new ResponseEntity<>(id, status);
     }
     
-//    @PostMapping("/{id}")
-//    public ResponseEntity<Boolean> updateProduct(@Valid @RequestBody CategoryDto form,@PathVariable("id") Long id) throws Exception{
-//        HttpStatus status;
-//        boolean b;
-//        try{
-//            Category category = buildCategoryFromDto(form);
-//            category.setId(id);
-//            b = categoryService.update(category);
-//            status = HttpStatus.OK;
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            b=false;
-//            status = HttpStatus.BAD_REQUEST;
-//        }
-//        return new ResponseEntity<>(b, status);
-//    }
-    
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id) throws Exception{
         HttpStatus status;
@@ -78,8 +59,6 @@ public class CategoryController {
         }
         return new ResponseEntity<>(b, status);
     }
-  
-   
 
     private Category buildCategoryFromDto(CategoryDto form){
         Category category = new Category();
@@ -91,10 +70,5 @@ public class CategoryController {
     public Category updateCategory(@PathVariable("id") Long id, @PathVariable("name") String name) throws Exception{
         return categoryService.update(id, name);
     }
-
-//    @PostMapping("delete={id}")
-//    public boolean deleteCategory(@PathVariable("id") Long id) throws Exception{
-//        return categoryService.delete(id);
-//    }
 
 }

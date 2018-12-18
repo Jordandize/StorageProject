@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 
 import ua.edu.ukma.gpd.storage.dao.UserDao;
 import ua.edu.ukma.gpd.storage.entity.User;
-import ua.edu.ukma.gpd.storage.sql.ProductSql;
 import ua.edu.ukma.gpd.storage.sql.UserSql;
 
 @Repository

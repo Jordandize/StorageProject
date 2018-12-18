@@ -3,8 +3,6 @@ package ua.edu.ukma.gpd.storage.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.dto.ShortageDto;
@@ -16,10 +14,7 @@ import ua.edu.ukma.gpd.storage.service.OrderService;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,12 +75,7 @@ public class OrderController {
 
     @GetMapping("/{userId}")
     public List<Order> getOrdersForUser(@PathVariable(value = "userId") Long userId) throws Exception {
-//        System.out.println("Get!");
-//        if (userId != null) {
         return orderService.findOrdersForUser(userId);
-//        } else {
-//            return orderService.findAll();
-//        }
     }
     
     @GetMapping("/oneOrder/{orderId}")

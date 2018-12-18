@@ -24,9 +24,6 @@ public class Order {
 
     private Long assignedTo;
 
-    // TO DO LARGE OBJECT
-
-
     public Long getId() {
         return id;
     }
