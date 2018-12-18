@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 
 import { OrderLine } from './data/OrderLine';
 import { User } from './User';
+import { OrderType } from './data/OrderType';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class SessionService {
   // subsribe this to listen for order lines change
   orderLinesChange$ = this.orderLinesChangeSource.asObservable();
 
+  orderTypeKey = 'OrderType';
   orderLinesKey = 'OrderLines';
   userKey = 'User';
   rolesKey = 'Roles';
@@ -28,6 +30,7 @@ export class SessionService {
 
   private initialize() {
     this.user = this.getUser();
+    this.roles = this.getRoles();
   }
 
   getUser(): User {
@@ -102,47 +105,74 @@ export class SessionService {
     return JSON.parse(localStorage.getItem(key));
   }
 
-  getOrderLines(): OrderLine[] {
-    let orderLines = JSON.parse(localStorage.getItem(this.orderLinesKey));
+  getCreationOrderType(): OrderType {
+    let type: OrderType;
+    if (this.isKeeper()) {
+      type = this.getFromCache(this.orderTypeKey);
+      type = type == null ? OrderType.Base : type;
+    } else {
+      type = OrderType.User;
+    }
+    return type;
+  }
+
+  setCreationOrderType(type: OrderType) {
+    this.saveInCache(this.orderTypeKey, type);
+  }
+
+  getOrderLines(type: OrderType = this.getCreationOrderType()): OrderLine[] {
+    const linesKey = this.orderLinesKey + type;
+    let orderLines = JSON.parse(localStorage.getItem(linesKey));
     if (orderLines == null) {
-      localStorage.setItem(this.orderLinesKey, JSON.stringify([]));
-      orderLines = JSON.parse(localStorage.getItem(this.orderLinesKey));
+      localStorage.setItem(linesKey, JSON.stringify([]));
+      orderLines = JSON.parse(localStorage.getItem(linesKey));
     }
     return orderLines;
   }
 
-  setOrderLine(orderLine: OrderLine) {
-    const cachedOrderLine = this.getOrderLine(orderLine.id);
-    const orderLines = this.getOrderLines();
+  setOrderLine(orderLine: OrderLine, type: OrderType = this.getCreationOrderType()) {
+    const orderLines = this.getOrderLines(type);
+    const cachedOrderLine = orderLines.find(elem => elem.id === orderLine.id);
     if (cachedOrderLine == null) {
       orderLines.push(orderLine);
     } else {
-      orderLines.forEach(elem => {
-        if (elem.id === cachedOrderLine.id) {
-          elem.amount = orderLine.amount;
-        }
-      });
+      if (cachedOrderLine.order == null || (cachedOrderLine.order != null && orderLine.order != null)) {
+        orderLines.forEach(elem => {
+          if (elem.id === cachedOrderLine.id) {
+            elem.amount = orderLine.amount;
+          }
+        });
+      } else {
+        orderLines.push(orderLine);
+      }
     }
-    this.saveOrderLines(orderLines);
+    this.saveOrderLines(orderLines, type);
   }
 
-  getOrderLine(id: number): OrderLine {
-    return this.getOrderLines().find(elem => elem.id === id);
+  getOrderLine(id: number, type: OrderType = this.getCreationOrderType()): OrderLine {
+      return this.getOrderLines(type).find(elem => elem.id === id);
   }
 
-  removeOrderLine(id: number) {
-    const orderLines = this.getOrderLines().filter(elem => elem.id !== id);
-    this.saveOrderLines(orderLines);
+  removeOrderLine(id: number, type: OrderType = this.getCreationOrderType(), order = null) {
+    let orderLines: OrderLine[];
+    orderLines = order == null
+      ? this.getOrderLines(type).filter(elem => (elem.id === id && elem.order != null) || elem.id !== id)
+      : this.getOrderLines(type).filter(elem => elem.order !== order);
+    this.saveOrderLines(orderLines, type);
   }
 
-  saveOrderLines(orderLines: OrderLine[]) {
-    localStorage.setItem(this.orderLinesKey, JSON.stringify(orderLines));
+  saveOrderLines(orderLines: OrderLine[], type: OrderType = this.getCreationOrderType()) {
+    localStorage.setItem(this.orderLinesKey + type, JSON.stringify(orderLines));
     this.orderLinesChange();
   }
 
-  deleteOrderLines() {
-    localStorage.setItem(this.orderLinesKey, JSON.stringify([]));
+  deleteOrderLines(type: OrderType = this.getCreationOrderType()) {
+    localStorage.setItem(this.orderLinesKey + type, JSON.stringify([]));
     this.orderLinesChange();
+  }
+
+  getOrderIdIfExistsInOrder(id: number, type: OrderType = this.getCreationOrderType()) {
+    return this.getOrderLines(type).filter(elem => elem.id === id)[0].order;
   }
 
   // emit event

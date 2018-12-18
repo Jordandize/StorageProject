@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
+import ua.edu.ukma.gpd.storage.dto.ShortageDto;
 import ua.edu.ukma.gpd.storage.entity.Order;
 import ua.edu.ukma.gpd.storage.entity.OrderProduct;
 import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
@@ -53,6 +54,15 @@ public class OrderController {
     	Order order = orderService.setClosed(id);
     	return order != null
     			? new ResponseEntity<>(order, HttpStatus.OK) 
+    			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    @GetMapping("/{id}/shortage")
+    public ResponseEntity<List<ShortageDto>> getOrderShortage(@PathVariable Long id)
+    		throws Exception {
+    	List<ShortageDto> shortage = orderService.getShortageForOrder(id);
+    	return shortage != null
+    			? new ResponseEntity<>(shortage, HttpStatus.OK)
     			: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 

@@ -7,9 +7,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
-import ua.edu.ukma.gpd.storage.dto.ProductDto;
 import ua.edu.ukma.gpd.storage.dto.RolesDto;
 import ua.edu.ukma.gpd.storage.dto.SignupFormDto;
 import ua.edu.ukma.gpd.storage.entity.Role;
@@ -106,7 +106,9 @@ public class UserController {
 		try {
 			User user = buildUserFromDto(form);
 			id = userService.add(user);
-			emailService.sendGreeting(user.getEmail());
+			try {
+				emailService.sendGreeting(user.getEmail());
+			} catch (MailException ignore) { }
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			e.printStackTrace();

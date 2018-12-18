@@ -43,11 +43,11 @@ mat-card {
     box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.2), inset 0px 1px 0px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
 }
 
-.ready-to-proccessing {
+.order-status-label {
     height: 20px;
 }
 
-.ready-to-proccessing mat-icon {
+.order-status-label mat-icon {
     font-size: 26px;
     width: 26px;
     height: 26px;

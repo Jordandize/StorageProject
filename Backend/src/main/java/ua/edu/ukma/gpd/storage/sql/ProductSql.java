@@ -21,8 +21,9 @@ public class ProductSql {
             "SELECT * FROM products WHERE name = ?";
     
     public static final String FIND_BY_CATEGORY =
-    		"SELECT * FROM products WHERE id_category = ?";
+    		"SELECT * FROM products WHERE id_category = ? ORDER BY id";
 
     public static final String FIND_ALL =
-            "SELECT * FROM products";
+            "SELECT * FROM products ORDER BY id";
+
 }
