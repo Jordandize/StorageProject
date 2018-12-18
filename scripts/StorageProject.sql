@@ -1,7 +1,7 @@
 -- Table: public.categories
 
-DROP  TABLE public.categories CASCADE;
-DROP SEQUENCE categories_id_seq ;
+--DROP  TABLE public.categories CASCADE;
+--DROP SEQUENCE categories_id_seq ;
 CREATE SEQUENCE categories_id_seq START WITH 1;
 
 CREATE TABLE public.categories
@@ -22,8 +22,8 @@ TABLESPACE pg_default;
 
 -- Table: public.order_types
 
-DROP TABLE public.order_types  CASCADE;
-DROP SEQUENCE ordertype_typeid_seq;
+--DROP TABLE public.order_types  CASCADE;
+--DROP SEQUENCE ordertype_typeid_seq;
 CREATE SEQUENCE ordertype_typeid_seq START WITH 1;
 
 CREATE TABLE public.order_types
@@ -42,8 +42,8 @@ TABLESPACE pg_default;
 
 -- Table: public.roles
 
-DROP TABLE public.roles  CASCADE;
-DROP SEQUENCE roles_id_seq;
+--DROP TABLE public.roles  CASCADE;
+--DROP SEQUENCE roles_id_seq;
 CREATE SEQUENCE roles_id_seq START WITH 1;
 
 CREATE TABLE public.roles
@@ -63,8 +63,8 @@ TABLESPACE pg_default;
 --    OWNER to bmmnonpsiqroee;
 -- Table: public.users
 
-DROP TABLE public.users  CASCADE;
-DROP SEQUENCE users_id_seq;
+--DROP TABLE public.users  CASCADE;
+--DROP SEQUENCE users_id_seq;
 CREATE SEQUENCE users_id_seq START WITH 1;
 
 CREATE TABLE public.users
@@ -89,7 +89,7 @@ TABLESPACE pg_default;
 --   OWNER to bmmnonpsiqroee;
 -- Table: public.users_roles
 
-DROP TABLE public.users_roles  CASCADE;
+--DROP TABLE public.users_roles  CASCADE;
 
 CREATE TABLE public.users_roles
 (
@@ -114,8 +114,8 @@ TABLESPACE pg_default;
 --    OWNER to bmmnonpsiqroee;
 -- Table: public.products
 
-DROP TABLE public.products  CASCADE;
-DROP SEQUENCE products_id_seq;
+--DROP TABLE public.products  CASCADE;
+--DROP SEQUENCE products_id_seq;
 CREATE SEQUENCE products_id_seq START WITH 1;
 CREATE TABLE public.products
 (
@@ -146,12 +146,12 @@ TABLESPACE pg_default;
 
 -- Table: public.orders
 
-DROP TABLE public.orders  CASCADE;
-DROP SEQUENCE orders_orderid_seq;
-DROP SEQUENCE orders_status_seq;
-DROP SEQUENCE orders_orderstype_seq;
-DROP SEQUENCE orders_createdby_seq;
-DROP SEQUENCE orders_assignedto_seq;
+--DROP TABLE public.orders  CASCADE;
+--DROP SEQUENCE orders_orderid_seq;
+--DROP SEQUENCE orders_status_seq;
+--DROP SEQUENCE orders_orderstype_seq;
+--DROP SEQUENCE orders_createdby_seq;
+--DROP SEQUENCE orders_assignedto_seq;
 
 CREATE SEQUENCE orders_orderid_seq START WITH 1;
 CREATE SEQUENCE orders_status_seq START WITH 1;
@@ -199,7 +199,7 @@ TABLESPACE pg_default;
 
 -- Table: public.orders_products
 
-DROP TABLE public.orders_products  CASCADE;
+--DROP TABLE public.orders_products  CASCADE;
 
 CREATE TABLE public.orders_products
 (
@@ -309,13 +309,14 @@ INSERT INTO products (name, amount, id_category, active) values ('Jack Torin 10t
 INSERT INTO products (name, amount, id_category, active) values ('Fraser Einhell - TC-BJ 900 Classic', 2, 5, false);
 INSERT INTO products (name, description, amount, id_category, active) values ('Dell', 'Powerful', 1, 3, true );
 
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 'READY', '2018-02-11 08:35:00.139', '2018-02-11 08:35:00.139', 'nothing', false, 2, 3);
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 'OPENED', '2018-02-11 08:36:00.139', '2018-02-11 08:36:00.139', 'nothing', false, 2, 3);
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (3, 1, 'OPENED', '2018-02-11 10:59:00.139', '2018-02-11 08:35:00.139', 'something', false, 1, 1);
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 'OPENED', '2018-11-11 18:24:17.119', '2018-11-11 18:24:17.119', 'yea', false, 2, 1);
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 3, 'OPENED', '2018-11-11 19:36:51.3', '2018-11-11 19:36:51.3', 'Hel Yea', false, 1, 1);
-INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 'PROCESSING', '2018-11-11 19:45:08.632', '2018-11-11 19:45:08.632', 'for user 1', false, 2, 1);
-INSERT INTO orders (id_parent,order_statuses,  id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (2, 1, 'CLOSED', '2018-11-12 18:42:35.541', '2018-11-12 18:42:35.541', 'for user 1', false, 2, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 2, '2018-02-11 08:35:00.139', '2018-02-11 08:35:00.139', 'nothing', false, 2, 3);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-02-11 08:36:00.139', '2018-02-11 08:36:00.139', 'nothing', false, 2, 3);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (3, 1, 1, '2018-02-11 10:59:00.139', '2018-02-11 08:35:00.139', 'something', false, 1, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-11-11 18:24:17.119', '2018-11-11 18:24:17.119', 'yea', false, 2, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 3, 1, '2018-11-11 19:36:51.3', '2018-11-11 19:36:51.3', 'Hel Yea', false, 1, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 3, '2018-11-11 19:45:08.632', '2018-11-11 19:45:08.632', 'for user 1', false, 2, 1);
+INSERT INTO orders (id_parent,order_statuses,  id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (2, 1, 2, '2018-11-12 18:42:35.541', '2018-11-12 18:42:35.541', 'for user 1', false, 2, 1);
 
 INSERT INTO orders_products ( id_order, id_product, amount) values (1, 2, 1);
+
 
