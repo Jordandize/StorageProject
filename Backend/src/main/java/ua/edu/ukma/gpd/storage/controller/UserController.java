@@ -30,6 +30,7 @@ public class UserController {
 	@Autowired
 	private EmailService emailService;
 	
+
 	@GetMapping("api/users")
 	public List<User> getUsers() throws Exception {
 		return userService.getAll();

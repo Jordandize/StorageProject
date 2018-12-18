@@ -44,6 +44,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void delete(Order order){
+        try{
+            Order exists = orderDao.findById(order.getId());
+            if (exists != null){
+                orderDao.delete(order);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Order findById(Long id) throws Exception{
         try{
             Order order = orderDao.findById(id);
@@ -119,15 +131,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public Order declineOrder(Long orderId) throws Exception{
-        Order order = null;
-        try{
-            order = orderDao.declineOrder(orderId);
-        } catch (EmptyResultDataAccessException e){
-            e.printStackTrace();
-        } catch (Exception e){
-            throw new Exception("Exception occured in OrderServiceImpl: operation rdeclineOrder [" +  orderId + "] failed", e);
-        }
-        return order;
+    	Order order = findById(orderId);
+    	if(order != null) {
+        	//order.setOrderStatus(OrderStatus.DECLINED.name());
+        	//order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.declineOrder(orderId);
+    	}
+    	return order;
     }
     
     public Order setReady(Long id) throws Exception {
@@ -159,5 +169,15 @@ public class OrderServiceImpl implements OrderService {
     		shortage = orderProductDao.findShortageForOrder(order.getId());
     	}
     	return shortage;
+    }
+      
+    public Order cancelOrder(Long orderId) throws Exception{
+    	Order order = findById(orderId);
+    	if(order != null) {
+        	//order.setOrderStatus(OrderStatus.CANCELED.name());
+        	//order.setModifiedDateTime(new Timestamp(System.currentTimeMillis()));
+        	order = orderDao.cancelOrder(orderId);
+    	}
+    	return order;
     }
 }
