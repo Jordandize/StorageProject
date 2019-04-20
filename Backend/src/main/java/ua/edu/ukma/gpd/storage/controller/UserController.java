@@ -104,17 +104,20 @@ public class UserController {
 	public ResponseEntity<Long> addUser(@Valid @RequestBody SignupFormDto form) throws Exception {
 		HttpStatus status;
 		Long id;
+		User user = buildUserFromDto(form);
 		try {
-			User user = buildUserFromDto(form);
 			id = userService.add(user);
-			try {
-				emailService.sendGreeting(user.getEmail());
-			} catch (MailException ignore) { }
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			e.printStackTrace();
 			id = (long) -1;
 			status = HttpStatus.BAD_REQUEST;
+		}
+		try {
+		emailService.sendGreeting(user.getEmail());
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 		return new ResponseEntity<Long>((long) id, status);
 	}
