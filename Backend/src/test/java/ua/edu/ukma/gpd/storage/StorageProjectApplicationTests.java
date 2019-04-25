@@ -30,7 +30,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
-import org.testcontainers.containers.PostgreSQLContainer;
+//import org.testcontainers.containers.PostgreSQLContainer;
 
 import ua.edu.ukma.gpd.storage.dto.OrderDto;
 import ua.edu.ukma.gpd.storage.dto.RolesDto;
