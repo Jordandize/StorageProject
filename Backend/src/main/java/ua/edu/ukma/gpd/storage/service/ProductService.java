@@ -27,4 +27,8 @@ public interface ProductService {
     
     List<Product> getByCategory(Category category) throws Exception;
     
+    void createAdminReport() throws Exception;
+    
+    void createAdminReportAvailability() throws Exception;
+    
 }
