@@ -43,6 +43,17 @@ public class TabSidebar {
 	        this.icon = icon;
 	    }
 
+	    
+	    @Override
+	    public boolean equals(Object ts) {
+	    	if(ts == null) return false;
+	    	if(ts instanceof TabSidebar) {
+	    		return name.equals(((TabSidebar) ts).name);
+	    	}
+	    	return false;
+	    }
+
+
 
 	    @Override
 	    public String toString() {

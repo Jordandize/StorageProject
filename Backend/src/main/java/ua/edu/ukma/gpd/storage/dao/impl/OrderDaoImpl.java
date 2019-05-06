@@ -106,7 +106,7 @@ public class OrderDaoImpl implements OrderDao {
     public Order assignKeeperToOrder(Long userId, Long orderId) {
         Order order = null;
         try {
-            jdbcTemplate.update(OrderSql.ASSIGN_KEEPER_TO_ORDER, userId, orderId);
+            jdbcTemplate.update(OrderSql.ASSIGN_KEEPER_TO_ORDER, userId, OrderStatus.PROCESSING.name(), orderId);
             order = findById(orderId);
         } catch (EmptyResultDataAccessException e){
 

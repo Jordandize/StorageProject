@@ -38,12 +38,17 @@ public class TabsController {
         try{
         	
         	if(roles.contains(user)) {
-        	List<TabSidebar> tabs = tabsService.findUserTabs();
-            list.addAll(tabs);
+
+	        	List<TabSidebar> tabs = tabsService.findUserTabs();
+	            list.addAll(tabs);
         	}
             if(roles.contains(keeper)) {
             	List<TabSidebar> tabs = tabsService.findKeeperTabs();
-            	 list.addAll(tabs);
+            	 for(TabSidebar tab: tabs) {
+            		 if(!list.contains(tab)) {
+            			 list.add(tab);
+            		 }
+            	 }
             	}
            if(roles.contains(admin)) {
         	   List<TabSidebar>  tabs = tabsService.findAdminTabs();

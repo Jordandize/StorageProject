@@ -2,6 +2,9 @@ package ua.edu.ukma.gpd.storage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+
+import org.springframework.scheduling.annotation.Scheduled;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -13,7 +16,11 @@ import ua.edu.ukma.gpd.storage.enumeration.OrderStatus;
 import ua.edu.ukma.gpd.storage.service.OrderService;
 import ua.edu.ukma.gpd.storage.service.UserService;
 
+
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
+
 import java.util.List;
 
 @Service
@@ -175,4 +182,22 @@ public class OrderServiceImpl implements OrderService {
     	}
     	return order;
     }
+
+    
+	@Scheduled(cron ="0 45 3 * * ?")
+	public void scheduleFixedRateWithInitialDelayTask() throws Exception {
+	  List<Order> orders = findAll();
+	  for(Order order: orders) {
+		  if(order.getOrderStatus().equals("CLOSED") || order.getOrderStatus().equals("CANCELED") || order.getOrderStatus().equals("DECLINED")) {
+			  java.util.Date date = new java.util.Date();
+			  long time = date.getTime();
+			  long orderTime = order.getModifiedDateTime().getTime();
+			  if(time - orderTime > 1000 * 60 * 60 * 24 * 10) {
+				  order.setArchived(true);
+				  orderDao.update(order);
+			  }
+		  }
+	  }
+	}
+
 }
