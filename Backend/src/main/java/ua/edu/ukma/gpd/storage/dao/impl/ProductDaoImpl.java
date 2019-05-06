@@ -96,4 +96,19 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.query(ProductSql.FIND_ALL, mapper);
     }
     
+    @Override
+    public List<Product> findAllPresent() {
+        return jdbcTemplate.query(ProductSql.FIND_ALL_PRESENT, mapper);
+    }
+    
+    @Override
+    public List<Product> findAllNotPresent() {
+        return jdbcTemplate.query(ProductSql.FIND_ALL_NOT_PRESENT, mapper);
+    }
+    
+    @Override
+    public List<Product> findAllEnds(int quantity) {
+        return jdbcTemplate.query(ProductSql.FIND_ALL_ENDS, new Object[] { quantity }, mapper);
+    }
+    
 }

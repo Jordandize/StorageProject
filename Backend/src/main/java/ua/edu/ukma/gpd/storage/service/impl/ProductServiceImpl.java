@@ -70,4 +70,33 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception("ProductServiceImpl: Get all products operation failed", e);
         }
     }
+
+	@Override
+	public List<Product> getAllPresented() throws Exception {
+        try {
+            return productDao.findAllPresent();
+        } catch (Exception e){
+            throw new Exception("ProductServiceImpl: Get all products operation failed", e);
+        }
+	}
+
+	@Override
+	public List<Product> getAllNotPresented() throws Exception {
+        try {
+            return productDao.findAllNotPresent();
+        } catch (Exception e){
+            throw new Exception("ProductServiceImpl: Get all products operation failed", e);
+        }
+	}
+
+	@Override
+	public List<Product> getAllEnds(int quantity) throws Exception {
+        try {
+            return productDao.findAllEnds(quantity);
+        } catch (Exception e){
+            throw new Exception("ProductServiceImpl: Get all products operation failed", e);
+        }
+        
+     
+	}
 }

@@ -25,4 +25,13 @@ public class ProductSql {
 
     public static final String FIND_ALL =
             "SELECT * FROM products";
+    
+    public static final String FIND_ALL_PRESENT =
+            "SELECT * FROM products WHERE amount > 0";
+    
+    public static final String FIND_ALL_NOT_PRESENT =
+            "SELECT * FROM products WHERE amount IN (0)";
+    
+    public static final String FIND_ALL_ENDS =
+            "SELECT * FROM products WHERE amount < ?";
 }
