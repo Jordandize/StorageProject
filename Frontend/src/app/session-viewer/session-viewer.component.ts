@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 import { OrderLine } from '../data/OrderLine';
 import { SessionService } from '../session.service';
@@ -10,16 +10,23 @@ import { SessionService } from '../session.service';
 })
 export class SessionViewerComponent implements OnInit {
 
-  orderLines: OrderLine[];
-  displayedColumns: string[];
+  @Input() orderLines: OrderLine[];
+  @Input() displayedColumns: string[];
 
   constructor(private sessionService: SessionService) {
   }
 
   ngOnInit() {
-    this.sessionService.orderLinesChange$.subscribe(() => { this.orderLines = this.sessionService.getOrderLines(); console.log(25); });
-    this.sessionService.orderLinesChange();
-    this.displayedColumns = ['id', 'amount', 'product', 'category'];
+    if (this.orderLines == null) {
+      this.orderLines = this.sessionService.getOrderLines();
+    }
+    if (this.displayedColumns == null) {
+      this.displayedColumns = ['id', 'amount', 'product', 'category'];
+    }
+  }
+
+  removeLine(id: number, order = null) {
+    this.sessionService.removeOrderLine(id, this.sessionService.getCreationOrderType(), order);
   }
 
 }

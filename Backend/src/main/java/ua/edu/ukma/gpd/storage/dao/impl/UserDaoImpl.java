@@ -46,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	};
 
+
 	@Override
 	public Long create(User user) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -92,7 +93,12 @@ public class UserDaoImpl implements UserDao {
 	public List<User> findAll() {
 		return jdbcTemplate.query(UserSql.FIND_ALL, mapper);
 	}
-
+	@Override
+	public List<User> findAllByEmail(String email) {
+		return jdbcTemplate.query(UserSql.FIND_ALL_EMAIL,
+				new Object[] { email }, mapper);
+	}
+	
 
 	@Override
 	public List<User> findActiveKeepers(){

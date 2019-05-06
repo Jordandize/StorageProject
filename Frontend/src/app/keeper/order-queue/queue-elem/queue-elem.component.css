@@ -1,0 +1,84 @@
+mat-card {
+    padding: 5px 8px;
+    background-color: #4e4e4e;
+    box-shadow: inset 0px 2px 1px -1px rgba(0, 0, 0, 0.2), inset 0px 1px 1px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 3px 0px rgba(0, 0, 0, 0.12)!important;
+}
+
+.elem-title {
+    font-size: 14px;
+    padding-top: 1px;
+    height: 24px;
+}
+
+.elem-title mat-icon {
+    font-size: 18px;
+}
+
+.elem-content {
+    font-size: 13px;
+}
+
+.elem-content mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+}
+
+.drop-actions {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+}
+
+.drop-actions button[mat-icon-button] {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.datetimes {
+    background-color: #4242427a;
+    border-radius: 4px;
+    padding: 2px 4px;
+    box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.2), inset 0px 1px 0px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+}
+
+.order-status-label {
+    height: 20px;
+}
+
+.order-status-label mat-icon {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    margin-top: -5px;
+}
+
+.creator-info {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+mat-expansion-panel {
+    box-shadow: none!important;
+}
+
+mat-expansion-panel mat-expansion-panel-header {
+    font-size: 12px!important;
+}
+
+.no-right-margin {
+    margin-right: 0!important;
+}
+
+mat-expansion-panel div.creater-info-details {
+    font-size: 12px!important;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+a {
+    color: inherit;
+}

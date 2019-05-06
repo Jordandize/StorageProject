@@ -1,0 +1,136 @@
+<mat-card>
+  <div class="drop-actions">
+
+
+    <!-- Order Card Menu -->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+
+
+    <!-- Order Card Menu Buttons -->
+    <mat-menu #menu="matMenu">
+      <button *ngIf="order.orderStatus == OrderStatus.Processing" 
+      mat-menu-item [disabled]="readyDisabled || !baseDisabled" (click)="toReady(order.id)">
+        <mat-icon>forward</mat-icon>
+        <span>Ready</span>
+      </button>
+
+
+      <button *ngIf="order.orderStatus == OrderStatus.Processing"
+      mat-menu-item [disabled]="baseDisabled" (click)="toBase(order.id)">
+        <mat-icon>control_point</mat-icon>
+        <span>Base Order</span>
+      </button>
+
+
+      <button  *ngIf="order.orderStatus == OrderStatus.Ready"
+      mat-menu-item [disabled]="supplyDisabled" (click)="toSupply(order.id)">
+          <mat-icon>place</mat-icon>
+          <span>Supply</span>
+      </button>
+
+
+      <button mat-menu-item>
+          <mat-icon>email</mat-icon>
+          <span>Message</span>
+      </button>
+    </mat-menu>
+
+
+  </div>
+  
+
+  <!-- Order Card Title -->
+  <div fxLayout="row" class="elem-title">
+    <mat-icon>assignment</mat-icon>
+    <div><a routerLink="../orders/{{order.id}}">#{{order.id}}</a></div>
+  </div>
+
+
+  <!-- Order Card Information -->
+  <div class="elem-content">
+    <div fxLayout="row">
+
+
+      <!-- Order Status Label -->
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center center">
+
+
+          <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+            <div>
+                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+            </div>
+            <div>Loading</div>
+          </div>
+
+
+          <div *ngIf="!loading && order.orderStatus === OrderStatus.Processing && baseDisabled === true" fxLayout="column" fxLayoutAlign="center center">
+            <div class="order-status-label">
+              <mat-icon>done</mat-icon>
+            </div>
+            <div>Ready to processing!</div>
+          </div>
+
+
+          <div *ngIf="!loading && order.orderStatus === OrderStatus.Processing && baseDisabled === false" fxLayout="column" fxLayoutAlign="center center">
+            <div class="order-status-label">
+              <mat-icon>close</mat-icon>
+            </div>
+            <div>{{shortage.length}} {{shortage.length === 1 ? 'product is' : 'products are'}} missing!</div>
+          </div>
+
+
+          <div *ngIf="!loading && order.orderStatus === OrderStatus.Ready" fxLayout="column" fxLayoutAlign="center center">
+            <div class="order-status-label">
+              <mat-icon>done</mat-icon>
+            </div>
+            <div>Ready to processing!</div>
+          </div>
+
+
+          <div *ngIf="!loading && order.orderStatus === OrderStatus.Waiting" fxLayout="column" fxLayoutAlign="center center">
+            <div class="order-status-label">
+              <mat-icon>local_shipping</mat-icon>
+            </div>
+            <div>Waiting for 2 products.</div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <!-- Order Creation Datetime And Last Update Datetime-->
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <div class="datetimes">
+          <div>{{order.creationDateTime | date:'dd MMM, HH:mm'}}</div>
+          <div>{{order.modifiedDateTime | date:'dd MMM, HH:mm'}}</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <!-- Order Card Creator Information -->
+  <div fxLayout="row" fxLayoutAlign="center center" class="creator-info">
+    <mat-expansion-panel fxFlex [hideToggle]="true">
+      <mat-expansion-panel-header [expandedHeight]="'24px'" [collapsedHeight]="'24px'">
+        <mat-panel-title *ngIf="user != null" fxFlex fxLayoutAlign="center center" class="no-right-margin">
+          {{user.email}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="user != null" class="creater-info-details">
+        <div>{{user.phone}}</div>
+        <div>{{user.name}} {{user.surname}}</div>
+        <!-- Creator Annotation About Order-->
+        <div>{{order.annotation}}</div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+
+
+</mat-card>

@@ -5,3 +5,9 @@
 app-product-card {
     margin: 20px 10px;
 }
+
+.go-to-order {
+    font-size: 15px;
+    font-family: Arial;
+    color: aliceblue;
+}

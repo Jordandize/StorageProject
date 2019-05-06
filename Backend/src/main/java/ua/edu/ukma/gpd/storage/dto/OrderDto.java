@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 public class OrderDto {
 
-    // TODO: make correct validation
-
     private String annotation;
 
     @NotNull()
@@ -15,7 +13,7 @@ public class OrderDto {
     @NotNull()
     private Long createdBy;
 
-    // name and amount of product
+    // id and amount of product
     @NotNull()
     private HashMap<Long, Integer> products;
 

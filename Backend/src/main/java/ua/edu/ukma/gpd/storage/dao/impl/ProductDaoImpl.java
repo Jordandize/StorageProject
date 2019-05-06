@@ -65,7 +65,7 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.update(ProductSql.UPDATE,
                 product.getName(), product.getAmount(), product.isActive(),
                 product.getDescription(), product.getImage(), product.getIcon(),
-                product.getCategoryId()) > 0;
+                product.getCategoryId(), product.getId()) > 0;
     }
 
     @Override

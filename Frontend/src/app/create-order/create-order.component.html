@@ -1,0 +1,58 @@
+<div fxLayout="row" fxLayout.lt-md="column" *ngIf="showOrderTypeMenu">
+
+  <nav mat-tab-nav-bar fxFlex="60%" mat-align-tabs="center">
+    <a mat-tab-link *ngFor="let type of orderTypes" (click)="setOrderType(type)"
+      [active]="activeType === type" [ngClass]="{'nav-a-active': activeType === type }">
+      <span *ngIf="type === OrderType.User">Create User</span>
+      <span *ngIf="type === OrderType.Base">Create Keeper</span>
+    </a>
+  </nav>
+
+</div>
+
+
+<div fxLayout="row" fxLayout.lt-md="column">
+
+  <div fxFlex="60%">
+
+    <app-session-viewer 
+      [displayedColumns]="activeType === OrderType.User ? userColumns : keeperColumns"
+      [orderLines]="orderLines">
+    </app-session-viewer>
+
+
+    <div *ngIf="orderLines.length === 0" class="no-products-in-order" fxLayoutAlign="center">
+      <div>
+        <span>Empty list, please add </span>
+        <button [routerLink]="['../products']" mat-flat-button>products</button>
+        <span> to order</span>
+      </div>
+    </div>
+
+
+    <div *ngIf="orderLines.length !== 0" class="clear-list">
+      <button (click)="clean()" mat-icon-button>
+          <mat-icon>delete_forever</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+
+  <div fxFlex="40%" class='confirm-container'>
+
+    <div>
+      <mat-form-field fxFlex class="example-full-width">
+          <textarea [(ngModel)]="order.comment" matInput placeholder="Leave a comment"></textarea>
+      </mat-form-field>
+    </div>
+
+    
+    <button [disabled]="loading" (click)="create()" mat-flat-button color="{{activeType === OrderType.User ? 'accent' : 'primary'}}">
+        <span *ngIf="!loading">Create</span>
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </button>
+    
+  </div>
+
+</div>

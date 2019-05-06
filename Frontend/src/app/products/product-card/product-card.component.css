@@ -2,7 +2,6 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    /*background-color: #fefefe*/
 }
 
 mat-card {
@@ -19,7 +18,6 @@ mat-card > mat-card-title > mat-card-subtitle {
     margin: 0;
     font-size: 10px;
     text-align: end;
-    /*color: #8e8e8e;*/
     padding-right: 5px;
 }
 
@@ -87,8 +85,6 @@ mat-card-subtitle.category-label, mat-card-subtitle.id-label{
 
 .id-label {
     position: absolute;
-    /*background-color: rgba(0, 0, 0, 0.72);*/
-    /*color: rgb(250, 250, 250);*/
     padding: 0px 8px;
     left: 0;
     top: 0;

@@ -19,13 +19,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     public OrderProduct add(OrderProduct orderProduct) throws Exception {
         OrderProduct createdOrderProduct = null;
         try {
-            boolean exists = orderProductDao.findById(orderProduct.getOrderId(), orderProduct.getProductId()) != null;
-            if(!exists){
                 createdOrderProduct = orderProductDao.create(orderProduct);
-            } else {
-                throw new Exception("Exeption occured in OrderProductServiceImpl: operation add ["
-                        + orderProduct.getOrderId() + " and " + orderProduct.getProductId() + "] failed.");
-            }
         } catch (Exception e){
             throw new Exception(e);
         }
@@ -44,6 +38,21 @@ public class OrderProductServiceImpl implements OrderProductService {
             throw new Exception("Exeption occured in OrderProductServiceImpl: operation findById [" + orderId +" and "+ productId + "] failed.", e);
         }
         return null;
+    }
+    @Override
+    public  List< OrderProduct>  findByOrder(Long orderId) throws Exception {
+    	 List< OrderProduct>  orderProduct=null;
+        try{
+            orderProduct = orderProductDao.findByOrder(orderId);
+            return orderProduct;
+        } catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+            orderProduct=null;
+        } catch (Exception e){
+        	e.printStackTrace();
+            throw new Exception("Exeption occured in OrderProductServiceImpl: operation findByOrder [" + orderId +" ] failed.", e);
+        }
+        return  orderProduct;
     }
 
     @Override

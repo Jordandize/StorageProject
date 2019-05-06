@@ -13,7 +13,5 @@ public class RoleSql {
 	
 	public static final String FIND_BY_NAME =
 			"SELECT * FROM roles WHERE name = ?";
-	
-	private RoleSql() { }
 
 }

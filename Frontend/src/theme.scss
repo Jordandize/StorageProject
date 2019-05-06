@@ -1,27 +1,27 @@
 @import '~@angular/material/theming';
 @include mat-core();
-
+//
 $custom-primary: mat-palette($mat-deep-purple);
 $custom-accent:  mat-palette($mat-pink);
-
+//
 $custom-theme: mat-dark-theme($custom-primary, $custom-accent);
-
-
-
+//
+//
+//
 @include angular-material-theme($custom-theme);
-
-//@import '~@angular/material/theming';
-//@include mat-core();
-
-//$custom-primary: mat-palette($mat-indigo);
-//$custom-accent:  mat-palette($mat-pink);
-
-//$custom-theme: mat-dark-theme($custom-primary, $custom-accent);
-
-
-//@include angular-material-theme($custom-theme);
-//$alt-theme: mat-dark-theme($custom-primary, $custom-accent);
-//.alternative {
- //   @include mat-card-theme($alt-theme);
-//    background: mat-color($mat-deep-purple, 700, 0.9);
-//}
+//
+////@import '~@angular/material/theming';
+////@include mat-core();
+//
+////$custom-primary: mat-palette($mat-indigo);
+////$custom-accent:  mat-palette($mat-pink);
+//
+////$custom-theme: mat-dark-theme($custom-primary, $custom-accent);
+//
+//
+////@include angular-material-theme($custom-theme);
+////$alt-theme: mat-dark-theme($custom-primary, $custom-accent);
+////.alternative {
+// //   @include mat-card-theme($alt-theme);
+////    background: mat-color($mat-deep-purple, 700, 0.9);
+////}

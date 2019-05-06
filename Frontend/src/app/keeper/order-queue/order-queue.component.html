@@ -1,0 +1,18 @@
+<div fxLayout="row wrap" class="queue-container">
+
+
+  <app-queue-column [name]="columns.processing.name" [orders]="columns.processing.orders"
+  (ready)="orderReady($event)"   fxFlex>
+  </app-queue-column>
+
+
+  <app-queue-column [name]="columns.ready.name" [orders]="columns.ready.orders"
+  (supply)="orderSupply($event)" fxFlex>
+  </app-queue-column>
+
+
+  <app-queue-column [name]="columns.waiting.name" [orders]="columns.waiting.orders"
+  fxFlex></app-queue-column>
+
+  
+</div>

@@ -5,6 +5,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import swal from 'sweetalert2';
 import { baseUrl } from '../../varUrl';
+import { SessionService } from '../session.service';
+import { map } from 'rxjs/operators';
 
 // import { AlertService, AuthenticationService } from '../_services';
 
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
     baseUrl = baseUrl;
 
     constructor(
+        private session: SessionService,
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -52,7 +55,9 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
 
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
 
         const loginForm = {
             'email': this.f.username.value,
@@ -60,8 +65,7 @@ export class LoginComponent implements OnInit {
         };
 
       return this.http.post(this.baseUrl + '/login', loginForm, {headers: headers, observe: 'response'})
-        .subscribe(
-            (data) => {
+        .subscribe(data => {
             swal({
                 position: 'top-end',
                 type: 'success',
@@ -69,17 +73,8 @@ export class LoginComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
             });
-            console.log(55);
-            console.log(data);
-           
-            sessionStorage.setItem('id', data.headers['x-auth-token']);
-        //    console.log(data.headers['x-auth-token']);
-            console.log("Id"+data.body['user'].id);
-            sessionStorage.setItem('userId', data.body['user'].id);
-            
-            sessionStorage.setItem('email', this.f.username.value);
-            console.log(this.f.username.value);
-            this.router.navigate(['/user']);
+            this.session.login(data.body['user'], data.body['roles'], data.headers.get('x-auth-token'));
+            this.router.navigate(['/cabinet']);
         },
         error => {
             if (error.status === 401) {

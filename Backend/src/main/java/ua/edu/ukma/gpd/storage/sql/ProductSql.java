@@ -12,7 +12,7 @@ public class ProductSql {
             + "WHERE id = ?";
 
     public static final String DELETE =
-            "DELETE * FROM products WHERE id = ?";
+            "DELETE FROM products WHERE id = ?";
 
     public static final String FIND_BY_ID =
             "SELECT * FROM products WHERE id = ?";
@@ -21,7 +21,7 @@ public class ProductSql {
             "SELECT * FROM products WHERE name = ?";
     
     public static final String FIND_BY_CATEGORY =
-    		"SELECT * FROM products WHERE id_category = ?";
+    		"SELECT * FROM products WHERE id_category = ? ORDER BY id";
 
     public static final String FIND_ALL =
             "SELECT * FROM products";
@@ -34,4 +34,5 @@ public class ProductSql {
     
     public static final String FIND_ALL_ENDS =
             "SELECT * FROM products WHERE amount < ?";
+
 }

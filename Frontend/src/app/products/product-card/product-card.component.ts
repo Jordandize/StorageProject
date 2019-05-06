@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Product } from '../product';
 import { ProductService } from '../product.service';
-import { PRODUCTS } from '../PRODUCTS';
 import { SessionService } from 'src/app/session.service';
+import { Product } from 'src/app/data/Product';
 
 @Component({
   selector: 'app-product-card',
@@ -27,14 +26,6 @@ export class ProductCardComponent implements OnInit {
     private sessionService: SessionService) { }
 
   ngOnInit() {
-    // If No Product Injected Take From Static Collection
-    if (this.product == null) {
-      this.productService.getProducts()
-        .subscribe(products => {
-          // this.product = products[0];
-          this.product = PRODUCTS[1];
-        });
-    }
     if (this.product.category == null) {
       this.productService.getCategories()
         .subscribe(categories => {
@@ -71,7 +62,7 @@ export class ProductCardComponent implements OnInit {
   get() {
     if (this.amount !== 0) {
       this.sessionService.setOrderLine({id: this.product.id, amount: this.amount,
-        product: this.product.name, category: this.product.category});
+        product: this.product.name, position: this.sessionService.getOrderLines().length + 1 });
     } else if (this.amount === 0) {
       this.sessionService.removeOrderLine(this.product.id);
     }

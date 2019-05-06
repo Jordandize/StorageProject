@@ -23,11 +23,39 @@ public class CategoryServiceImpl implements CategoryService {
             if (exists == null) {
                 return categoryDao.create(category);
             } else {
-            	throw new NotUniqueValueException("Category", "name", category.getName());
+              throw new NotUniqueValueException("Category", "name", category.getName());
             }
         } catch (Exception e) {
-            throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category + "] failed.");
+        	throw new Exception("Exeption occured in CategoryServiceImpl: operation add [" + category + "] failed.", e);
         }
+    }
+
+    @Override
+    public boolean delete(Category category) throws Exception {
+    	 try {
+             return categoryDao.delete(category);
+         } catch (EmptyResultDataAccessException e){
+             return false;
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	throw new Exception("Exeption occured in CategoryServiceImpl: operation delete [" + category + "] failed.", e);
+        }
+    }
+
+    @Override
+    public Category update(Long id, String name) throws Exception {
+        Category category;
+        try {
+            Category exists = getById(id);
+            if (exists != null) {
+                category = categoryDao.update(id, name);
+            } else {
+                category = null;
+            }
+        } catch (Exception e){
+            throw new Exception("Exeption occured in CategoryServiceImpl: operation update failed.");
+        }
+        return category;
     }
 
     @Override

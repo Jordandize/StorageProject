@@ -1,18 +1,17 @@
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 .content{
   margin-top: 40px;
 }
 
-
-
-h1{
+h1 {
   text-align: center;
   color: #81cbf0;
 }
-.example-container{
-  height:93%;
-}
+
 .full {
   height: 100vh;
 }
@@ -20,43 +19,12 @@ h1{
   background-image: url('https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png');
   background-size: cover;
 }
-.order{
-  margin-top:1%;
-  max-width: 700px;
-  display: block;
-  margin-left:auto;
-  margin-right:auto;  
-}
-.example-header-image2 {
-  padding:10%;
-  background-size: cover;
-}
-.orders{
-  width:80%;
-  margin-left:180px;
-  margin-right:100px;
-}
-.fix{
-  padding:2%;
-}
-.grow { transition: all transform .2s ease-in-out; }
-.grow:hover { transform: scale(1.5);z-index:1000; }
-.card-deck-container {
-  width: 100%;
-  max-width: 1200px;
-  position: relative;
-  border-radius: 2px;
-  padding: 10px 10px 30px;
-  margin: 10px 10px 10px 10px;
-  background-color: #f5f5f5;
+
+.order {
+  margin: 25px;  
+  min-width:365px;
 }
 
-.card-item {
-  padding: 3px 3px 3px 3px;
-}
- mat-toolbar-row {
-  justify-content: space-between;
-}
 html, body {height:100%;margin: 0;
   font-family: Roboto, sans-serif; }
 
@@ -66,8 +34,31 @@ html, body {height:100%;margin: 0;
   color: #ffffff;
 }
 
+.example-header-image2 {
+  padding:10%;
+  background-size: cover;
+}
+
+.fix{
+  padding:2%;
+}
+.grow { transition: all transform .2s ease-in-out; }
+.grow:hover { transform: scale(1.5);z-index:1000; }
+.card-deck-container {
+  width: auto;
+  position: relative;
+  border-radius: 2px;
+  padding: 1px 1px 3px;
+  margin: 1px 1px 1px 1px;
+  background-color: #696969;
+}
+
+.card-item {
+  padding: 3px 3px 3px 3px;
+}
+
 th {
-  text-align: center;
+  text-align: center !important;
 }
 
 td {
@@ -94,8 +85,11 @@ td {
   opacity:1;
 }
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 button:focus {
   outline: none;
@@ -104,4 +98,3 @@ button:focus {
 .delete {
   color: red;
 }/* You can add global styles to this file, and also import other style files */
-

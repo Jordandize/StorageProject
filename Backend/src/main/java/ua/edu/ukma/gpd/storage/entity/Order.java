@@ -10,7 +10,7 @@ public class Order {
 
     private Integer orderType;
 
-    private Integer orderStatus;
+    private String orderStatus;
 
     private Timestamp creationDateTime;
 
@@ -23,9 +23,6 @@ public class Order {
     private Long createdBy;
 
     private Long assignedTo;
-
-    // TO DO LARGE OBJECT
-
 
     public Long getId() {
         return id;
@@ -51,11 +48,11 @@ public class Order {
         this.orderType = orderType;
     }
 
-    public Integer getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

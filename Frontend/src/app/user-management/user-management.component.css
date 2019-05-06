@@ -1,0 +1,59 @@
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #808080;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  text-align:left;
+  border: 2px solid  #B0BEC5;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  position:relative;
+  height: auto;
+}
+.okButton {
+  font-size: 15px;
+  font-family: Arial;
+  color: aliceblue;
+  position:absolute;
+  bottom:2px;
+  left:20px;
+}
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-user {
+  padding: 2px;
+}
+.example-element-roles {
+  padding: 4px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}

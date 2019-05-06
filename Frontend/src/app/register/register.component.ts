@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
             'email': this.f.email.value,
             'phone': this.f.phone.value
         };
-        return this.http.post(this.baseUrl + '/api/users', user, {headers: head}).subscribe(
+        return this.http.post(this.baseUrl + '/users', user, {headers: head}).subscribe(
          data => {
               swal({
                 position: 'top-end',
@@ -70,15 +70,15 @@ export class RegisterComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
-
+                    this.loading = false;
                     swal({
                         type: 'error',
                         title: 'Error!',
 
-                        text:error.error.errors ? JSON.stringify(error.error.errors.email) +". "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" ) :""  
+                        text:error.error.errors.email  ? JSON.stringify(error.error.errors.email) :""  +"  "+ (error.error.global ?  JSON.stringify(error.error.global.signupFormDto): "" )  
                       })
                    
-                    this.loading = false;
+                    
                 }
                 );
     }

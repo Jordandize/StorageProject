@@ -10,6 +10,7 @@ import "@angular/material/prebuilt-themes/indigo-pink.css";
 import { baseUrl } from '../../varUrl';
 import { ActivatedRoute } from '@angular/router';
 import {MatPaginator} from '@angular/material';
+import { HttpService } from '../http.service';
 
 export interface Order {
   annotation: string;
@@ -36,7 +37,6 @@ export interface Product {
 @Component({templateUrl: 'oneOrder.component.html'})
 export class OneOrderComponent implements OnInit {
  @Input() public displayedColumns: string[];
-  public id = sessionStorage.getItem('userId');
   baseUrl = baseUrl;
   public orderId;
   
@@ -90,36 +90,44 @@ export class OneOrderComponent implements OnInit {
 "image" : "https://source.unsplash.com/random/800x600",
 "icon" : null,
 "active" : true
-}]
-
+}];
+  
+public  dataSource ;
+obs: Observable<any>;
 public product: Product[];
 public order: Order;
+isHovered = false;
+public defaultImage="http://i.piccy.info/i9/c9631a6a944e3ff378b87f583fbe6266/1542407107/19439/1281946/pr_card_stub_2_sm.png"
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
+    private httpService: HttpService,
     private router: Router) {}
-
     async ngOnInit() {
       await this.route.params.subscribe(params => { this.orderId = params['id'];
     });
-    await  this.http.get(this.baseUrl+"/api/oneOrder/"+this.id).subscribe(data => {
-
-    this.order2=<Order>data;
-  
+    await  this.httpService.get(this.baseUrl+"/api/orders/oneOrder/"+this.orderId).subscribe(data => {
+    this.order=<Order>data;
         },   error => {
-          this.order=this.order2;
           console.log(error);
       }
       );
-      await  this.http.get(this.baseUrl+"/api/orders/{id_order}/products"+this.id).subscribe(data => {
+      await  this.httpService.get(this.baseUrl+"/api/orders_products/products/"+this.orderId).subscribe(data => {
           this.product=<Product[]>data;
-
-            
+          this.dataSource = new MatTableDataSource<Product>(this.product);
+          this.obs = this.dataSource.connect();
+          this.dataSource.paginator = this.paginator;
             },   error => {
-              this.product=this.product2;
               console.log(error);
-          }
+            }
           );
+    }
+    onMouseEnter() {
+      this.isHovered = true;
+    }
+  
+    onMouseLeave() {
+      this.isHovered = false;
     }
 
    
