@@ -42,6 +42,7 @@ public class TabSidebar {
 	    public void setIcon(String icon) {
 	        this.icon = icon;
 	    }
+
 	    
 	    @Override
 	    public boolean equals(Object ts) {
@@ -51,6 +52,7 @@ public class TabSidebar {
 	    	}
 	    	return false;
 	    }
+
 
 
 	    @Override

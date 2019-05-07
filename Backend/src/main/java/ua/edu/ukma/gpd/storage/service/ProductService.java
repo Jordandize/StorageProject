@@ -19,6 +19,16 @@ public interface ProductService {
 
     List<Product> getAll() throws Exception;
     
+    List<Product> getAllPresented() throws Exception;
+    
+    List<Product> getAllNotPresented() throws Exception;
+    
+    List<Product> getAllEnds(int quantity) throws Exception;
+    
     List<Product> getByCategory(Category category) throws Exception;
+    
+    void createAdminReport() throws Exception;
+    
+    void createAdminReportAvailability() throws Exception;
     
 }

@@ -107,6 +107,7 @@ public class UserController {
 		User user = buildUserFromDto(form);
 		try {
 			id = userService.add(user);
+
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			e.printStackTrace();

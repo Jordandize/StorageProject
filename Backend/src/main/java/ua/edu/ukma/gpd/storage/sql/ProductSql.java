@@ -24,6 +24,16 @@ public class ProductSql {
     		"SELECT * FROM products WHERE id_category = ? ORDER BY id";
 
     public static final String FIND_ALL =
-            "SELECT * FROM products ORDER BY id";
+            "SELECT * FROM products ORDER BY id"";
+    
+    public static final String FIND_ALL_PRESENT =
+            "SELECT * FROM products WHERE amount > 0";
+    
+    public static final String FIND_ALL_NOT_PRESENT =
+            "SELECT * FROM products WHERE amount IN (0)";
+    
+    public static final String FIND_ALL_ENDS =
+            "SELECT * FROM products WHERE amount < ?";
+
 
 }

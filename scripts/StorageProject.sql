@@ -1,7 +1,7 @@
 -- Table: public.categories
 
-DROP  TABLE public.categories CASCADE;
-DROP SEQUENCE categories_id_seq ;
+--DROP  TABLE public.categories CASCADE;
+--DROP SEQUENCE categories_id_seq ;
 CREATE SEQUENCE categories_id_seq START WITH 1;
 
 CREATE TABLE public.categories
@@ -20,30 +20,10 @@ TABLESPACE pg_default;
 --ALTER TABLE public.order_statuses
 --   OWNER to bmmnonpsiqroee;
 
-
--- Table: public.order_statuses
-
-DROP TABLE public.order_statuses  CASCADE;
-DROP SEQUENCE orderstatus_statusid_seq;
-CREATE SEQUENCE orderstatus_statusid_seq START WITH 1;
-
-CREATE TABLE public.order_statuses
-(
-    id bigint NOT NULL DEFAULT nextval('orderstatus_statusid_seq'::regclass),
-    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT orderstatus_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
---ALTER TABLE public.order_statuses
---   OWNER to bmmnonpsiqroee;
 -- Table: public.order_types
 
-DROP TABLE public.order_types  CASCADE;
-DROP SEQUENCE ordertype_typeid_seq;
+--DROP TABLE public.order_types  CASCADE;
+--DROP SEQUENCE ordertype_typeid_seq;
 CREATE SEQUENCE ordertype_typeid_seq START WITH 1;
 
 CREATE TABLE public.order_types
@@ -62,8 +42,8 @@ TABLESPACE pg_default;
 
 -- Table: public.roles
 
-DROP TABLE public.roles  CASCADE;
-DROP SEQUENCE roles_id_seq;
+--DROP TABLE public.roles  CASCADE;
+--DROP SEQUENCE roles_id_seq;
 CREATE SEQUENCE roles_id_seq START WITH 1;
 
 CREATE TABLE public.roles
@@ -83,8 +63,8 @@ TABLESPACE pg_default;
 --    OWNER to bmmnonpsiqroee;
 -- Table: public.users
 
-DROP TABLE public.users  CASCADE;
-DROP SEQUENCE users_id_seq;
+--DROP TABLE public.users  CASCADE;
+--DROP SEQUENCE users_id_seq;
 CREATE SEQUENCE users_id_seq START WITH 1;
 
 CREATE TABLE public.users
@@ -109,7 +89,7 @@ TABLESPACE pg_default;
 --   OWNER to bmmnonpsiqroee;
 -- Table: public.users_roles
 
-DROP TABLE public.users_roles  CASCADE;
+--DROP TABLE public.users_roles  CASCADE;
 
 CREATE TABLE public.users_roles
 (
@@ -134,17 +114,20 @@ TABLESPACE pg_default;
 --    OWNER to bmmnonpsiqroee;
 -- Table: public.products
 
-DROP TABLE public.products  CASCADE;
-DROP SEQUENCE products_id_seq;
+--DROP TABLE public.products  CASCADE;
+--DROP SEQUENCE products_id_seq;
 CREATE SEQUENCE products_id_seq START WITH 1;
 CREATE TABLE public.products
 (
     id bigint NOT NULL DEFAULT nextval('products_id_seq'::regclass),
-    name character varying(511) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(512) COLLATE pg_catalog."default" NOT NULL,
     amount integer NOT NULL,
     id_category bigint NOT NULL,
     active boolean NOT NULL,
-    description character varying(900) COLLATE pg_catalog."default",
+    description character varying COLLATE pg_catalog."default",
+    image character varying(1024) COLLATE pg_catalog."default",
+    icon character varying(1024) COLLATE pg_catalog."default",
+    reserved integer NOT NULL DEFAULT 0,
     CONSTRAINT products_pkey PRIMARY KEY (id),
     CONSTRAINT products_name_key UNIQUE (name)
 ,
@@ -158,18 +141,17 @@ WITH (
 )
 TABLESPACE pg_default;
 
--- ALTER TABLE public.products
+--ALTER TABLE public.products
 --    OWNER to bmmnonpsiqroee;
-
 
 -- Table: public.orders
 
-DROP TABLE public.orders  CASCADE;
-DROP SEQUENCE orders_orderid_seq;
-DROP SEQUENCE orders_status_seq;
-DROP SEQUENCE orders_orderstype_seq;
-DROP SEQUENCE orders_createdby_seq;
-DROP SEQUENCE orders_assignedto_seq;
+--DROP TABLE public.orders  CASCADE;
+--DROP SEQUENCE orders_orderid_seq;
+--DROP SEQUENCE orders_status_seq;
+--DROP SEQUENCE orders_orderstype_seq;
+--DROP SEQUENCE orders_createdby_seq;
+--DROP SEQUENCE orders_assignedto_seq;
 
 CREATE SEQUENCE orders_orderid_seq START WITH 1;
 CREATE SEQUENCE orders_status_seq START WITH 1;
@@ -177,19 +159,18 @@ CREATE SEQUENCE orders_orderstype_seq START WITH 1;
 CREATE SEQUENCE orders_createdby_seq START WITH 1;
 CREATE SEQUENCE orders_assignedto_seq START WITH 1;
 
-
-CREATE TABLE public.orders 
+CREATE TABLE public.orders
 (
     id bigint NOT NULL DEFAULT nextval('orders_orderid_seq'::regclass),
-    id_parent bigint NOT NULL,
-    id_order_status bigint NOT NULL DEFAULT nextval('orders_status_seq'::regclass),
+    id_parent bigint,
     id_order_type bigint NOT NULL DEFAULT nextval('orders_orderstype_seq'::regclass),
     created timestamp without time zone NOT NULL,
     changed timestamp without time zone NOT NULL,
-    annotation character varying(2000) COLLATE pg_catalog."default" NOT NULL,
+    annotation character varying(2000) COLLATE pg_catalog."default",
     archived boolean NOT NULL,
-    id_user bigint NOT NULL,
+    id_user bigint NOT NULL DEFAULT nextval('orders_createdby_seq'::regclass),
     id_keeper bigint,
+    order_statuses character varying COLLATE pg_catalog."default",
     CONSTRAINT orders_pkey PRIMARY KEY (id),
     CONSTRAINT constraint1 FOREIGN KEY (id_parent)
         REFERENCES public.orders (id) MATCH SIMPLE
@@ -199,16 +180,12 @@ CREATE TABLE public.orders
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
- CONSTRAINT orders_assignedto_fkey FOREIGN KEY (id_keeper)
+    CONSTRAINT orders_assignedto_fkey FOREIGN KEY (id_keeper)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT orders_orderstype_fkey FOREIGN KEY (id_order_type)
         REFERENCES public.order_types (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT orders_status_fkey FOREIGN KEY (id_order_status)
-        REFERENCES public.order_statuses (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
@@ -222,7 +199,7 @@ TABLESPACE pg_default;
 
 -- Table: public.orders_products
 
-DROP TABLE public.orders_products  CASCADE;
+--DROP TABLE public.orders_products  CASCADE;
 
 CREATE TABLE public.orders_products
 (
@@ -255,15 +232,6 @@ INSERT INTO categories (name) VALUES ('Jacks');
 INSERT INTO categories (name) VALUES ('Compressors');
 INSERT INTO categories (name) VALUES ('Milling Cutters');
 INSERT INTO categories (name) VALUES ('Engines');
-
-INSERT INTO order_statuses (name) values ('opened');
-INSERT INTO order_statuses (name) values ('processing');
-INSERT INTO order_statuses (name) values ('waiting');
-INSERT INTO order_statuses (name) values ('ready');
-INSERT INTO order_statuses (name) values ('edited');
-INSERT INTO order_statuses (name) values ('declined');
-INSERT INTO order_statuses (name) values ('canceled');
-INSERT INTO order_statuses (name) values ('closed');
 
 INSERT INTO order_types (name) values ('clientorder');
 INSERT INTO order_types (name) values ('stockorder');
@@ -341,13 +309,14 @@ INSERT INTO products (name, amount, id_category, active) values ('Jack Torin 10t
 INSERT INTO products (name, amount, id_category, active) values ('Fraser Einhell - TC-BJ 900 Classic', 2, 5, false);
 INSERT INTO products (name, description, amount, id_category, active) values ('Dell', 'Powerful', 1, 3, true );
 
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 1, '2018-02-11 08:35:00.139', '2018-02-11 08:35:00.139', 'nothing', false, 2, 3);
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-02-11 08:36:00.139', '2018-02-11 08:36:00.139', 'nothing', false, 2, 3);
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (3, 1, 1, '2018-02-11 10:59:00.139', '2018-02-11 08:35:00.139', 'something', false, 1, 1);
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-11-11 18:24:17.119', '2018-11-11 18:24:17.119', 'yea', false, 2, 1);
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 3, 1, '2018-11-11 19:36:51.3', '2018-11-11 19:36:51.3', 'Hel Yea', false, 1, 1);
-INSERT INTO orders (id_parent, id_order_status, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 1, '2018-11-11 19:45:08.632', '2018-11-11 19:45:08.632', 'for user 1', false, 2, 1);
-INSERT INTO orders (id_parent,id_order_status,  id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (2, 1, 1, '2018-11-12 18:42:35.541', '2018-11-12 18:42:35.541', 'for user 1', false, 2, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 2, '2018-02-11 08:35:00.139', '2018-02-11 08:35:00.139', 'nothing', false, 2, 3);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-02-11 08:36:00.139', '2018-02-11 08:36:00.139', 'nothing', false, 2, 3);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (3, 1, 1, '2018-02-11 10:59:00.139', '2018-02-11 08:35:00.139', 'something', false, 1, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 2, 1, '2018-11-11 18:24:17.119', '2018-11-11 18:24:17.119', 'yea', false, 2, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 3, 1, '2018-11-11 19:36:51.3', '2018-11-11 19:36:51.3', 'Hel Yea', false, 1, 1);
+INSERT INTO orders (id_parent, order_statuses, id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (1, 1, 3, '2018-11-11 19:45:08.632', '2018-11-11 19:45:08.632', 'for user 1', false, 2, 1);
+INSERT INTO orders (id_parent,order_statuses,  id_order_type, created, changed, annotation, archived, id_user, id_keeper ) values (2, 1, 2, '2018-11-12 18:42:35.541', '2018-11-12 18:42:35.541', 'for user 1', false, 2, 1);
 
 INSERT INTO orders_products ( id_order, id_product, amount) values (1, 2, 1);
+
 

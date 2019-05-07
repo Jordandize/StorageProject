@@ -38,6 +38,7 @@ public class TabsController {
         try{
         	
         	if(roles.contains(user)) {
+
 	        	List<TabSidebar> tabs = tabsService.findUserTabs();
 	            list.addAll(tabs);
         	}

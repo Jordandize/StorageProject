@@ -54,6 +54,91 @@ public class ProductController {
         return product;
 
     }
+    
+    @GetMapping("/presented")
+    public List<Product> getProductsPresent(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	if(categoryId == null) {
+    		return productService.getAllPresented();
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
+    }
+    
+    @GetMapping("/notpresented")
+    public List<Product> getProductsNotPresent(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	if(categoryId == null) {
+    		return productService.getAllNotPresented();
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
+    }
+    
+    @GetMapping("/ends")
+    public List<Product> getProductsEnds(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	int quantity =  5;
+    	if(categoryId == null) {
+    		return productService.getAllEnds(quantity);
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
+    }
+    
+    @GetMapping("/reportAdminAll")
+    public List<Product> getReportAdminAll(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	int quantity =  5;
+    	if(categoryId == null) {
+    		productService.createAdminReport();
+    		return productService.getAllEnds(quantity);
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
+    }
+    
+    @GetMapping("/reportAdmin2")
+    public List<Product> getReportAdmin2(
+    		@RequestParam(value = "category", required = false) Long categoryId) throws Exception {
+    	System.out.println(categoryId);
+    	int quantity =  5;
+    	if(categoryId == null) {
+    		productService.createAdminReportAvailability();
+    		return productService.getAllEnds(quantity);
+    	} else {
+        	Category category = categoryService.getById(categoryId);
+        	if(category != null) {
+        		return productService.getByCategory(category);
+        	} else {
+        		return new ArrayList<>();
+        	}
+    	}
+    }
 
     @PostMapping
     public ResponseEntity<Long> addProduct(@Valid @RequestBody ProductDto form) throws Exception{

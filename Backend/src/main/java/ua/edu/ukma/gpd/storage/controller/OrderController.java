@@ -89,6 +89,7 @@ public class OrderController {
         HttpStatus status;
         try {
             order = orderService.assignKeeperToOrder(id_user, id_order);
+
             status = HttpStatus.OK;
         } catch (Exception e) {
             order = null;

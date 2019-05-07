@@ -26,7 +26,9 @@ public class OrderSql {
 
     public static final String ASSIGN_KEEPER_TO_ORDER =
             "UPDATE orders " +
+
                     "SET id_keeper = ?, order_statuses = ? " +
+
                     "WHERE id = ?";
 
     public static final String FIND_UNASIGNED_ORDERS =

@@ -19,6 +19,12 @@ public interface ProductDao {
 
     List<Product> findAll();
     
+    List<Product> findAllPresent();
+
+    List<Product> findAllNotPresent();
+    
+    List<Product> findAllEnds(int quantity);
+
     List<Product> findByCategory(Category category);
 
 }
